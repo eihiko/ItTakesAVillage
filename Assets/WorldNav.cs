@@ -46,7 +46,7 @@ public class WorldNav : MonoBehaviour {
 		if(flag && !Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)){
 			//move the gameobject to the desired position
 			gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPoint, 1/(duration*(Vector3.Distance(gameObject.transform.position, endPoint))));
-			//make sure the object is not bumping into the walls.
+			//Later change: make sure the object is not running through into terrain that's in the way.
 		}
 		//set the movement indicator flag to false if the endPoint and current gameobject position are equal
 		else if(flag && Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)) {
