@@ -21,7 +21,7 @@ public class WorldNav : MonoBehaviour {
 	void Update () {
 		
 		//check if the screen is right-clicked   
-		if(Input.GetMouseButtonDown(1))
+		if(Input.GetMouseButton(1))
 		{
 			//declare a variable of RaycastHit struct
 			RaycastHit hit;
@@ -47,6 +47,7 @@ public class WorldNav : MonoBehaviour {
 			//move the gameobject to the desired position
 			gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPoint, 1/(duration*(Vector3.Distance(gameObject.transform.position, endPoint))));
 			//Later change: make sure the object is not running through into terrain that's in the way.
+			//Make it that the farther you move your mouse from the player, the faster they move toward the target.
 		}
 		//set the movement indicator flag to false if the endPoint and current gameobject position are equal
 		else if(flag && Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)) {
