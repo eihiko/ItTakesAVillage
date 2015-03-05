@@ -5,15 +5,15 @@ public class WorldNav : MonoBehaviour {
  
 	//Checks whether the button has been clicked.
 	private bool flag = false;
-	//destination point
+	//Destination point
 	private Vector3 endPoint;
-	//alter this to change the speed of the movement of player / gameobject
+	//Speed of the player; can be modified!
 	public float duration = 50.0f;
-	//vertical position of the gameobject
+	//Vertical position of the gameobject
 	private float yAxis;
 	
 	void Start(){
-		//save the y axis <span id="IL_AD4" class="IL_AD">value of</span> gameobject
+		//save the y axis
 		yAxis = gameObject.transform.position.y;
 	}
 	
