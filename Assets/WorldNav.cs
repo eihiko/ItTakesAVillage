@@ -8,9 +8,11 @@ public class WorldNav : MonoBehaviour {
 	//Destination point
 	private Vector3 endPoint;
 	//Speed of the player; can be modified!
-	public float duration = 50.0f;
+	public float duration = 10f;
 	//Vertical position of the gameobject
 	private float yAxis;
+
+	public Rigidbody rb;
 	
 	void Start(){
 		//save the y axis
@@ -45,7 +47,28 @@ public class WorldNav : MonoBehaviour {
 		//check if the flag for movement is true and the current gameobject position is not same as the clicked position
 		if(flag && !Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)){
 			//move the gameobject to the desired position
-			gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPoint, 1/(duration*(Vector3.Distance(gameObject.transform.position, endPoint))));
+			Quaternion desiredRot = Quaternion.LookRotation(new Vector3(0, yAxis, 0));
+			while(rigidbody.rotation != desiredRot) {
+				rigidbody.AddTorque(gameObject.transform.position);
+			}
+
+			rigidbody.freezeRotation = true;
+			rigidbody.freezeRotation = false;
+
+			rb = GetComponent<Rigidbody>();
+
+			while(!Mathf.Approximately (gameObject.transform.position.magnitude, endPoint.magnitude)) {
+				rb.AddForce(transform.forward * duration);
+			}
+
+			rigidbody.drag.Equals("False");
+			Debug.Log("I am here");
+			
+			//transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRot, 200*Time.deltaTime);
+
+
+
+			//gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPoint, 1/(duration*(Vector3.Distance(gameObject.transform.position, endPoint))));
 			//Later change: make sure the object is not running through into terrain that's in the way.
 			//Make it that the farther you move your mouse from the player, the faster they move toward the target.
 		}
