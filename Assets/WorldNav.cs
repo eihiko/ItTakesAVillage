@@ -49,19 +49,17 @@ public class WorldNav : MonoBehaviour {
 		if(flag && !Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)){
 			//move the gameobject to the desired position
 			Quaternion desiredRot = Quaternion.LookRotation(new Vector3(0, yAxis, 0));
-			while(rigidbody.rotation != desiredRot) {
-				rigidbody.AddTorque(gameObject.transform.position);
-			}
+			//while(rigidbody.rotation.eulerAngles. desiredRot) {
+			//	rigidbody.AddTorque(gameObject.transform.position);
+			//}
 
-			rigidbody.freezeRotation = true;
-			rigidbody.freezeRotation = false;
 
-			while(!Mathf.Approximately (gameObject.transform.position.magnitude, endPoint.magnitude)) {
-				rb.AddForce(transform.forward * duration);
-			}
+			//while(!Mathf.Approximately (gameObject.transform.position.magnitude, endPoint.magnitude)) {
+			//	rb.AddForce(transform.forward * duration);
+			//}
 
-			rb.isKinematic = false;
-			rb.isKinematic = true;
+			//rb.isKinematic = false;
+			//rb.isKinematic = true;
 
 			flag = false;
 			Debug.Log("I am here");
