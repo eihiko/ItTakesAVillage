@@ -12,11 +12,12 @@ public class WorldNav : MonoBehaviour {
 	//Vertical position of the gameobject
 	private float yAxis;
 
-	public Rigidbody rb;
+	Rigidbody rb;
 	
 	void Start(){
 		//save the y axis
 		yAxis = gameObject.transform.position.y;
+		rb = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -55,13 +56,14 @@ public class WorldNav : MonoBehaviour {
 			rigidbody.freezeRotation = true;
 			rigidbody.freezeRotation = false;
 
-			rb = GetComponent<Rigidbody>();
-
 			while(!Mathf.Approximately (gameObject.transform.position.magnitude, endPoint.magnitude)) {
 				rb.AddForce(transform.forward * duration);
 			}
 
-			rigidbody.drag.Equals("False");
+			rb.isKinematic = false;
+			rb.isKinematic = true;
+
+			flag = false;
 			Debug.Log("I am here");
 			
 			//transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRot, 200*Time.deltaTime);
