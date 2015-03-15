@@ -4,79 +4,99 @@ using System.Collections;
 public class WorldNav : MonoBehaviour {
  
 	//Checks whether the button has been clicked.
-	private bool flag = false;
+	private bool flag1 = false;
 	//Destination point
 	private Vector3 endPoint;
 	//Speed of the player; can be modified!
-	public float duration = 10f;
+	public float speed = 10f;
 	//Vertical position of the gameobject
 	private float yAxis;
 
-	Rigidbody rb;
+	private Vector3 desiredVelocity;
+	
+	private float lastSqrMag;
 	
 	void Start(){
 		//save the y axis
 		yAxis = gameObject.transform.position.y;
-		rb = GetComponent<Rigidbody>();
+
+
+
+		//reset lastSqrMag
+		lastSqrMag = Mathf.Infinity;
+
+
+
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		
 		//check if the screen is right-clicked   
 		if(Input.GetMouseButton(1))
 		{
+
 			//declare a variable of RaycastHit struct
 			RaycastHit hit;
 			//Create a Ray on the clicked position
 			Ray ray;
-
+			
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+			
 			//Check if the ray hits any collider
 			if(Physics.Raycast(ray,out hit)) {
+
+
 				//set a flag to indicate to move the gameobject
-				flag = true;
+				flag1 = true;
 				//save the clicked position
 				endPoint = hit.point;
 				//as we do not want to change the y axis value based on click position, reset it to original y axis value
 				endPoint.y = yAxis;
 				Debug.Log(endPoint);
+				
 			}
 			
 		}
+
 		//check if the flag for movement is true and the current gameobject position is not same as the clicked position
-		if(flag && !Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)){
-			//move the gameobject to the desired position
-			Quaternion desiredRot = Quaternion.LookRotation(new Vector3(0, yAxis, 0));
-			//while(rigidbody.rotation.eulerAngles. desiredRot) {
-			//	rigidbody.AddTorque(gameObject.transform.position);
-			//}
+		if(flag1 && !Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)){
+			//Look at the endpoint.
+			gameObject.transform.LookAt(endPoint);
 
-
-			//while(!Mathf.Approximately (gameObject.transform.position.magnitude, endPoint.magnitude)) {
-			//	rb.AddForce(transform.forward * duration);
-			//}
-
-			//rb.isKinematic = false;
-			//rb.isKinematic = true;
-
-			flag = false;
-			Debug.Log("I am here");
+			//calculate directional vector to target
+			Vector3 directionalVector = (endPoint - gameObject.transform.position).normalized * speed;
 			
-			//transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRot, 200*Time.deltaTime);
+			//apply to rigidbody velocity
+			desiredVelocity = directionalVector;
 
+			//Check the current square magnitude
+			//float sqrMag = (endPoint - gameObject.transform.position).sqrMagnitude;
+			
+			//Check this against the last square magnitude. If the current is larger than the previous,
+			//rigidbody has reached target and is now moving past it.
 
-
-			//gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, endPoint, 1/(duration*(Vector3.Distance(gameObject.transform.position, endPoint))));
-			//Later change: make sure the object is not running through into terrain that's in the way.
-			//Make it that the farther you move your mouse from the player, the faster they move toward the target.
+			flag1 = false;
+						
 		}
 		//set the movement indicator flag to false if the endPoint and current gameobject position are equal
-		else if(flag && Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)) {
-			flag = false;
+		else if(flag1 && Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)) {
+			flag1 = false;
 			Debug.Log("I am here");
 		}
-		
+
+	}
+
+	// Update is called once per frame
+	void FixedUpdate () {
+
+		if(Mathf.Approximately(gameObject.transform.position.x, endPoint.x) && Mathf.Approximately(transform.position.z, endPoint.z)) {
+			//the player stops at the destination.
+			desiredVelocity = Vector3.zero;
+			rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+		}
+
+		rigidbody.velocity = desiredVelocity;
+
 	}
 }
