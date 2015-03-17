@@ -70,11 +70,7 @@ public class WorldNav : MonoBehaviour {
 			//apply to rigidbody velocity
 			desiredVelocity = directionalVector;
 
-			//Check the current square magnitude
-			//float sqrMag = (endPoint - gameObject.transform.position).sqrMagnitude;
-			
-			//Check this against the last square magnitude. If the current is larger than the previous,
-			//rigidbody has reached target and is now moving past it.
+
 
 			flag1 = false;
 						
@@ -89,12 +85,6 @@ public class WorldNav : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-
-		if(Mathf.Approximately(gameObject.transform.position.x, endPoint.x) && Mathf.Approximately(transform.position.z, endPoint.z)) {
-			//the player stops at the destination.
-			desiredVelocity = Vector3.zero;
-			rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-		}
 
 		rigidbody.velocity = desiredVelocity;
 
