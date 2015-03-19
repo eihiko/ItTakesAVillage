@@ -41,7 +41,7 @@ public class BuildingSelector : MonoBehaviour {
 	
 	}
 
-	void Place (int objectNumber) {
+	public void Place (int objectNumber) {
 		if (prefabs.Length>objectNumber)
 		{
 			wheretoPlace.Place((Building)Instantiate(prefabs[objectNumber]));
