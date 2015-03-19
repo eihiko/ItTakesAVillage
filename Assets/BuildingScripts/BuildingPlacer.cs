@@ -10,9 +10,13 @@ public class BuildingPlacer : MonoBehaviour {
 	private Building willPlace = null;
 	private int currentx;
 	private int currenty;
+	private Plane placementPlane;
+
 	// Use this for initialization
 	void Start () {
 		grid = new bool[(int)gridSize.x,(int)gridSize.y];
+		// Note: If the starting position's height may change, the plane initialization must be changed
+		placementPlane = new Plane (Vector3.up, new Vector3(0,0,0));
 	}
 
 	//Takes a Building gameObject and places it
@@ -30,8 +34,17 @@ public class BuildingPlacer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//Debug.DrawRay (ray.origin, ray.direction * 100, Color.yellow);
 		if (willPlace != null) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
+
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			float distance;
+			if (placementPlane.Raycast (ray, out distance)) {
+				Vector3 hitPoint = ray.GetPoint(distance);
+				Move (hitPoint);
+			}
+
+			if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) {
 			    if (isFree ())
 				{
 					Debug.Log("Placing object");
@@ -83,6 +96,28 @@ public class BuildingPlacer : MonoBehaviour {
 		newPos.x = (willPlace.size.x / 2) + (currentx*squareSize.x);
 		newPos.z = (willPlace.size.y / 2) + (currenty*squareSize.y);
 		willPlace.transform.localPosition = newPos;
+		willPlace.setConflict(!isFree ());
+	}
+
+	//Move to the position
+	void Move(Vector3 position) {
+		//Convert the position to int
+		position.x = Mathf.FloorToInt (position.x);
+		position.z = Mathf.FloorToInt (position.z);
+		//Force it inside the grid
+		if (willPlace.size.x + position.x > gridSize.x)
+			position.x = gridSize.y - willPlace.size.x;
+		if (willPlace.size.y + position.z > gridSize.y)
+			position.z = gridSize.y - willPlace.size.y;
+		if (-willPlace.size.x + position.x < 0)
+			position.x = willPlace.size.x;
+		if (-willPlace.size.y + position.z < 0)
+			position.z = willPlace.size.y;
+		//Update the object's position
+		Vector3 newPosition = willPlace.transform.localPosition;
+		newPosition.x = currentx = (int)position.x;
+		newPosition.z = currenty = (int)position.z;
+		willPlace.transform.localPosition = newPosition;
 		willPlace.setConflict(!isFree ());
 	}
 
