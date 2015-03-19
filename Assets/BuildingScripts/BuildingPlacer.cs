@@ -29,7 +29,7 @@ public class BuildingPlacer : MonoBehaviour {
 		willPlace = toPlace;
 		currentx = 0;
 		currenty = 0;
-		Move (0, 0);
+		//Move (0, 0);
 	}
 	
 	// Update is called once per frame
@@ -44,7 +44,7 @@ public class BuildingPlacer : MonoBehaviour {
 				Move (hitPoint);
 			}
 
-			if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
 			    if (isFree ())
 				{
 					Debug.Log("Placing object");
@@ -52,6 +52,7 @@ public class BuildingPlacer : MonoBehaviour {
 					willPlace = null;
 				}
 			}
+			/*
 			else if (Input.GetKeyDown (KeyCode.A)) {
 				if (currentx>0)
 				{
@@ -76,6 +77,7 @@ public class BuildingPlacer : MonoBehaviour {
 					Move (0,1);
 				}
 			}
+			*/
 		}
 	}
 
@@ -88,6 +90,7 @@ public class BuildingPlacer : MonoBehaviour {
 		}
 	}
 
+	/*
 	//Moves willPlace by amount given
 	void Move(int xAmount, int yAmount) {
 		currentx += xAmount;
@@ -98,25 +101,28 @@ public class BuildingPlacer : MonoBehaviour {
 		willPlace.transform.localPosition = newPos;
 		willPlace.setConflict(!isFree ());
 	}
+	*/
 
 	//Move to the position
+	//The mouse position (the input) is the center of the bottom left building cell
+	//The building position is determined by the position of the center
+	//currentx and currenty contain the coordinates of the bottom left building cell
 	void Move(Vector3 position) {
-		//Convert the position to int
-		position.x = Mathf.FloorToInt (position.x);
-		position.z = Mathf.FloorToInt (position.z);
+		//Tie it to the grid (move to the closest middle of the gtid cell)
+		position.x = Mathf.FloorToInt (position.x - 0.5f) + 0.5f;
+		position.z = Mathf.FloorToInt (position.z - 0.5f) + 0.5f;
 		//Force it inside the grid
-		if (willPlace.size.x + position.x > gridSize.x)
-			position.x = gridSize.y - willPlace.size.x;
-		if (willPlace.size.y + position.z > gridSize.y)
-			position.z = gridSize.y - willPlace.size.y;
-		if (-willPlace.size.x + position.x < 0)
-			position.x = willPlace.size.x;
-		if (-willPlace.size.y + position.z < 0)
-			position.z = willPlace.size.y;
+		position.x = Mathf.Min (position.x, gridSize.x + squareSize.x/2 - willPlace.size.x);
+		position.z = Mathf.Min (position.z, gridSize.y + squareSize.y/2 - willPlace.size.y);
+		position.x = Mathf.Max (position.x, squareSize.x/2);
+		position.z = Mathf.Max (position.z, squareSize.y/2);
+		//Update current x and y
+		currentx = Mathf.FloorToInt(position.x);
+		currenty = Mathf.FloorToInt(position.z);
 		//Update the object's position
 		Vector3 newPosition = willPlace.transform.localPosition;
-		newPosition.x = currentx = (int)position.x;
-		newPosition.z = currenty = (int)position.z;
+		newPosition.x = position.x + willPlace.size.x/2 - squareSize.x / 2;
+		newPosition.z = position.z + willPlace.size.y/2 - squareSize.y / 2;
 		willPlace.transform.localPosition = newPosition;
 		willPlace.setConflict(!isFree ());
 	}
