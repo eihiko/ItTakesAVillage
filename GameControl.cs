@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -22,69 +22,15 @@ public class GameControl : MonoBehaviour {
 	 * for every variable.
 	 */
 
-	private int health;
-	private int energy;
-	private int experience;
-	private string label;
+	private int resources;
 
-	public string GetLabel() {
-		return label;
+	public int GetResources() {
+		return resources;
 	}
 
-	public void SetLabel(string label) {
-		this.label = label;
+	public void SetResources(int resources) {
+		this.resources = resources;
 	}
-
-	public void SetHealth(int health) {
-		this.health = health;
-	}
-	
-	public int GetHealth() {
-		return this.health;
-	}
-
-	public void SetEnergy(int energy) {
-		this.energy = energy;
-	}
-
-	public int GetEnergy() {
-		return this.energy;
-	}
-
-	public void SetExperience(int experience) {
-		this.experience = experience;
-	}
-
-	public int GetExperience() {
-		return this.experience;
-	}
-
-	//////// DEMO METHODS /////////
-	public void IncHealth() {
-		health++;
-	}
-
-	public void DecHealth() {
-		health--;
-	}
-
-	public void IncEnergy() {
-		energy++;
-	}
-
-	public void DecEnergy() {
-		energy--;
-	}
-
-	public void IncExperience() {
-		experience++;
-	}
-
-	public void DecExperience() {
-		experience--;
-	}
-
-	//////// DEMO METHODS ////////
 
 	/**
 	 * Produces a singleton on awake
@@ -111,10 +57,7 @@ public class GameControl : MonoBehaviour {
 		PlayerData data = new PlayerData();
 		// Insert data from contoller to data object
 		// ie: data.setExp(this.getExp());
-		data.SetHealth(this.GetHealth());
-		data.SetEnergy(this.GetEnergy());
-		data.SetExperience(this.GetExperience());
-		data.SetLabel(this.GetLabel());
+		data.SetResources(this.GetResources());
 
 		bf.Serialize(file, data);
 		file.Close();
@@ -133,18 +76,22 @@ public class GameControl : MonoBehaviour {
 
 			// Reassign all variables here
 			// ie: this.setHealth(data.getHealth());
-			this.SetHealth(data.GetHealth());
-			this.SetEnergy(data.GetEnergy());
-			this.SetExperience(data.GetExperience());
-			this.SetLabel(data.GetLabel());
+			this.SetResources(data.GetResources());
 		}
 	}
 
 	/**
-	 * Quick method for calling the next level
+	 * Quick method for incrementing the resource by an integer
 	 */
-	public void LoadNextScreen(string level) {
-		Application.LoadLevel(level);
+	public void IncResources(int value) {
+		resources += value;
+	}
+
+	/**
+	 * Quick method for decrementing the resources by an integer
+	 */
+	public void DecResources(int value) {
+		resources -= value;
 	}
 
 }
@@ -157,41 +104,13 @@ class PlayerData {
 	 * Also be sure to write getter/setter methods
 	 */
 
-	private int health;
-	private int energy;
-	private int experience;
-	private string label;
+	private int resources;
 
-	public void SetLabel(string label) {
-		this.label = label;
+	public int GetResources() {
+		return resources;
 	}
 
-	public string GetLabel() {
-		return label;
+	public void SetResources(int resources) {
+		this.resources = resources;
 	}
-
-	public void SetHealth(int health) {
-		this.health = health;
-	}
-	
-	public int GetHealth() {
-		return this.health;
-	}
-	
-	public void SetEnergy(int energy) {
-		this.energy = energy;
-	}
-	
-	public int GetEnergy() {
-		return this.energy;
-	}
-	
-	public void SetExperience(int experience) {
-		this.experience = experience;
-	}
-	
-	public int GetExperience() {
-		return this.experience;
-	}
-
 }
