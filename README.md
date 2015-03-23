@@ -1,5 +1,6 @@
 # ItTakesAVillage
-# data-team branch
+
+## Using GameControl to save:
 
 In order to use the GameControl script, attach the script
 to an empty object for every scene in the game. The object
