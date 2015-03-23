@@ -11,7 +11,7 @@ PlayerSettings:
   targetResolution: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: ITaV2
+  productName: ItTakesAVillage
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   defaultScreenWidth: 1024
@@ -152,7 +152,11 @@ PlayerSettings:
   flashStrippingLevel: 2
   spritePackerPolicy: 
   scriptingDefineSymbols: {}
+<<<<<<< HEAD
   metroPackageName: ITaV2
+=======
+  metroPackageName: building_placement
+>>>>>>> BuildingPlacement
   metroPackageLogo: 
   metroPackageLogo140: 
   metroPackageLogo180: 
@@ -163,7 +167,7 @@ PlayerSettings:
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: ITaV2
+  metroApplicationDescription: ItTakesAVillage
   metroStoreTileLogo80: 
   metroStoreTileLogo: 
   metroStoreTileLogo140: 
@@ -243,8 +247,6 @@ PlayerSettings:
   tizenGPSPermissions: 0
   tizenMicrophonePermissions: 0
   stvDeviceAddress: 
-  wp8UnprocessedPlugins: []
-  intPropertyNames: []
   firstStreamedLevelWithResources: 0
   unityRebuildLibraryVersion: 9
   unityForwardCompatibleVersion: 39
