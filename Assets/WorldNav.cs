@@ -37,12 +37,15 @@ public class WorldNav : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
+		//Checks for if the an object clicked by the left mouse button is the building.
 		if (Input.GetMouseButtonDown (0)) {
 
 			ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 			if(Physics.Raycast(ray1, out hit1)) {
 				if(hit1.collider.tag == "Building") {
+
+					//Changes the building into one of two different colors.
 					if(hit1.collider.renderer.material == building1) {
 						hit1.collider.renderer.material = building2;
 					}
