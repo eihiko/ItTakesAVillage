@@ -6,8 +6,8 @@ public class WorldNav : MonoBehaviour {
 	public Material building1;
 	public Material building2;
 
-	Ray ray1;
-	RaycastHit hit1;
+	Ray selectRay;
+	RaycastHit selectHit;
 	//Checks whether the button has been clicked.
 	private bool flag1 = false;
 	//Destination point
@@ -115,16 +115,16 @@ public class WorldNav : MonoBehaviour {
 	}
 
 	void Select() {
-		ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
+		selectRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 		
-		if(Physics.Raycast(ray1, out hit1)) {
-			if(hit1.collider.tag == "Building") {
+		if(Physics.Raycast(selectRay, out selectHit)) {
+			if(selectHit.collider.tag == "Building") {
 				//Changes the building into one of two different colors.
-				if(hit1.collider.renderer.material.color == building1.color) {
-					hit1.collider.renderer.material.SetColor ("_Color", building2.color);
+				if(selectHit.collider.renderer.material.color == building1.color) {
+					selectHit.collider.renderer.material.SetColor ("_Color", building2.color);
 				}
 				else {
-					hit1.collider.renderer.material.SetColor ("_Color", building1.color);
+					selectHit.collider.renderer.material.SetColor ("_Color", building1.color);
 				}			
 			}
 		}
