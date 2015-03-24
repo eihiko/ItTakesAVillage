@@ -46,11 +46,11 @@ public class WorldNav : MonoBehaviour {
 				if(hit1.collider.tag == "Building") {
 
 					//Changes the building into one of two different colors.
-					if(hit1.collider.renderer.material == building1) {
-						hit1.collider.renderer.material = building2;
+					if(hit1.collider.renderer.material.color == building1.color) {
+						hit1.collider.renderer.material.SetColor ("_Color", building2.color);
 					}
 					else {
-						hit1.collider.renderer.material = building1;
+						hit1.collider.renderer.material.SetColor ("_Color", building1.color);
 					}
 				}
 			}
