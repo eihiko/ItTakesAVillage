@@ -2,7 +2,7 @@
 using System.Collections;
 using System.IO;
 using UnityEngine.UI;
-public class Input : MonoBehaviour {
+public class UserInput : MonoBehaviour {
 	//public Text text; 
 	// Use this for initialization
 	void Start () {
