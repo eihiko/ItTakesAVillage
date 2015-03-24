@@ -3,6 +3,11 @@ using System.Collections;
 
 public class WorldNav : MonoBehaviour {
  
+	public GameObject building;
+
+	Ray ray1;
+	RaycastHit hit1;
+
 	//Checks whether the button has been clicked.
 	private bool flag1 = false;
 	//Destination point
@@ -31,7 +36,16 @@ public class WorldNav : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		
+
+		if (Input.GetMouseButtonDown (0)) {
+
+			ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+			if(Physics.Raycast(ray1,out building.collider)) {
+				building.collider.renderer.material.color = Color.red;
+			}
+		}
+
 		//check if the screen is right-clicked   
 		if(Input.GetMouseButton(1))
 		{
@@ -70,7 +84,10 @@ public class WorldNav : MonoBehaviour {
 			//apply to rigidbody velocity
 			desiredVelocity = directionalVector;
 
+			// Move the Screen
+			// Zoom in and out (scrolling wheel up and down)
 
+			Pathfinding();
 
 			flag1 = false;
 						
@@ -86,7 +103,18 @@ public class WorldNav : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
+		if(Mathf.Approximately(gameObject.transform.position.x, endPoint.x) && Mathf.Approximately(transform.position.z, endPoint.z)) {
+			//the player stops at the destination.
+			desiredVelocity = Vector3.zero;
+			rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+		}
+
+
 		rigidbody.velocity = desiredVelocity;
+
+	}
+
+	void Pathfinding() {
 
 	}
 }
