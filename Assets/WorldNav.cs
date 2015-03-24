@@ -39,21 +39,7 @@ public class WorldNav : MonoBehaviour {
 
 		//Checks for if the an object clicked by the left mouse button is the building.
 		if (Input.GetMouseButtonDown (0)) {
-
-			ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-			if(Physics.Raycast(ray1, out hit1)) {
-				if(hit1.collider.tag == "Building") {
-
-					//Changes the building into one of two different colors.
-					if(hit1.collider.renderer.material.color == building1.color) {
-						hit1.collider.renderer.material.SetColor ("_Color", building2.color);
-					}
-					else {
-						hit1.collider.renderer.material.SetColor ("_Color", building1.color);
-					}
-				}
-			}
+			Select();
 		}
 
 		//check if the screen is right-clicked   
@@ -125,6 +111,23 @@ public class WorldNav : MonoBehaviour {
 	}
 
 	void Pathfinding() {
+
+	}
+
+	void Select() {
+		ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
+		
+		if(Physics.Raycast(ray1, out hit1)) {
+			if(hit1.collider.tag == "Building") {
+				//Changes the building into one of two different colors.
+				if(hit1.collider.renderer.material.color == building1.color) {
+					hit1.collider.renderer.material.SetColor ("_Color", building2.color);
+				}
+				else {
+					hit1.collider.renderer.material.SetColor ("_Color", building1.color);
+				}			
+			}
+		}
 
 	}
 }
