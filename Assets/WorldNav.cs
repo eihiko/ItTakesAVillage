@@ -3,9 +3,11 @@ using System.Collections;
 
 public class WorldNav : MonoBehaviour {
  
-	public GameObject building;
+	public Material building1;
+	public Material building2;
 
 	Ray ray1;
+	RaycastHit hit1;
 	//Checks whether the button has been clicked.
 	private bool flag1 = false;
 	//Destination point
@@ -35,14 +37,21 @@ public class WorldNav : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
-		//if (Input.GetMouseButtonDown (0)) {
+		if (Input.GetMouseButtonDown (0)) {
 
-		//	ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
+			ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-		//	if(Physics.Raycast(ray1,out building.collider)) {
-		//		building.collider.renderer.material.color = Color.red;
-		//	}
-		//}
+			if(Physics.Raycast(ray1, out hit1)) {
+				if(hit1.collider.tag == "Building") {
+					if(hit1.collider.renderer.material == building1) {
+						hit1.collider.renderer.material = building2;
+					}
+					else {
+						hit1.collider.renderer.material = building1;
+					}
+				}
+			}
+		}
 
 		//check if the screen is right-clicked   
 		if(Input.GetMouseButton(1))
