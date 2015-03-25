@@ -233,7 +233,7 @@ public class GameControl : MonoBehaviour {
 	 */
 	public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
-		FileStream file = File.Create(Application.persistentDataPath + "/ItTakesAVillage/playerinfo.dat");
+		FileStream file = File.Create(Application.persistentDataPath + "/playerinfo.dat");
 
 		PlayerData data = new PlayerData();
 		// Insert data from contoller to data object
@@ -259,9 +259,9 @@ public class GameControl : MonoBehaviour {
 	 * on some integer input
 	 */
 	public void Load() {
-		if (File.Exists (Application.persistentDataPath + "/ItTakesAVillage/playerinfo.dat")) {
+		if (File.Exists (Application.persistentDataPath + "/playerinfo.dat")) {
 			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open(Application.persistentDataPath + "/ItTakesAVillage/playerinfo.dat", FileMode.Open);
+			FileStream file = File.Open(Application.persistentDataPath + "/playerinfo.dat", FileMode.Open);
 			PlayerData data = (PlayerData)bf.Deserialize(file);
 			file.Close ();
 
