@@ -14,7 +14,7 @@ public class Scrollbox : MonoBehaviour {
 	}
 
 	public void OnGUI(){
-		GUILayout.BeginArea (new Rect(400, 200, Screen.width-800, Screen.height-500));
+		GUILayout.BeginArea (new Rect(460, 220, Screen.width-800, Screen.height-500));
 		scrollPosition = GUILayout.BeginScrollView (scrollPosition, GUILayout.Width (Screen.width-800), GUILayout.Height (Screen.height-550));
 		GUI.skin.box.wordWrap = true; 
 		try{
