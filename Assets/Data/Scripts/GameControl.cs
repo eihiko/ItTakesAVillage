@@ -21,7 +21,8 @@ public class GameControl : MonoBehaviour {
 	 * Make sure to provide getter setter methods
 	 * for every variable.
 	 */
-	 
+
+	// Resources //
 	private int stone;
 	private int coin;
 	private int food;
@@ -29,6 +30,9 @@ public class GameControl : MonoBehaviour {
 	private int lumber;
 	private int energy;
 	private int morale;
+
+	// Overworld - Building Placement //
+	private bool[,] grid;	// THIS MAY BE PROBLEMATIC - I don't think 2D arrays can be serialized
 
 	private int health;
 	private int experience;
@@ -82,19 +86,24 @@ public class GameControl : MonoBehaviour {
 	public int GetMorale() {
 		return this.morale;
 	}
-	
-	public string GetLabel() {
-		return label;
+
+	public void SetGrid(bool[,] grid) {
+		this.grid = grid;
+	}
+	public bool[,] GetGrid() {
+		return grid;
 	}
 
 	public void SetLabel(string label) {
 		this.label = label;
 	}
+	public string GetLabel() {
+		return label;
+	}
 
 	public void SetHealth(int health) {
 		this.health = health;
 	}
-	
 	public int GetHealth() {
 		return this.health;
 	}
@@ -102,7 +111,6 @@ public class GameControl : MonoBehaviour {
 	public void SetExperience(int experience) {
 		this.experience = experience;
 	}
-
 	public int GetExperience() {
 		return this.experience;
 	}
@@ -236,7 +244,7 @@ public class GameControl : MonoBehaviour {
 		FileStream file = File.Create(Application.persistentDataPath + "/playerinfo.dat");
 
 		PlayerData data = new PlayerData();
-		// Insert data from contoller to data object
+		// Insert data from controller to data object
 		// ie: data.setExp(this.getExp());
 		data.SetStone(this.GetStone());
 		data.SetCoin(this.GetCoin());
