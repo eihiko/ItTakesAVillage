@@ -6,6 +6,7 @@ public class BuildingPlacer : MonoBehaviour {
 
 	public Vector2 gridSize;
 	public Vector2 squareSize;
+	public GameControl controller;
 
 	private bool[,] grid;
 	private Building willPlace = null;
@@ -23,13 +24,16 @@ public class BuildingPlacer : MonoBehaviour {
 	//Takes a Building gameObject and places it
 	public void Place(Building toPlace)
 	{
-		Debug.Log("Starting to place building");
 		if (willPlace != null) {
 			Destroy(willPlace.gameObject);	
 		}
 		willPlace = toPlace;
 		currentx = 0;
 		currenty = 0;
+		if (!willPlace.HaveResources (controller)) {
+			Debug.Log("No resources");
+			Destroy(willPlace.gameObject);
+		}
 	}
 	
 	// Update is called once per frame
@@ -47,7 +51,7 @@ public class BuildingPlacer : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) {
 			    if (isFree ())
 				{
-					Debug.Log("Placing object");
+					willPlace.SpendResources(controller);
 					markTaken();
 					willPlace = null;
 				}
