@@ -3,6 +3,11 @@ using System.Collections;
 
 public class WorldNav : MonoBehaviour {
  
+	public Material building1;
+	public Material building2;
+
+	Ray selectRay;
+	RaycastHit selectHit;
 	//Checks whether the button has been clicked.
 	private bool flag1 = false;
 	//Destination point
@@ -11,7 +16,7 @@ public class WorldNav : MonoBehaviour {
 	public float speed = 10f;
 	//Vertical position of the gameobject
 	private float yAxis;
-
+	
 	private Vector3 desiredVelocity;
 	
 	private float lastSqrMag;
@@ -19,8 +24,6 @@ public class WorldNav : MonoBehaviour {
 	void Start(){
 		//save the y axis
 		yAxis = gameObject.transform.position.y;
-
-
 
 		//reset lastSqrMag
 		lastSqrMag = Mathf.Infinity;
@@ -31,7 +34,12 @@ public class WorldNav : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		
+
+		//Checks for if the an object clicked by the left mouse button is the building.
+		if (Input.GetMouseButtonDown (0)) {
+			Select();
+		}
+
 		//check if the screen is right-clicked   
 		if(Input.GetMouseButton(1))
 		{
@@ -59,6 +67,8 @@ public class WorldNav : MonoBehaviour {
 			
 		}
 
+
+
 		//check if the flag for movement is true and the current gameobject position is not same as the clicked position
 		if(flag1 && !Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)){
 			//Look at the endpoint.
@@ -70,7 +80,10 @@ public class WorldNav : MonoBehaviour {
 			//apply to rigidbody velocity
 			desiredVelocity = directionalVector;
 
+			// Move the Screen
+			// Zoom in and out (scrolling wheel up and down)
 
+			Pathfinding();
 
 			flag1 = false;
 						
@@ -86,7 +99,35 @@ public class WorldNav : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
+		if(Mathf.Approximately(gameObject.transform.position.x, endPoint.x) && Mathf.Approximately(transform.position.z, endPoint.z)) {
+			//the player stops at the destination.
+			desiredVelocity = Vector3.zero;
+			rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+		}
+
+
 		rigidbody.velocity = desiredVelocity;
+
+	}
+
+	void Pathfinding() {
+
+	}
+
+	void Select() {
+		selectRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+		
+		if(Physics.Raycast(selectRay, out selectHit)) {
+			if(selectHit.collider.tag == "Building") {
+				//Changes the building into one of two different colors.
+				if(selectHit.collider.renderer.material.color == building1.color) {
+					selectHit.collider.renderer.material.SetColor ("_Color", building2.color);
+				}
+				else {
+					selectHit.collider.renderer.material.SetColor ("_Color", building1.color);
+				}			
+			}
+		}
 
 	}
 }
