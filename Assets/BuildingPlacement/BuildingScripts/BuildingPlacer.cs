@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class BuildingPlacer : MonoBehaviour {
 
@@ -29,7 +30,6 @@ public class BuildingPlacer : MonoBehaviour {
 		willPlace = toPlace;
 		currentx = 0;
 		currenty = 0;
-		//Move (0, 0);
 	}
 	
 	// Update is called once per frame
@@ -44,7 +44,7 @@ public class BuildingPlacer : MonoBehaviour {
 				Move (hitPoint);
 			}
 
-			if (Input.GetKeyDown (KeyCode.Space)) {
+			if (Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) {
 			    if (isFree ())
 				{
 					Debug.Log("Placing object");
@@ -52,32 +52,6 @@ public class BuildingPlacer : MonoBehaviour {
 					willPlace = null;
 				}
 			}
-			/*
-			else if (Input.GetKeyDown (KeyCode.A)) {
-				if (currentx>0)
-				{
-					Move (-1,0);
-				}
-			}
-			else if (Input.GetKeyDown (KeyCode.D)) {
-				if (currentx<((int)gridSize.x)-willPlace.size.x)
-				{
-					Move (1,0);
-				}
-			}
-			else if (Input.GetKeyDown (KeyCode.S)) {
-				if (currenty>0)
-				{
-					Move (0,-1);
-				}
-			}
-			else if (Input.GetKeyDown (KeyCode.W)) {
-				if (currenty<((int)gridSize.y)-willPlace.size.y)
-				{
-					Move (0,1);
-				}
-			}
-			*/
 		}
 	}
 
@@ -89,19 +63,6 @@ public class BuildingPlacer : MonoBehaviour {
 			}	
 		}
 	}
-
-	/*
-	//Moves willPlace by amount given
-	void Move(int xAmount, int yAmount) {
-		currentx += xAmount;
-		currenty += yAmount;
-		Vector3 newPos = willPlace.transform.position;
-		newPos.x = (willPlace.size.x / 2) + (currentx*squareSize.x);
-		newPos.z = (willPlace.size.y / 2) + (currenty*squareSize.y);
-		willPlace.transform.localPosition = newPos;
-		willPlace.setConflict(!isFree ());
-	}
-	*/
 
 	//Move to the position
 	//The mouse position (the input) is the center of the bottom left building cell
