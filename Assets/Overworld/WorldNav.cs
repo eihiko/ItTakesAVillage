@@ -16,7 +16,7 @@ public class WorldNav : MonoBehaviour {
 	public float speed = 10f;
 	//Vertical position of the gameobject
 	private float yAxis;
-
+	
 	private Vector3 desiredVelocity;
 	
 	private float lastSqrMag;
@@ -24,8 +24,6 @@ public class WorldNav : MonoBehaviour {
 	void Start(){
 		//save the y axis
 		yAxis = gameObject.transform.position.y;
-
-
 
 		//reset lastSqrMag
 		lastSqrMag = Mathf.Infinity;
@@ -68,6 +66,8 @@ public class WorldNav : MonoBehaviour {
 			}
 			
 		}
+
+
 
 		//check if the flag for movement is true and the current gameobject position is not same as the clicked position
 		if(flag1 && !Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)){
