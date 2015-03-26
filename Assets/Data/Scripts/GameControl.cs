@@ -253,7 +253,9 @@ public class GameControl : MonoBehaviour {
 		data.SetLumber(this.GetLumber());
 		data.SetEnergy(this.GetEnergy());
 		data.SetMorale(this.GetMorale());
-		
+
+		data.SetGrid (this.ConvertMatrix (this.GetGrid ()));
+
 		data.SetHealth(this.GetHealth());
 		data.SetExperience(this.GetExperience());
 		data.SetLabel(this.GetLabel());
@@ -282,6 +284,8 @@ public class GameControl : MonoBehaviour {
 			this.SetLumber(data.GetLumber());
 			this.SetEnergy(data.GetEnergy());
 			this.SetMorale(data.GetMorale());
+
+			this.SetGrid (data.ConvertArray(data.GetGrid(), grid.GetLength(0), grid.GetLength(1)));
 			
 			this.SetHealth(data.GetHealth());
 			this.SetExperience(data.GetExperience());
@@ -296,6 +300,20 @@ public class GameControl : MonoBehaviour {
 		Application.LoadLevel(level);
 	}
 
+	// Converts matrix to array
+	public SerializableMatrix ConvertMatrix(bool[,] matrix) {
+		SerializableMatrix sMatrix = new SerializableMatrix(matrix.Length);
+		int x = 0;
+		for (int i = 0; i < matrix.GetLength(0); i++) {
+			for (int j = 0; j < matrix.GetLength(1); j++) {
+				sMatrix.bools[x] = matrix[i,j];
+				x++;
+			}
+		}
+		return sMatrix;
+	}
+
+	
 }
 
 [Serializable]
@@ -313,7 +331,9 @@ class PlayerData {
 	private int lumber;
 	private int energy;
 	private int morale;
-	
+
+	private SerializableMatrix grid;
+
 	private int health;
 	private int experience;
 	private string label;
@@ -366,11 +386,17 @@ class PlayerData {
 	public int GetMorale() {
 		return this.morale;
 	}
-	
+
+	public void SetGrid(SerializableMatrix array) {
+		this.grid = array;
+	}
+	public SerializableMatrix GetGrid() {
+		return grid;
+	}
+
 	public string GetLabel() {
 		return label;
 	}
-	
 	public void SetLabel(string label) {
 		this.label = label;
 	}
@@ -378,7 +404,6 @@ class PlayerData {
 	public void SetHealth(int health) {
 		this.health = health;
 	}
-	
 	public int GetHealth() {
 		return this.health;
 	}
@@ -386,9 +411,27 @@ class PlayerData {
 	public void SetExperience(int experience) {
 		this.experience = experience;
 	}
-	
 	public int GetExperience() {
 		return this.experience;
 	}
 
+	// Converts array to matrix
+	public bool[,] ConvertArray(SerializableMatrix array, int width, int height) {
+		bool[,] bools = new bool[width, height];
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				bools[i, j] = array.bools[i + j*width];
+			}
+		}
+		return bools;
+	}
+}
+
+[Serializable]
+public class SerializableMatrix {
+	public bool[] bools;
+			
+	public SerializableMatrix(int size) {
+		bools = new bool[size];
+	}
 }
