@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections.Generic;
 
 /**
  * This script allows you to store any variables you want
@@ -32,7 +33,8 @@ public class GameControl : MonoBehaviour {
 	private int morale;
 
 	// Overworld - Building Placement //
-	private bool[,] grid;	// THIS MAY BE PROBLEMATIC - I don't think 2D arrays can be serialized
+	private bool[,] grid;
+	private List<Building> buildings;
 
 	private int health;
 	private int experience;
@@ -92,6 +94,13 @@ public class GameControl : MonoBehaviour {
 	}
 	public bool[,] GetGrid() {
 		return grid;
+	}
+
+	public void SetBuildings(List<Building> buildings) {
+		this.buildings = buildings;
+	}
+	public List<Building> GetBuildings() {
+		return buildings;
 	}
 
 	public void SetLabel(string label) {
@@ -255,6 +264,7 @@ public class GameControl : MonoBehaviour {
 		data.SetMorale(this.GetMorale());
 
 		data.SetGrid (this.ConvertMatrix (this.GetGrid ()));
+		data.SetBuildings (this.GetBuildings ());
 
 		data.SetHealth(this.GetHealth());
 		data.SetExperience(this.GetExperience());
@@ -286,6 +296,7 @@ public class GameControl : MonoBehaviour {
 			this.SetMorale(data.GetMorale());
 
 			this.SetGrid (data.ConvertArray(data.GetGrid(), grid.GetLength(0), grid.GetLength(1)));
+			this.SetBuildings(data.GetBuildings());
 			
 			this.SetHealth(data.GetHealth());
 			this.SetExperience(data.GetExperience());
@@ -333,6 +344,7 @@ class PlayerData {
 	private int morale;
 
 	private SerializableMatrix grid;
+	private List<Building> buildings;
 
 	private int health;
 	private int experience;
@@ -392,6 +404,13 @@ class PlayerData {
 	}
 	public SerializableMatrix GetGrid() {
 		return grid;
+	}
+
+	public void SetBuildings(List<Building> buildings) {
+		this.buildings = buildings;
+	}
+	public List<Building> GetBuildings() {
+		return buildings;
 	}
 
 	public string GetLabel() {
