@@ -20,13 +20,13 @@ public class Tutorial : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		textIndex = 0;
+		int index = 0;
 		currentText = startText;
 		//In the future, this will be sized to the part of the tutorial the user wants to cover.
 		textToDisplay = new Text[opening.Length+buildings.Length+lifetask.Length+navigation.Length+npcs.Length+
 								journal.Length+saving.Length];
-		int index = 0;
 		opening.CopyTo(textToDisplay,index);
-		index += opening.Length;
+		index += opening.Length;						
 		buildings.CopyTo(textToDisplay,index);
 		index += buildings.Length;
 		lifetask.CopyTo(textToDisplay,index);
