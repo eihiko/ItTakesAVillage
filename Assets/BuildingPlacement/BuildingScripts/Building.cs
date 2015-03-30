@@ -12,6 +12,8 @@ public class Building : MonoBehaviour {
 	public int energyCost;
 	public int moraleCost;
 
+	public bool locked; //we may want to replace this with something better
+
 	// Use this for initialization
 	void Start () {
 	

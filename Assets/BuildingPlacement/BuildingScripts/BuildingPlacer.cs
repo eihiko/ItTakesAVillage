@@ -30,7 +30,11 @@ public class BuildingPlacer : MonoBehaviour {
 		willPlace = toPlace;
 		currentx = 0;
 		currenty = 0;
-		if (!willPlace.HaveResources (controller)) {
+		if (willPlace.locked) {
+			Debug.Log("Locked");
+			Destroy(willPlace.gameObject);	
+		}
+		else if (!willPlace.HaveResources (controller)) {
 			Debug.Log("No resources");
 			Destroy(willPlace.gameObject);
 		}

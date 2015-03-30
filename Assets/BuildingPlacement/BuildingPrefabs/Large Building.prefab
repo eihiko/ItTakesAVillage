@@ -89,6 +89,7 @@ MonoBehaviour:
   lumberCost: 0
   energyCost: 0
   moraleCost: 0
+  locked: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
