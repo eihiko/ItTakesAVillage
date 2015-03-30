@@ -186,6 +186,7 @@ GameObject:
   - 224: {fileID: 22412990}
   - 222: {fileID: 22212988}
   - 114: {fileID: 11412986}
+  - 114: {fileID: 11491078}
   m_Layer: 5
   m_Name: ButtonSpace
   m_TagString: Untagged
@@ -1018,6 +1019,25 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11491078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedede858483bcf4c82544c627e3e30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 11412980}
+  - {fileID: 11412960}
+  - {fileID: 11412964}
+  good: {fileID: 2100000, guid: 4372bb7333ace5347a4599f666d006e8, type: 2}
+  resourceProblem: {fileID: 2100000, guid: 9f52b9f7c916b0d42aae44fe99171117, type: 2}
+  locked: {fileID: 2100000, guid: cc9a67735e064454585df18f7cf3ad33, type: 2}
+  selector: {fileID: 0}
 --- !u!222 &22212972
 CanvasRenderer:
   m_ObjectHideFlags: 1
