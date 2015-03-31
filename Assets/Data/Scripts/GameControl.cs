@@ -272,7 +272,7 @@ public class GameControl : MonoBehaviour {
 		data.SetLumber(this.GetLumber());
 		data.SetEnergy(this.GetEnergy());
 		data.SetMorale(this.GetMorale());
-
+		
 		data.SetGrid (this.ConvertMatrix (this.GetGrid ()));
 		data.SetBuildings (this.GetBuildings ());
 
@@ -307,7 +307,9 @@ public class GameControl : MonoBehaviour {
 			this.SetEnergy(data.GetEnergy());
 			this.SetMorale(data.GetMorale());
 
-			this.SetGrid (data.ConvertArray(data.GetGrid(), grid.GetLength(0), grid.GetLength(1)));
+			if (grid != null) {
+				this.SetGrid (data.ConvertArray(data.GetGrid(), grid.GetLength(0), grid.GetLength(1)));
+			}
 			this.SetBuildings(data.GetBuildings());
 
 			this.SetInput(data.GetInput());
@@ -327,6 +329,9 @@ public class GameControl : MonoBehaviour {
 
 	// Converts matrix to array
 	public SerializableMatrix ConvertMatrix(bool[,] matrix) {
+		if (matrix == null) {
+			return null;
+		}
 		SerializableMatrix sMatrix = new SerializableMatrix(matrix.Length);
 		int x = 0;
 		for (int i = 0; i < matrix.GetLength(0); i++) {
@@ -459,6 +464,9 @@ class PlayerData {
 
 	// Converts array to matrix
 	public bool[,] ConvertArray(SerializableMatrix array, int width, int height) {
+		if (array == null) {
+			return null;
+		}
 		bool[,] bools = new bool[width, height];
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
