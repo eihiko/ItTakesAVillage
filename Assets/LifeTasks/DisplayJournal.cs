@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DisplayJournal : MonoBehaviour {
 
-	public Text textbox;
+	public Text textboxInputs;
 	
 	//public StringReader reader;
 
@@ -21,7 +21,7 @@ public class DisplayJournal : MonoBehaviour {
 				*/
 
 		string journal = File.ReadAllText ("Inputs\\input.txt");
-		textbox.text = journal + "\n";
+		textboxInputs.text = journal + "\r\n";
 		}
 
 } 
