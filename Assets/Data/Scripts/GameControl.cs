@@ -36,6 +36,9 @@ public class GameControl : MonoBehaviour {
 	private bool[,] grid;
 	private List<Building> buildings;
 
+	// Life Tasks //
+	private string input;
+
 	private int health;
 	private int experience;
 	private string label;
@@ -101,6 +104,13 @@ public class GameControl : MonoBehaviour {
 	}
 	public List<Building> GetBuildings() {
 		return buildings;
+	}
+
+	public void SetInput(string input) {
+		this.input = input;
+	}
+	public string GetInput() {
+		return input;
 	}
 
 	public void SetLabel(string label) {
@@ -266,6 +276,8 @@ public class GameControl : MonoBehaviour {
 		data.SetGrid (this.ConvertMatrix (this.GetGrid ()));
 		data.SetBuildings (this.GetBuildings ());
 
+		data.SetInput (this.GetInput ());
+
 		data.SetHealth(this.GetHealth());
 		data.SetExperience(this.GetExperience());
 		data.SetLabel(this.GetLabel());
@@ -297,6 +309,8 @@ public class GameControl : MonoBehaviour {
 
 			this.SetGrid (data.ConvertArray(data.GetGrid(), grid.GetLength(0), grid.GetLength(1)));
 			this.SetBuildings(data.GetBuildings());
+
+			this.SetInput(data.GetInput());
 			
 			this.SetHealth(data.GetHealth());
 			this.SetExperience(data.GetExperience());
@@ -345,6 +359,8 @@ class PlayerData {
 
 	private SerializableMatrix grid;
 	private List<Building> buildings;
+
+	private string input;
 
 	private int health;
 	private int experience;
@@ -411,6 +427,13 @@ class PlayerData {
 	}
 	public List<Building> GetBuildings() {
 		return buildings;
+	}
+
+	public void SetInput(string input) {
+		this.input = input;
+	}
+	public string GetInput() {
+		return input;
 	}
 
 	public string GetLabel() {
