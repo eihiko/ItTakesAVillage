@@ -5,11 +5,13 @@ using UnityEngine.UI;
 public class VillagerDialogue : MonoBehaviour {
 
 	public Canvas currentDialogue;
+	public Canvas response;
 	public Camera camera;
 
 	// Use this for initialization
 	void Start () {
 		currentDialogue.enabled = false;
+		response.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -39,5 +41,8 @@ public class VillagerDialogue : MonoBehaviour {
 	
 	public void Test() {
 		Debug.Log ("Option clicked!");
+		currentDialogue.enabled = false;
+		currentDialogue = response;
+		currentDialogue.enabled = true;
 	}
 }
