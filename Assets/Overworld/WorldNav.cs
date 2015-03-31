@@ -13,7 +13,7 @@ public class WorldNav : MonoBehaviour {
 	//Destination point
 	private Vector3 endPoint;
 	//Speed of the player; can be modified!
-	public float speed = 10f;
+	public float speed = 10;
 	//Vertical position of the gameobject
 	private float yAxis;
 	
@@ -43,17 +43,14 @@ public class WorldNav : MonoBehaviour {
 		//check if the screen is right-clicked   
 		if(Input.GetMouseButton(1))
 		{
-
 			//declare a variable of RaycastHit struct
 			RaycastHit hit;
 			//Create a Ray on the clicked position
 			Ray ray;
-			
+
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			
 			//Check if the ray hits any collider
 			if(Physics.Raycast(ray,out hit)) {
-
 
 				//set a flag to indicate to move the gameobject
 				flag1 = true;
@@ -61,7 +58,7 @@ public class WorldNav : MonoBehaviour {
 				endPoint = hit.point;
 				//as we do not want to change the y axis value based on click position, reset it to original y axis value
 				endPoint.y = yAxis;
-				Debug.Log(endPoint);
+				Debug.Log("end point: "+endPoint);
 				
 			}
 			
@@ -70,7 +67,7 @@ public class WorldNav : MonoBehaviour {
 
 
 		//check if the flag for movement is true and the current gameobject position is not same as the clicked position
-		if(flag1 && !Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)){
+		if(flag1){
 			//Look at the endpoint.
 			gameObject.transform.LookAt(endPoint);
 
@@ -85,27 +82,25 @@ public class WorldNav : MonoBehaviour {
 
 			Pathfinding();
 
-			flag1 = false;
-						
-		}
-		//set the movement indicator flag to false if the endPoint and current gameobject position are equal
-		else if(flag1 && Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)) {
-			flag1 = false;
-			Debug.Log("I am here");
-		}
+			float difference = (gameObject.transform.position.magnitude)/(endPoint.magnitude);
+			Debug.Log("curser position: "+endPoint.magnitude+"\n object position: "+gameObject.transform.position.magnitude);
+			Debug.Log("difference: "+difference);
+			if(difference >= 0.98 && difference <= 1.02)
+				flag1 = false;
 
+			if(Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)) {
+				flag1 = false;						
+			}
+		}
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		if(Mathf.Approximately(gameObject.transform.position.x, endPoint.x) && Mathf.Approximately(transform.position.z, endPoint.z)) {
-			//the player stops at the destination.
+		if (!flag1) {
 			desiredVelocity = Vector3.zero;
-			rigidbody.constraints = RigidbodyConstraints.FreezeAll;
 		}
-
-
+		
 		rigidbody.velocity = desiredVelocity;
 
 	}
