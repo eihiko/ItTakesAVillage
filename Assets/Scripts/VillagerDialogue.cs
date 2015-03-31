@@ -36,4 +36,8 @@ public class VillagerDialogue : MonoBehaviour {
 			currentDialogue.enabled = false;
 		}
 	}
+	
+	public void Test() {
+		Debug.Log ("Option clicked!");
+	}
 }
