@@ -65,8 +65,8 @@ public class BuildingPlacer : MonoBehaviour {
 
 	public void markTaken()
 	{
-		for (int x = 0; x < willPlace.size.x; x++) {
-			for (int y = 0; y < willPlace.size.y; y++) {
+		for (int x = 0; x < willPlace.size.x/squareSize.x; x++) {
+			for (int y = 0; y < willPlace.size.y/squareSize.x; y++) {
 				grid[x+currentx,y+currenty] = true;
 			}	
 		}
@@ -77,34 +77,35 @@ public class BuildingPlacer : MonoBehaviour {
 	//The building position is determined by the position of the center
 	//currentx and currenty contain the coordinates of the bottom left building cell
 	void Move(Vector3 position) {
-		//Tie it to the grid (move to the closest middle of the gtid cell)
-		position.x = Mathf.FloorToInt (position.x - 0.5f) + 0.5f;
-		position.z = Mathf.FloorToInt (position.z - 0.5f) + 0.5f;
+		//Tie it to the grid (move to the closest middle of the grid cell)
+		position.x = Mathf.FloorToInt ((position.x - willPlace.size.x/2f+0.25f)/squareSize.x);
+		position.z = Mathf.FloorToInt ((position.z - willPlace.size.y/2f+0.25f)/squareSize.y);
 		//Force it inside the grid
-		position.x = Mathf.Min (position.x, gridSize.x + squareSize.x/2 - willPlace.size.x);
-		position.z = Mathf.Min (position.z, gridSize.y + squareSize.y/2 - willPlace.size.y);
-		position.x = Mathf.Max (position.x, squareSize.x/2);
-		position.z = Mathf.Max (position.z, squareSize.y/2);
+		position.x = Mathf.Min (position.x, gridSize.x - willPlace.size.x/squareSize.x);
+		position.z = Mathf.Min (position.z, gridSize.y - willPlace.size.y/squareSize.y);
+		position.x = Mathf.Max (position.x, 0);
+		position.z = Mathf.Max (position.z, 0);
 		//Update current x and y
 		currentx = Mathf.FloorToInt(position.x);
 		currenty = Mathf.FloorToInt(position.z);
 		//Update the object's position
 		Vector3 newPosition = willPlace.transform.localPosition;
-		newPosition.x = position.x + willPlace.size.x/2 - squareSize.x / 2;
-		newPosition.z = position.z + willPlace.size.y/2 - squareSize.y / 2;
+		newPosition.x = position.x*squareSize.x + willPlace.size.x/2;
+		newPosition.z = position.z*squareSize.y + willPlace.size.y/2;
 		willPlace.transform.localPosition = newPosition;
 		willPlace.setConflict(!isFree ());
 	}
 
 	bool isFree() {
 		//This checks for disqualifiers
-		if (willPlace == null || willPlace.size.x + currentx > gridSize.x || willPlace.size.y + currenty > gridSize.y) {
+		if (willPlace == null || willPlace.size.x/squareSize.x + currentx > gridSize.x 
+		    || willPlace.size.y/squareSize.y + currenty > gridSize.y) {
 			return false;	
 		}
 
 		//This runs through every square for conflicts
-		for (int x = 0; x < willPlace.size.x; x++) {
-			for (int y = 0; y < willPlace.size.y; y++) {
+		for (int x = 0; x < willPlace.size.x/squareSize.x; x++) {
+			for (int y = 0; y < willPlace.size.y/squareSize.x; y++) {
 				if (grid[x+currentx,y+currenty]) {
 					return false;
 				}
