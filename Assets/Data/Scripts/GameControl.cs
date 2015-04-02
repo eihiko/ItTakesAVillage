@@ -31,6 +31,8 @@ public class GameControl : MonoBehaviour {
 	private int lumber;
 	private int energy;
 	private int morale;
+	private int XPos;
+	private int YPos;
 
 	// Overworld - Building Placement //
 	private bool[,] grid;
@@ -465,6 +467,10 @@ class PlayerData {
 	}
 	public int GetExperience() {
 		return this.experience;
+	}
+
+	public void setCoordinates(int XPos, int YPos) {
+
 	}
 
 	// Converts array to matrix

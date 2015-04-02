@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Building1
+  m_Name: OverviewObjectMat
   m_Shader: {fileID: 32, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
@@ -24,13 +24,13 @@ Material:
       data:
         first:
           name: _Shininess
-        second: .078125
+        second: .0724503696
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: 0, g: 0, b: 1, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _SpecColor
-        second: {r: 1, g: 1, b: 1, a: 0}
+        second: {r: 1, g: 1, b: 1, a: 1}
