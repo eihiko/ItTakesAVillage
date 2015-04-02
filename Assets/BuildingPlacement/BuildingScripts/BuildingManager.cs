@@ -7,8 +7,17 @@ public class BuildingManager : MonoBehaviour{
 	public BuildingPlacer buildingPlacer;
 	private List<StoredBuilding> buildingList = new List<StoredBuilding>();
 
+	void Start() {
+		GameControl.control.Load();
+		if (GameControl.control.GetBuildings () == null)
+			GameControl.control.SetBuildings (new List<StoredBuilding>());
+		loadBuildings(GameControl.control.GetBuildings());
+	}
+
 	public void addBuilding(Building building) {
 		buildingList.Add (new StoredBuilding(building));
+		GameControl.control.SetBuildings (buildingList);
+		GameControl.control.Save ();
 	}
 
 	//load buildings from the list
