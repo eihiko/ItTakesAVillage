@@ -12,6 +12,10 @@ public class Building : MonoBehaviour {
 	public int energyCost;
 	public int moraleCost;
 
+	public int buildingType;
+	private int x;
+	private int y;
+
 	public bool locked; //we may want to replace this with something better
 
 	// Use this for initialization
@@ -60,4 +64,18 @@ public class Building : MonoBehaviour {
 	public bool IsLocked() {
 		return locked;
 	}
+
+	public void setCoordinates (int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 }

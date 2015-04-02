@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
 public class BuildingPlacer : MonoBehaviour {
@@ -7,6 +8,7 @@ public class BuildingPlacer : MonoBehaviour {
 	public Vector2 gridSize;
 	public Vector2 squareSize;
 	public GameControl controller;
+	public BuildingManager buildingManager;
 
 	private bool[,] grid;
 	private Building willPlace = null;
@@ -19,6 +21,18 @@ public class BuildingPlacer : MonoBehaviour {
 		grid = new bool[(int)gridSize.x,(int)gridSize.y];
 		// Note: If the starting position's height may change, the plane initialization must be changed
 		placementPlane = new Plane (Vector3.up, new Vector3(0,0,0));
+
+		/*
+		//test the building placement
+		StoredBuilding b1 = new StoredBuilding (0, 0, 0);
+		StoredBuilding b2 = new StoredBuilding (1, 4, 2);
+		StoredBuilding b3 = new StoredBuilding (2, 6, 7);
+		List<StoredBuilding> list = new List<StoredBuilding> ();
+		list.Add (b1);
+		list.Add (b2);
+		list.Add (b3);
+		buildingManager.loadBuildings (list);
+		*/
 	}
 
 	//Takes a Building gameObject and places it
@@ -39,6 +53,23 @@ public class BuildingPlacer : MonoBehaviour {
 			Destroy(willPlace.gameObject);
 		}
 	}
+
+	//Place a building on specific location
+	public void Place(Building building, int x, int y) {
+		Vector3 newPosition = building.transform.localPosition;
+		newPosition.x = x*squareSize.x + building.size.x/2;
+		newPosition.z = y*squareSize.y + building.size.y/2;
+		building.transform.localPosition = newPosition;
+		building.setConflict(!isFree ());
+		building.setCoordinates (x, y);
+		buildingManager.addBuilding (building);
+
+		for (int i = 0; i < building.size.x/squareSize.x; i++) {
+			for (int j = 0; j < building.size.y/squareSize.y; j++) {
+				grid[x+i,y+j] = true;
+			}	
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -57,6 +88,7 @@ public class BuildingPlacer : MonoBehaviour {
 				{
 					willPlace.SpendResources(controller);
 					markTaken();
+					buildingManager.addBuilding(willPlace);
 					willPlace = null;
 				}
 			}
@@ -66,7 +98,7 @@ public class BuildingPlacer : MonoBehaviour {
 	public void markTaken()
 	{
 		for (int x = 0; x < willPlace.size.x/squareSize.x; x++) {
-			for (int y = 0; y < willPlace.size.y/squareSize.x; y++) {
+			for (int y = 0; y < willPlace.size.y/squareSize.y; y++) {
 				grid[x+currentx,y+currenty] = true;
 			}	
 		}
@@ -94,6 +126,7 @@ public class BuildingPlacer : MonoBehaviour {
 		newPosition.z = position.z*squareSize.y + willPlace.size.y/2;
 		willPlace.transform.localPosition = newPosition;
 		willPlace.setConflict(!isFree ());
+		willPlace.setCoordinates (currentx, currenty);
 	}
 
 	bool isFree() {
