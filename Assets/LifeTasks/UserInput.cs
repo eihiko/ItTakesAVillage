@@ -15,10 +15,8 @@ public class UserInput : MonoBehaviour {
 	public void writeJournal(Button b){
 		string s;
 		s = b.GetComponentInChildren<Text>().text;
-
-		GameControl.control.SetInput (GameControl.control.GetInput () + "\r\n" + s);
+		GameControl.control.SetInput (GameControl.control.GetInput () + s + "\r\n");
 		GameControl.control.Save ();
-
 		/*string s;
 		if(!Directory.Exists("Inputs"))
 			Directory.CreateDirectory("Inputs");
