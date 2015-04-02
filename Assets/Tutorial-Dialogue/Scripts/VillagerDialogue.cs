@@ -6,12 +6,18 @@ public class VillagerDialogue : MonoBehaviour {
 
 	public Canvas currentDialogue;
 	public Canvas response;
-	public Camera camera;
+	public int idnum;
+	public VillagerManager manager;
+	public OptionSelection[] options;
 
 	// Use this for initialization
 	void Start () {
 		currentDialogue.enabled = false;
 		response.enabled = false;
+		options = currentDialogue.GetComponentsInChildren<OptionSelection>(true);
+		for (int i=0;i<options.Length;i++) {
+			options[i].setVillager(this);
+		}
 	}
 	
 	// Update is called once per frame
@@ -23,7 +29,7 @@ public class VillagerDialogue : MonoBehaviour {
 		Debug.Log("Click!");
 		if (currentDialogue.enabled == false) {
 			currentDialogue.enabled = true;
-			currentDialogue.worldCamera = camera;
+			currentDialogue.worldCamera = FindObjectOfType<Camera>();
 			Button[] buttons = currentDialogue.GetComponentsInChildren<Button>(true);
 			for (int i=0;i<buttons.Length;i++) {
 				Debug.Log("Button " + (i+1));
