@@ -41,6 +41,7 @@ public class GameControl : MonoBehaviour {
 	// Life Tasks //
 	private string input;
 
+	// Demo //
 	private int health;
 	private int experience;
 	private string label;
@@ -356,6 +357,7 @@ class PlayerData {
 	 * Also be sure to write getter/setter methods
 	 */
 
+	// Resources //
 	private int stone;
 	private int coin;
 	private int food;
@@ -364,11 +366,14 @@ class PlayerData {
 	private int energy;
 	private int morale;
 
+	// Overworld - Building Placement //
 	private SerializableMatrix grid;
 	private List<Building> buildings;
 
+	// Life Tasks //
 	private string input;
 
+	// Demo //
 	private int health;
 	private int experience;
 	private string label;
