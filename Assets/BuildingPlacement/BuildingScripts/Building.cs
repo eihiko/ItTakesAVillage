@@ -56,4 +56,8 @@ public class Building : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public bool IsLocked() {
+		return locked;
+	}
 }
