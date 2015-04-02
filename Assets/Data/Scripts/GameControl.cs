@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections.Generic;
 
 /**
  * This script allows you to store any variables you want
@@ -21,7 +22,8 @@ public class GameControl : MonoBehaviour {
 	 * Make sure to provide getter setter methods
 	 * for every variable.
 	 */
-	 
+
+	// Resources //
 	private int stone;
 	private int coin;
 	private int food;
@@ -29,6 +31,13 @@ public class GameControl : MonoBehaviour {
 	private int lumber;
 	private int energy;
 	private int morale;
+
+	// Overworld - Building Placement //
+	private bool[,] grid;
+	private List<Building> buildings;
+
+	// Life Tasks //
+	private string input;
 
 	private int health;
 	private int experience;
@@ -82,19 +91,38 @@ public class GameControl : MonoBehaviour {
 	public int GetMorale() {
 		return this.morale;
 	}
-	
-	public string GetLabel() {
-		return label;
+
+	public void SetGrid(bool[,] grid) {
+		this.grid = grid;
+	}
+	public bool[,] GetGrid() {
+		return grid;
+	}
+
+	public void SetBuildings(List<Building> buildings) {
+		this.buildings = buildings;
+	}
+	public List<Building> GetBuildings() {
+		return buildings;
+	}
+
+	public void SetInput(string input) {
+		this.input = input;
+	}
+	public string GetInput() {
+		return input;
 	}
 
 	public void SetLabel(string label) {
 		this.label = label;
 	}
+	public string GetLabel() {
+		return label;
+	}
 
 	public void SetHealth(int health) {
 		this.health = health;
 	}
-	
 	public int GetHealth() {
 		return this.health;
 	}
@@ -102,7 +130,6 @@ public class GameControl : MonoBehaviour {
 	public void SetExperience(int experience) {
 		this.experience = experience;
 	}
-
 	public int GetExperience() {
 		return this.experience;
 	}
@@ -236,7 +263,7 @@ public class GameControl : MonoBehaviour {
 		FileStream file = File.Create(Application.persistentDataPath + "/playerinfo.dat");
 
 		PlayerData data = new PlayerData();
-		// Insert data from contoller to data object
+		// Insert data from controller to data object
 		// ie: data.setExp(this.getExp());
 		data.SetStone(this.GetStone());
 		data.SetCoin(this.GetCoin());
@@ -246,6 +273,11 @@ public class GameControl : MonoBehaviour {
 		data.SetEnergy(this.GetEnergy());
 		data.SetMorale(this.GetMorale());
 		
+		data.SetGrid (this.ConvertMatrix (this.GetGrid ()));
+		data.SetBuildings (this.GetBuildings ());
+
+		data.SetInput (this.GetInput ());
+
 		data.SetHealth(this.GetHealth());
 		data.SetExperience(this.GetExperience());
 		data.SetLabel(this.GetLabel());
@@ -274,6 +306,13 @@ public class GameControl : MonoBehaviour {
 			this.SetLumber(data.GetLumber());
 			this.SetEnergy(data.GetEnergy());
 			this.SetMorale(data.GetMorale());
+
+			if (grid != null) {
+				this.SetGrid (data.ConvertArray(data.GetGrid(), grid.GetLength(0), grid.GetLength(1)));
+			}
+			this.SetBuildings(data.GetBuildings());
+
+			this.SetInput(data.GetInput());
 			
 			this.SetHealth(data.GetHealth());
 			this.SetExperience(data.GetExperience());
@@ -288,6 +327,23 @@ public class GameControl : MonoBehaviour {
 		Application.LoadLevel(level);
 	}
 
+	// Converts matrix to array
+	public SerializableMatrix ConvertMatrix(bool[,] matrix) {
+		if (matrix == null) {
+			return null;
+		}
+		SerializableMatrix sMatrix = new SerializableMatrix(matrix.Length);
+		int x = 0;
+		for (int i = 0; i < matrix.GetLength(0); i++) {
+			for (int j = 0; j < matrix.GetLength(1); j++) {
+				sMatrix.bools[x] = matrix[i,j];
+				x++;
+			}
+		}
+		return sMatrix;
+	}
+
+	
 }
 
 [Serializable]
@@ -305,7 +361,12 @@ class PlayerData {
 	private int lumber;
 	private int energy;
 	private int morale;
-	
+
+	private SerializableMatrix grid;
+	private List<Building> buildings;
+
+	private string input;
+
 	private int health;
 	private int experience;
 	private string label;
@@ -358,11 +419,31 @@ class PlayerData {
 	public int GetMorale() {
 		return this.morale;
 	}
-	
+
+	public void SetGrid(SerializableMatrix array) {
+		this.grid = array;
+	}
+	public SerializableMatrix GetGrid() {
+		return grid;
+	}
+
+	public void SetBuildings(List<Building> buildings) {
+		this.buildings = buildings;
+	}
+	public List<Building> GetBuildings() {
+		return buildings;
+	}
+
+	public void SetInput(string input) {
+		this.input = input;
+	}
+	public string GetInput() {
+		return input;
+	}
+
 	public string GetLabel() {
 		return label;
 	}
-	
 	public void SetLabel(string label) {
 		this.label = label;
 	}
@@ -370,7 +451,6 @@ class PlayerData {
 	public void SetHealth(int health) {
 		this.health = health;
 	}
-	
 	public int GetHealth() {
 		return this.health;
 	}
@@ -378,9 +458,30 @@ class PlayerData {
 	public void SetExperience(int experience) {
 		this.experience = experience;
 	}
-	
 	public int GetExperience() {
 		return this.experience;
 	}
 
+	// Converts array to matrix
+	public bool[,] ConvertArray(SerializableMatrix array, int width, int height) {
+		if (array == null) {
+			return null;
+		}
+		bool[,] bools = new bool[width, height];
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				bools[i, j] = array.bools[i + j*width];
+			}
+		}
+		return bools;
+	}
+}
+
+[Serializable]
+public class SerializableMatrix {
+	public bool[] bools;
+			
+	public SerializableMatrix(int size) {
+		bools = new bool[size];
+	}
 }

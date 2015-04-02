@@ -2,20 +2,24 @@
 using System.Collections;
 using System.IO;
 using UnityEngine.UI;
+
 public class UserInput : MonoBehaviour {
-	//public Text text; 
-	// Use this for initialization
+
 	void Start () {
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 	
-	
-	public void WriteFile(Button b){
+	public void writeJournal(Button b){
 		string s;
+		s = b.GetComponentInChildren<Text>().text;
+
+		GameControl.control.SetInput (GameControl.control.GetInput () + "\r\n" + s);
+		GameControl.control.Save ();
+
+		/*string s;
 		if(!Directory.Exists("Inputs"))
 			Directory.CreateDirectory("Inputs");
 		try{
@@ -29,7 +33,7 @@ public class UserInput : MonoBehaviour {
 		}
 		catch(IOException){
 			Debug.Log ("Error"); 
-		}
+		}*/
 	}
 }
 
