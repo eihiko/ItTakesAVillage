@@ -38,6 +38,7 @@ public class GameControl : MonoBehaviour {
 
 	// Life Tasks //
 	private string input;
+	private string tips;
 
 	private int health;
 	private int experience;
@@ -111,6 +112,13 @@ public class GameControl : MonoBehaviour {
 	}
 	public string GetInput() {
 		return input;
+	}
+
+	public void SetTips(string tips) {
+		this.tips = tips;
+	}
+	public string GetTips() {
+		return tips;
 	}
 
 	public void SetLabel(string label) {
@@ -277,6 +285,7 @@ public class GameControl : MonoBehaviour {
 		data.SetBuildings (this.GetBuildings ());
 
 		data.SetInput (this.GetInput ());
+		data.SetTips (this.GetTips ());
 
 		data.SetHealth(this.GetHealth());
 		data.SetExperience(this.GetExperience());
@@ -313,6 +322,7 @@ public class GameControl : MonoBehaviour {
 			this.SetBuildings(data.GetBuildings());
 
 			this.SetInput(data.GetInput());
+			this.SetTips (data.GetTips());
 			
 			this.SetHealth(data.GetHealth());
 			this.SetExperience(data.GetExperience());
@@ -366,6 +376,7 @@ class PlayerData {
 	private List<Building> buildings;
 
 	private string input;
+	private string tips;
 
 	private int health;
 	private int experience;
@@ -439,6 +450,13 @@ class PlayerData {
 	}
 	public string GetInput() {
 		return input;
+	}
+
+	public void SetTips(string tips) {
+		this.tips = tips;
+	}
+	public string GetTips() {
+		return tips;
 	}
 
 	public string GetLabel() {
