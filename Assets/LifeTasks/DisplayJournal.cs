@@ -6,16 +6,21 @@ using UnityEngine.UI;
 public class DisplayJournal : MonoBehaviour {
 
 	public Text textboxInputs;
+<<<<<<< HEAD
 	
 	//public StringReader reader;
 	void Start(){
 		GameControl.control.addToJournal ("");
 	}
+=======
+
+>>>>>>> 456199133589b805919ea73c8efd83948487cec4
 	void Update() {
 		displayJournal ();
 	}
 
 	public void displayJournal() {
+<<<<<<< HEAD
 				/*TextAsset journal = (TextAsset)Resources.Load ("input.ext", typeof(TextAsset));
 				reader = new StringReader (input.text);
 				string txt = reader.ReadLine ();
@@ -44,6 +49,10 @@ public class DisplayJournal : MonoBehaviour {
 			GameControl.control.AddSilk (100);
 		else
 			GameControl.control.AddStone (100);
+=======
+		string journal = GameControl.control.GetInput();
+		textboxInputs.text = journal;
+>>>>>>> 456199133589b805919ea73c8efd83948487cec4
 	}
 
 } 

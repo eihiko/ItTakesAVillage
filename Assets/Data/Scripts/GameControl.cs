@@ -31,6 +31,8 @@ public class GameControl : MonoBehaviour {
 	private int lumber;
 	private int energy;
 	private int morale;
+	private int XPos;
+	private int YPos;
 
 	// Overworld - Building Placement //
 	private bool[,] grid;
@@ -38,6 +40,7 @@ public class GameControl : MonoBehaviour {
 
 	// Life Tasks //
 	private string input;
+	private string tips;
 
 	private int health;
 	private int experience;
@@ -117,6 +120,13 @@ public class GameControl : MonoBehaviour {
 	}
 	public string GetInput() {
 		return input;
+	}
+
+	public void SetTips(string tips) {
+		this.tips = tips;
+	}
+	public string GetTips() {
+		return tips;
 	}
 
 	public void SetLabel(string label) {
@@ -283,6 +293,7 @@ public class GameControl : MonoBehaviour {
 		data.SetBuildings (this.GetBuildings ());
 
 		data.SetInput (this.GetInput ());
+		data.SetTips (this.GetTips ());
 
 		data.SetHealth(this.GetHealth());
 		data.SetExperience(this.GetExperience());
@@ -319,6 +330,7 @@ public class GameControl : MonoBehaviour {
 			this.SetBuildings(data.GetBuildings());
 
 			this.SetInput(data.GetInput());
+			this.SetTips (data.GetTips());
 			
 			this.SetHealth(data.GetHealth());
 			this.SetExperience(data.GetExperience());
@@ -372,6 +384,7 @@ class PlayerData {
 	private List<Building> buildings;
 
 	private string input;
+	private string tips;
 
 	private int health;
 	private int experience;
@@ -453,6 +466,13 @@ class PlayerData {
 		return input;
 	}
 
+	public void SetTips(string tips) {
+		this.tips = tips;
+	}
+	public string GetTips() {
+		return tips;
+	}
+
 	public string GetLabel() {
 		return label;
 	}
@@ -472,6 +492,10 @@ class PlayerData {
 	}
 	public int GetExperience() {
 		return this.experience;
+	}
+
+	public void setCoordinates(int XPos, int YPos) {
+
 	}
 
 	// Converts array to matrix
