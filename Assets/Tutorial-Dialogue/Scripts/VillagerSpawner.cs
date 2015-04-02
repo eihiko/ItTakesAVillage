@@ -13,6 +13,7 @@ public class VillagerSpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//Debug.Log (manager.ToString());
 		for(int i=0;i<villagersToSpawn;i++) {
 			SpawnVillager();
 		}
@@ -28,13 +29,25 @@ public class VillagerSpawner : MonoBehaviour {
 	
 	public void SpawnVillager() {
 		Vector3 spawn = spawnPoints[Random.Range(0,spawnPoints.Length-1)].transform.localPosition;
-		VillagerDialogue npc = npcPrefabs[Random.Range(0,spawnPoints.Length-1)];
+		int prefab = Random.Range(0,spawnPoints.Length-1);
+		VillagerDialogue npc = npcPrefabs[prefab];
 		VillagerDialogue villager = Instantiate(npc) as VillagerDialogue;
 		villager.gameObject.transform.localPosition = spawn;
+		villager.prefab = prefab;
 		int index = Random.Range(0,dialogues.Length-1);
 		villager.currentDialogue = dialogues[index];
 		villager.response = responses[index];
+		villager.dialogueNum = index;
 		manager.AddVillager(villager);
 		villager.manager = manager;
+	}
+	
+	//Unfinished: Need to work with Life Task/Journal system
+	public void Respawn(int prefab,bool response) {
+		Vector3 spawn = spawnPoints[Random.Range(0,spawnPoints.Length-1)].transform.localPosition;
+		VillagerDialogue npc = npcPrefabs[prefab];
+		VillagerDialogue villager = Instantiate(npc) as VillagerDialogue;
+		villager.gameObject.transform.localPosition = spawn;
+		villager.prefab = prefab;
 	}
 }

@@ -3,14 +3,17 @@ using System.Collections;
 
 public class VillagerManager : MonoBehaviour {
 
-	private VillagerDialogue[] villagers;
+	public VillagerDialogue[] villagers;
 	private bool[] helped;
 	private int index;
+	public string data;
+	public VillagerSpawner spawner;
 
 	// Use this for initialization
 	void Start () {
-		index = 0;
 		villagers = new VillagerDialogue[20];
+		data = "";
+		index = 0;
 		helped = new bool[20];
 		for (int i=0;i<helped.Length;i++) {
 			helped[i] = false;
@@ -23,7 +26,9 @@ public class VillagerManager : MonoBehaviour {
 	}
 	
 	public void AddVillager(VillagerDialogue villager) {
-		if(index<villagers.Length) {
+		//Debug.Log(villager.ToString());
+		//Debug.Log(villagers.ToString());
+		if(index < villagers.Length) {
 			villagers[index] = villager;
 			villager.idnum = index;
 			index++;
@@ -45,5 +50,17 @@ public class VillagerManager : MonoBehaviour {
 	public void setHelped(VillagerDialogue villager) {
 		helped[villager.idnum] = true;
 		villager.Test();
+	}
+	
+	//Unfinished: Need to work with Life Task/Journal system
+	public void Save() {
+		for (int i=0;i<villagers.Length;i++) {
+			data = string.Concat(data, villagers[i].prefab);
+			data = string.Concat(data, helped[i]);
+		}
+	}
+	
+	public void Load(string file) {
+		
 	}
 }
