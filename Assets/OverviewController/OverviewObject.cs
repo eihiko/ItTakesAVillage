@@ -8,16 +8,32 @@ public class OverviewObject : MonoBehaviour {
 	public Material ObjectOverviewMat;
 	public ObjectInfoObject ObjectInfoCanvas;
 
-	float COLOR_DIFF = 0.5F;
+	float COLOR_DIFF = 2F;
 	Color specColor, selected, deselected;
 	OverviewObjectController OOC = new OverviewObjectController();
 
 
 	void Start () {
 		specColor = this.renderer.material.GetColor ("_SpecColor");
+		specColor = getNewColor (specColor);
 		selected = new Color (specColor.a - COLOR_DIFF, specColor.g - COLOR_DIFF, specColor.b - COLOR_DIFF);
 		deselected = new Color (specColor.a + COLOR_DIFF, specColor.g + COLOR_DIFF, specColor.b + COLOR_DIFF);
 		ObjectInfoCanvas.gameObject.SetActive (false);
+	}
+
+	Color getNewColor(Color spec) {
+		float a = spec.a;
+		float g = spec.g;
+		float b = spec.b;
+
+		if (a < COLOR_DIFF)
+			a = COLOR_DIFF;	
+		if (g < COLOR_DIFF)
+			g = COLOR_DIFF;
+		if (b < COLOR_DIFF)
+			b = COLOR_DIFF;
+
+		return new Color (a - COLOR_DIFF, g - COLOR_DIFF, b - COLOR_DIFF);
 	}
 
 	void OnMouseDown() {
