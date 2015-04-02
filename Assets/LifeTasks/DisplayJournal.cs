@@ -6,22 +6,14 @@ using UnityEngine.UI;
 public class DisplayJournal : MonoBehaviour {
 
 	public Text textboxInputs;
-	
-	//public StringReader reader;
 
 	void Update() {
 		displayJournal ();
 	}
 
 	public void displayJournal() {
-				/*TextAsset journal = (TextAsset)Resources.Load ("input.ext", typeof(TextAsset));
-				reader = new StringReader (input.text);
-				string txt = reader.ReadLine ();
-				Debug.LogType (txt);
-				*/
-
-		string journal = File.ReadAllText ("Inputs\\input.txt");
-		textboxInputs.text = journal + "\r\n";
-		}
+		string journal = GameControl.control.GetInput();
+		textboxInputs.text = journal;
+	}
 
 } 
