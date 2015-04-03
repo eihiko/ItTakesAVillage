@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //<<<<<<< HEAD
 using UnityEngine;
 using System.Collections;

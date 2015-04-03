@@ -6,6 +6,12 @@ public class WorldNav : MonoBehaviour {
 	public Material building1;
 	public Material building2;
 
+	public GameObject controller;
+
+	private float XPos;
+	private float YPos;
+	private float ZPos;
+
 	Ray selectRay;
 	RaycastHit selectHit;
 	//Checks whether the button has been clicked.
@@ -35,6 +41,10 @@ public class WorldNav : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
+		XPos = gameObject.transform.position.x;
+		YPos = gameObject.transform.position.y;
+		ZPos = gameObject.transform.position.z;
+		
 		//Checks for if the an object clicked by the left mouse button is the building.
 		if (Input.GetMouseButtonDown (0)) {
 			Select();
