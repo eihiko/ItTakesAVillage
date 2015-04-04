@@ -2,14 +2,9 @@
 using System.Collections;
 using System.IO;
 using UnityEngine.UI;
-<<<<<<< HEAD
-public class UserInput : MonoBehaviour { 
-	// Use this for initialization
-=======
 
 public class UserInput : MonoBehaviour {
 
->>>>>>> 456199133589b805919ea73c8efd83948487cec4
 	void Start () {
 	}
 	
@@ -17,10 +12,6 @@ public class UserInput : MonoBehaviour {
 	void Update () {
 	}
 	
-<<<<<<< HEAD
-	
-	public void WriteFile(Button b){
-=======
 	public void writeJournal(Button b){
 		string s;
 		s = b.GetComponentInChildren<Text>().text;
@@ -41,7 +32,6 @@ public class UserInput : MonoBehaviour {
 		catch(IOException){
 			Debug.Log ("Error"); 
 		}*/
->>>>>>> 456199133589b805919ea73c8efd83948487cec4
 	}
 }
 
