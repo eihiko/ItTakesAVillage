@@ -18,7 +18,8 @@ public class TipsJournal : MonoBehaviour {
 	}
 
 	public void displayTips() {
-
+		string tips = "j"; //File.ReadAllText (/*text file containing NPC dialog*/);
+				textboxTips.text = tips + "\n";
 		}
 
 }

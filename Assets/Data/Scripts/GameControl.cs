@@ -40,12 +40,19 @@ public class GameControl : MonoBehaviour {
 
 	// Life Tasks //
 	private string input;
+	private string tips;
 
 	// Demo //
 	private int health;
 	private int experience;
 	private string label;
 
+	public void addToJournal(String s){
+		input = input + s + "\n"; 
+	}
+	public String getJournal(){
+		return input;
+	}
 	public void SetStone(int stone) {
 		this.stone = stone;
 	}
@@ -114,6 +121,13 @@ public class GameControl : MonoBehaviour {
 	}
 	public string GetInput() {
 		return input;
+	}
+
+	public void SetTips(string tips) {
+		this.tips = tips;
+	}
+	public string GetTips() {
+		return tips;
 	}
 
 	public void SetLabel(string label) {
@@ -280,6 +294,7 @@ public class GameControl : MonoBehaviour {
 		data.SetBuildings (this.GetBuildings ());
 
 		data.SetInput (this.GetInput ());
+		data.SetTips (this.GetTips ());
 
 		data.SetHealth(this.GetHealth());
 		data.SetExperience(this.GetExperience());
@@ -316,6 +331,7 @@ public class GameControl : MonoBehaviour {
 			this.SetBuildings(data.GetBuildings());
 
 			this.SetInput(data.GetInput());
+			this.SetTips (data.GetTips());
 			
 			this.SetHealth(data.GetHealth());
 			this.SetExperience(data.GetExperience());
@@ -372,12 +388,19 @@ class PlayerData {
 
 	// Life Tasks //
 	private string input;
+	private string tips;
 
 	// Demo //
 	private int health;
 	private int experience;
 	private string label;
-	
+
+	public void addToJournal(String s){
+		input = input + s + "\n"; 
+	}
+	public String getJournal(){
+		return input;
+	}
 	public void SetStone(int stone) {
 		this.stone = stone;
 	}
@@ -446,6 +469,13 @@ class PlayerData {
 	}
 	public string GetInput() {
 		return input;
+	}
+
+	public void SetTips(string tips) {
+		this.tips = tips;
+	}
+	public string GetTips() {
+		return tips;
 	}
 
 	public string GetLabel() {

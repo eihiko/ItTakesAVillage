@@ -71,9 +71,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentDialogue: {fileID: 22301250, guid: fed55df86f4bf134cb126107d955f00f, type: 2}
   response: {fileID: 22394070, guid: 691b6f6ea8d38b74c8c68b45d9f29819, type: 2}
-  idnum: 0
-  manager: {fileID: 0}
-  options: []
 --- !u!136 &13602634
 CapsuleCollider:
   m_ObjectHideFlags: 1
