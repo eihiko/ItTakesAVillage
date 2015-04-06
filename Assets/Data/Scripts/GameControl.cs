@@ -36,7 +36,7 @@ public class GameControl : MonoBehaviour {
 
 	// Overworld - Building Placement //
 	private bool[,] grid;
-	private List<Building> buildings;
+	private List<StoredBuilding> buildings;
 
 	// Life Tasks //
 	private string input;
@@ -102,10 +102,10 @@ public class GameControl : MonoBehaviour {
 		return grid;
 	}
 
-	public void SetBuildings(List<Building> buildings) {
+	public void SetBuildings(List<StoredBuilding> buildings) {
 		this.buildings = buildings;
 	}
-	public List<Building> GetBuildings() {
+	public List<StoredBuilding> GetBuildings() {
 		return buildings;
 	}
 
@@ -368,7 +368,7 @@ class PlayerData {
 
 	// Overworld - Building Placement //
 	private SerializableMatrix grid;
-	private List<Building> buildings;
+	private List<StoredBuilding> buildings;
 
 	// Life Tasks //
 	private string input;
@@ -434,10 +434,10 @@ class PlayerData {
 		return grid;
 	}
 
-	public void SetBuildings(List<Building> buildings) {
+	public void SetBuildings(List<StoredBuilding> buildings) {
 		this.buildings = buildings;
 	}
-	public List<Building> GetBuildings() {
+	public List<StoredBuilding> GetBuildings() {
 		return buildings;
 	}
 
