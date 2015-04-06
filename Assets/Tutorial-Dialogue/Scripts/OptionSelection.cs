@@ -20,6 +20,8 @@ public class OptionSelection : MonoBehaviour {
 	}
 	
 	public void select() {
+		//Debug.Log(villager.ToString());
+		//Debug.Log(villager.manager.ToString());
 		villager.manager.setHelped(villager);
 	}
 	

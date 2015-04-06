@@ -36,12 +36,13 @@ public class GameControl : MonoBehaviour {
 
 	// Overworld - Building Placement //
 	private bool[,] grid;
-	private List<Building> buildings;
+	private List<StoredBuilding> buildings;
 
 	// Life Tasks //
 	private string input;
 	private string tips;
 
+	// Demo //
 	private int health;
 	private int experience;
 	private string label;
@@ -108,10 +109,10 @@ public class GameControl : MonoBehaviour {
 		return grid;
 	}
 
-	public void SetBuildings(List<Building> buildings) {
+	public void SetBuildings(List<StoredBuilding> buildings) {
 		this.buildings = buildings;
 	}
-	public List<Building> GetBuildings() {
+	public List<StoredBuilding> GetBuildings() {
 		return buildings;
 	}
 
@@ -372,6 +373,7 @@ class PlayerData {
 	 * Also be sure to write getter/setter methods
 	 */
 
+	// Resources //
 	private int stone;
 	private int coin;
 	private int food;
@@ -380,12 +382,15 @@ class PlayerData {
 	private int energy;
 	private int morale;
 
+	// Overworld - Building Placement //
 	private SerializableMatrix grid;
-	private List<Building> buildings;
+	private List<StoredBuilding> buildings;
 
+	// Life Tasks //
 	private string input;
 	private string tips;
 
+	// Demo //
 	private int health;
 	private int experience;
 	private string label;
@@ -452,10 +457,10 @@ class PlayerData {
 		return grid;
 	}
 
-	public void SetBuildings(List<Building> buildings) {
+	public void SetBuildings(List<StoredBuilding> buildings) {
 		this.buildings = buildings;
 	}
-	public List<Building> GetBuildings() {
+	public List<StoredBuilding> GetBuildings() {
 		return buildings;
 	}
 
