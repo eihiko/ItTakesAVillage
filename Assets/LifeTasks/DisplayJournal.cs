@@ -46,6 +46,7 @@ public class DisplayJournal : MonoBehaviour {
 			GameControl.control.AddSilk (100);
 		else
 			GameControl.control.AddStone (100);
+		GameControl.control.Save ();
 	}
 
 } 

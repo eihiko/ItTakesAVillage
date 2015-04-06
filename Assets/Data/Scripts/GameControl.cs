@@ -46,6 +46,10 @@ public class GameControl : MonoBehaviour {
 	private int health;
 	private int experience;
 	private string label;
+	
+	public void Start(){
+		Load ();
+	}
 
 	public void addToJournal(String s){
 		input = input + s + "\n"; 

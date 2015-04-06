@@ -489,11 +489,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 1, y: 1}
-  stoneCost: 0
+  stoneCost: 25
   coinCost: 0
   foodCost: 0
   silkCost: 0
-  lumberCost: 0
+  lumberCost: 50
   energyCost: 0
   moraleCost: 0
   buildingType: 0

@@ -11,7 +11,7 @@ public class BuildingButton : MonoBehaviour {
 		if (prefab.IsLocked()) {
 			gameObject.GetComponent<Image>().color = locked.color;
 		}
-		else if (prefab.HaveResources(wheretoPlace.controller)) {
+		else if (prefab.HaveResources()) {
 			gameObject.GetComponent<Image>().color = good.color;
 		} 
 		else {

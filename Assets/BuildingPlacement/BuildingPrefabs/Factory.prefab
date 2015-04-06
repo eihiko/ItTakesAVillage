@@ -349,13 +349,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 2, y: 2}
-  stoneCost: 0
-  coinCost: 0
-  foodCost: 0
+  stoneCost: 100
+  coinCost: 5
+  foodCost: 5
   silkCost: 0
-  lumberCost: 0
-  energyCost: 0
-  moraleCost: 0
+  lumberCost: 100
+  energyCost: 25
+  moraleCost: 5
   buildingType: 1
   locked: 0
 --- !u!1001 &100100000

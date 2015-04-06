@@ -7,7 +7,6 @@ public class BuildingPlacer : MonoBehaviour {
 
 	public Vector2 gridSize;
 	public Vector2 squareSize;
-	public GameControl controller;
 	public BuildingManager buildingManager;
 
 	private bool[,] grid;
@@ -45,11 +44,9 @@ public class BuildingPlacer : MonoBehaviour {
 		currentx = 0;
 		currenty = 0;
 		if (willPlace.locked) {
-			Debug.Log("Locked");
 			Destroy(willPlace.gameObject);	
 		}
-		else if (!willPlace.HaveResources (controller)) {
-			Debug.Log("No resources");
+		else if (!willPlace.HaveResources ()) {
 			Destroy(willPlace.gameObject);
 		}
 	}
@@ -86,7 +83,7 @@ public class BuildingPlacer : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) {
 			    if (isFree ())
 				{
-					willPlace.SpendResources(controller);
+					willPlace.SpendResources();
 					markTaken();
 					buildingManager.addBuilding(willPlace);
 					willPlace = null;

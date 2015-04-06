@@ -23,26 +23,28 @@ public class Building : MonoBehaviour {
 	
 	}
 
-	public bool HaveResources(GameControl controller) {
-		if (controller == null) {
-			Debug.Log("No controller");
-			return false;
-		}
-		return (stoneCost <= controller.GetStone () && coinCost <= controller.GetCoin () && foodCost <= controller.GetFood ()
-						&& silkCost <= controller.GetSilk () && lumberCost <= controller.GetLumber () &&
-						energyCost <= controller.GetEnergy() && moraleCost <= controller.GetMorale ());
+	public bool HaveResources() {
+		GameControl c = GameControl.control;
+		return (stoneCost <= c.GetStone () && coinCost <= c.GetCoin () && foodCost <= c.GetFood ()
+						&& silkCost <= c.GetSilk () && lumberCost <= c.GetLumber () &&
+						energyCost <= c.GetEnergy() && moraleCost <= c.GetMorale ());
 	}
 
-	public bool SpendResources(GameControl controller) {
-		if (!HaveResources (controller))
-						return false;
-		controller.UseStone (stoneCost);
-		controller.UseCoin (coinCost);
-		controller.UseFood (foodCost);
-		controller.UseSilk (silkCost);
-		controller.UseLumber (lumberCost);
-		controller.UseEnergy (energyCost);
-		controller.UseMorale (moraleCost);
+	public bool SpendResources() {
+		GameControl c = GameControl.control;
+		
+		if (!HaveResources ()) { 
+			return false; 
+		}
+		
+		c.UseStone (stoneCost);
+		c.UseCoin (coinCost);
+		c.UseFood (foodCost);
+		c.UseSilk (silkCost);
+		c.UseLumber (lumberCost);
+		c.UseEnergy (energyCost);
+		c.UseMorale (moraleCost);
+		
 		return true;
 	}
 
