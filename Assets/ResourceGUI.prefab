@@ -11,6 +11,7 @@ GameObject:
   - 223: {fileID: 22371602}
   - 114: {fileID: 11471582}
   - 114: {fileID: 11471584}
+  - 114: {fileID: 11423134}
   m_Layer: 5
   m_Name: ResourceGUI
   m_TagString: Untagged
@@ -28,7 +29,6 @@ GameObject:
   - 224: {fileID: 22471588}
   - 222: {fileID: 22271588}
   - 114: {fileID: 11471586}
-  - 114: {fileID: 11471602}
   m_Layer: 5
   m_Name: ResourceBar
   m_TagString: Untagged
@@ -155,6 +155,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &11423134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa2cedcc3d68264385c4cd29421184b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stone: {fileID: 11471588}
+  coin: {fileID: 11471590}
+  food: {fileID: 11471592}
+  silk: {fileID: 11471594}
+  lumber: {fileID: 11471596}
+  energy: {fileID: 11471598}
+  morale: {fileID: 11471600}
 --- !u!114 &11471582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,24 +413,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Morale: 9999'
---- !u!114 &11471602
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 171588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afa2cedcc3d68264385c4cd29421184b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stone: {fileID: 11471588}
-  coin: {fileID: 11471590}
-  food: {fileID: 11471592}
-  silk: {fileID: 11471594}
-  lumber: {fileID: 11471596}
-  energy: {fileID: 11471598}
-  morale: {fileID: 11471600}
 --- !u!222 &22271588
 CanvasRenderer:
   m_ObjectHideFlags: 1

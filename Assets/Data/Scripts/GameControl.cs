@@ -342,6 +342,21 @@ public class GameControl : MonoBehaviour {
 			this.SetLabel(data.GetLabel());
 		}
 	}
+	
+	public void Reset() {
+		if (File.Exists (Application.persistentDataPath + "/playerinfo.dat")) {
+			File.Delete (Application.persistentDataPath + "/playerinfo.dat");
+		}
+		this.SetStone (0);
+		this.SetCoin (0);
+		this.SetFood (0);
+		this.SetSilk (0);
+		this.SetLumber (0);
+		this.SetEnergy (0);
+		this.SetMorale (0);
+		this.SetBuildings (new List<StoredBuilding> ());
+		this.SetGrid (new bool[0,0]);
+	}
 
 	/**
 	 * Quick method for calling the next level
