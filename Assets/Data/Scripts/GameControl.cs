@@ -270,7 +270,7 @@ public class GameControl : MonoBehaviour {
 			control = this;
 		} else if (control != this) {
 			Destroy(gameObject);
-		} 
+		}
 	}
 
 	/**
