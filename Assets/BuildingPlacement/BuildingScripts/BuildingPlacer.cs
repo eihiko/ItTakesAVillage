@@ -9,6 +9,7 @@ public class BuildingPlacer : MonoBehaviour {
 	public Vector2 squareSize;
 	public GameControl controller;
 	public BuildingManager buildingManager;
+	public BuildingButton[] buttons;
 
 	private bool[,] grid;
 	private Building willPlace = null;
@@ -69,6 +70,12 @@ public class BuildingPlacer : MonoBehaviour {
 				grid[x+i,y+j] = true;
 			}	
 		}
+		HashSet<int> unlocks = building.getUnlockSet ();
+		foreach (BuildingButton b in buttons) {
+			if (unlocks.Contains(b.prefab.buildingType)) {
+				b.prefab.locked = false;
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -93,6 +100,13 @@ public class BuildingPlacer : MonoBehaviour {
 					willPlace.SpendResources(controller);
 					markTaken();
 					buildingManager.addBuilding(willPlace);
+					
+					HashSet<int> unlocks = willPlace.getUnlockSet ();
+					foreach (BuildingButton b in buttons) {
+						if (unlocks.Contains(b.prefab.buildingType)) {
+							b.prefab.locked = false;
+						}
+					}
 					willPlace = null;
 				}
 			}

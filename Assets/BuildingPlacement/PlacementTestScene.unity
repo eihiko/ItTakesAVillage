@@ -350,6 +350,11 @@ MonoBehaviour:
   squareSize: {x: .5, y: .5}
   controller: {fileID: 817298937}
   buildingManager: {fileID: 854364381}
+  buttons:
+  - {fileID: 928542318}
+  - {fileID: 545294387}
+  - {fileID: 2024977911}
+  - {fileID: 2007673304}
 --- !u!4 &417750874
 Transform:
   m_ObjectHideFlags: 0

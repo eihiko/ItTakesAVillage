@@ -89,8 +89,10 @@ MonoBehaviour:
   lumberCost: 0
   energyCost: 0
   moraleCost: 0
+  placeUnlockTypes: 
+  rotation: 0
   buildingType: 2
-  locked: 1
+  locked: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
