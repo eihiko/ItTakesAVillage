@@ -207,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 109772}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .100000001, y: .100000001, z: .100000001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 409770}
   - {fileID: 409768}
@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b723f9adc9507b44abd1b843e6f740b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 1, y: 1}
+  size: {x: 10, y: 10}
   stoneCost: 25
   coinCost: 0
   foodCost: 0
