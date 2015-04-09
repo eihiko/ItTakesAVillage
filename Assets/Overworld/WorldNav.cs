@@ -112,9 +112,12 @@ public class WorldNav : MonoBehaviour {
 		}
 		
 		rigidbody.velocity = desiredVelocity;
+		
+		this.GetComponentInChildren<Animator>().SetFloat("Speed",this.rigidbody.velocity.magnitude);
+		Debug.Log (this.rigidbody.velocity.magnitude);
 
 	}
-
+	
 	void Pathfinding() {
 
 	}
