@@ -83,6 +83,10 @@ public class BuildingPlacer : MonoBehaviour {
 				Move (hitPoint);
 			}
 
+			if (Input.GetKeyDown (KeyCode.Mouse1)) {
+				willPlace.rotate();
+			}
+
 			if (Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) {
 			    if (isFree ())
 				{
