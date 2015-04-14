@@ -543,8 +543,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b775c214a1b8f43a8c6e0f2e62b47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 40, y: 40}
-  squareSize: {x: .5, y: .5}
+  gridSize: {x: 400, y: 400}
+  squareSize: {x: 5, y: 5}
   buildingManager: {fileID: 854364381}
 --- !u!4 &417750874
 Transform:
