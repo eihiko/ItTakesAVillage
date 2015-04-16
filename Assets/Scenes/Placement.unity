@@ -543,9 +543,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b775c214a1b8f43a8c6e0f2e62b47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 400, y: 400}
+  gridSize: {x: 100, y: 100}
   squareSize: {x: 5, y: 5}
   buildingManager: {fileID: 854364381}
+  highlightQuad: {fileID: 429872, guid: 3659826a6f1a747e39f9394866b674d7, type: 2}
+  greenMat: {fileID: 2100000, guid: ea2ec17f21602464c8e71cd5a0d6998e, type: 2}
+  redMat: {fileID: 2100000, guid: 329c1ed52148e446984bc7fd13d9d15e, type: 2}
 --- !u!4 &417750874
 Transform:
   m_ObjectHideFlags: 0
@@ -706,7 +709,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 489873699}
   m_LocalRotation: {x: .286788225, y: .286788225, z: -.0904239789, w: .909576058}
-  m_LocalPosition: {x: -4, y: 10, z: -3}
+  m_LocalPosition: {x: -26.7000008, y: 56.2000008, z: -25.1000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -8,16 +8,36 @@ public class BuildingPlacer : MonoBehaviour {
 	public Vector2 gridSize;
 	public Vector2 squareSize;
 	public BuildingManager buildingManager;
+	public Transform highlightQuad;
+	public Material greenMat;
+	public Material redMat;
 
 	private bool[,] grid;
+	private Transform[,] highlightGrid;
 	private Building willPlace = null;
 	private int currentx;
 	private int currenty;
 	private Plane placementPlane;
+	private bool highlighted = true;
 
 	// Use this for initialization
 	void Start () {
 		grid = new bool[(int)gridSize.x,(int)gridSize.y];
+
+		const float highlightCellSizeX = 0.5f;
+		const float highlightCellSizeY = 0.5f;
+		highlightGrid = new Transform[(int)gridSize.x, (int)gridSize.y];
+		for (int i=0; i<gridSize.x; i++) {
+			for (int j=0; j<gridSize.y; j++) {
+				Vector3 position = new Vector3(0,1,0);
+				position.x = i*squareSize.x + highlightCellSizeX;
+				position.z = j*squareSize.y + highlightCellSizeY;
+				highlightGrid[i,j] = (Transform)Instantiate(highlightQuad, position, highlightQuad.rotation);
+				highlightGrid[i,j].localScale = new Vector3(squareSize.x, squareSize.y, 1);
+				highlightGrid[i,j].renderer.material = greenMat;
+			}
+		}
+		stopHighlight ();
 		// Note: If the starting position's height may change, the plane initialization must be changed
 		placementPlane = new Plane (Vector3.up, new Vector3(0,0,0));
 
@@ -64,6 +84,7 @@ public class BuildingPlacer : MonoBehaviour {
 		for (int i = 0; i < building.size.x/squareSize.x; i++) {
 			for (int j = 0; j < building.size.y/squareSize.y; j++) {
 				grid[x+i,y+j] = true;
+				highlightGrid[x+i, y+j].renderer.material = redMat;
 			}	
 		}
 	}
@@ -72,6 +93,7 @@ public class BuildingPlacer : MonoBehaviour {
 	void Update () {
 		//Debug.DrawRay (ray.origin, ray.direction * 100, Color.yellow);
 		if (willPlace != null) {
+			startHighlight();
 
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			float distance;
@@ -87,6 +109,7 @@ public class BuildingPlacer : MonoBehaviour {
 					markTaken();
 					buildingManager.addBuilding(willPlace);
 					willPlace = null;
+					stopHighlight();
 				}
 			}
 		}
@@ -97,7 +120,31 @@ public class BuildingPlacer : MonoBehaviour {
 		for (int x = 0; x < willPlace.size.x/squareSize.x; x++) {
 			for (int y = 0; y < willPlace.size.y/squareSize.y; y++) {
 				grid[x+currentx,y+currenty] = true;
+				highlightGrid[x+currentx, y+currenty].renderer.material = redMat;
 			}	
+		}
+	}
+
+	//Highlights the cells where a building can be placed
+	void startHighlight() {
+		if (!highlighted) {
+			for (int i=0; i<gridSize.x; i++) {
+				for (int j=0; j<gridSize.y; j++) {
+					highlightGrid[i,j].renderer.enabled = true;
+				}
+			}
+			highlighted = true;
+		}
+	}
+
+	void stopHighlight() {
+		if (highlighted) {
+			for (int i=0; i<gridSize.x; i++) {
+				for (int j=0; j<gridSize.y; j++) {
+					highlightGrid[i,j].renderer.enabled = false;
+				}
+			}
+			highlighted = false;
 		}
 	}
 
