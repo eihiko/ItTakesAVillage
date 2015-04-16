@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class BuildingPlacer : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class BuildingPlacer : MonoBehaviour {
 	public Transform highlightQuad;
 	public Material greenMat;
 	public Material redMat;
+	public Text deleteModeText;
 
 	private bool[,] grid;
 	private Transform[,] highlightGrid;
@@ -19,6 +21,7 @@ public class BuildingPlacer : MonoBehaviour {
 	private int currenty;
 	private Plane placementPlane;
 	private bool highlighted = true;
+	private bool deleteMode = false;
 
 	// Use this for initialization
 	void Start () {
@@ -38,6 +41,7 @@ public class BuildingPlacer : MonoBehaviour {
 			}
 		}
 		stopHighlight ();
+		deleteModeText.enabled = false;
 		// Note: If the starting position's height may change, the plane initialization must be changed
 		placementPlane = new Plane (Vector3.up, new Vector3(0,0,0));
 
@@ -113,6 +117,48 @@ public class BuildingPlacer : MonoBehaviour {
 				}
 			}
 		}
+		if (Input.GetKeyDown (KeyCode.D)) {
+			if (deleteMode) {
+				deleteMode = false;
+				deleteModeText.enabled = false;
+				stopHighlight();
+			}
+			else {
+				deleteMode = true;
+				deleteModeText.enabled = true;
+				startHighlight();
+			}
+		}
+		if (deleteMode && Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) {
+			willPlace = null;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			int layerMask = 1 << 8;
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) {
+				print ("Should destroy a building");
+				Building buildingScript = hit.transform.parent.GetComponent<Building>();
+				print ("The X coordinate is " + buildingScript.getX());
+				deleteBuilding(hit.transform.parent.gameObject, buildingScript);
+			}
+			else 
+				print ("Did not hit anything.");
+		}
+	}
+
+	public void deleteBuilding(GameObject building, Building buildingScript) {
+		//Delete the building from the list 
+		buildingManager.removeBuilding (buildingScript);
+		//Mark the ground as available
+		int buildingX = buildingScript.getX ();
+		int buildingY = buildingScript.getY ();
+		for (int x = 0; x < buildingScript.size.x/squareSize.x; x++) {
+			for (int y = 0; y < buildingScript.size.y/squareSize.y; y++) {
+				grid[x+buildingX,y+buildingY] = true;
+				highlightGrid[x+buildingX, y+buildingY].renderer.material = greenMat;
+			}	
+		}
+		//Delete the gameobject
+		Destroy (building);
 	}
 
 	public void markTaken()

@@ -20,6 +20,17 @@ public class BuildingManager : MonoBehaviour{
 		GameControl.control.Save ();
 	}
 
+	public void removeBuilding(Building building) {
+		for (int i=0; i<buildingList.Count; i++) {
+			StoredBuilding b = buildingList[i];
+			if (b.compare(new StoredBuilding(building))) {
+				buildingList.Remove (b);
+			}
+		}
+		GameControl.control.SetBuildings (buildingList);
+		GameControl.control.Save ();
+	}
+
 	//load buildings from the list
 	public void loadBuildings(List<StoredBuilding> buildings) {
 		foreach (StoredBuilding building in buildings) {

@@ -18,4 +18,8 @@ public class StoredBuilding {
 		this.x = x;
 		this.y = y;
 	}
+
+	public bool compare(StoredBuilding b2) {
+		return (this.buildingType==b2.buildingType && this.x==b2.x && this.y==b2.y);
+	}
 }
