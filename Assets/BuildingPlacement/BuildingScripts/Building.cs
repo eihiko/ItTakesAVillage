@@ -11,6 +11,8 @@ public class Building : MonoBehaviour {
 	public int lumberCost;
 	public int energyCost;
 	public int moraleCost;
+	public string type;
+	public int rotation;
 
 	public int buildingType;
 	private int x;
@@ -56,6 +58,16 @@ public class Building : MonoBehaviour {
 		} else {
 			this.renderer.material.color.b = 255;
 		}*/
+	}
+
+	public int rotate() {
+		float temp = size.x;
+		size.x = size.y;
+		size.y = temp;
+		rotation++;
+		this.gameObject.transform.RotateAround (transform.position, transform.up, 90f);
+		rotation %= 4;
+		return rotation;
 	}
 	
 	// Update is called once per frame

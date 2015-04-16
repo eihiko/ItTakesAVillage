@@ -76,15 +76,23 @@ public class BuildingPlacer : MonoBehaviour {
 	}
 
 	//Place a building on specific location
-	public void Place(Building building, int x, int y) {
+	public void Place(Building building, int x, int y, int rotation) {
 		Vector3 newPosition = building.transform.localPosition;
 		newPosition.x = x*squareSize.x + building.size.x/2;
 		newPosition.z = y*squareSize.y + building.size.y/2;
 		building.transform.localPosition = newPosition;
 		building.setConflict(!isFree ());
 		building.setCoordinates (x, y);
+		building.rotation = rotation;
 		buildingManager.addBuilding (building);
 
+		//rotate
+		print ("The rotation is " + rotation.ToString());
+		for (int i=0; i<rotation; i++) {
+			building.transform.RotateAround (building.transform.position, building.transform.up, 90f);
+		}
+
+		//mark ground taken
 		for (int i = 0; i < building.size.x/squareSize.x; i++) {
 			for (int j = 0; j < building.size.y/squareSize.y; j++) {
 				grid[x+i,y+j] = true;
@@ -104,6 +112,10 @@ public class BuildingPlacer : MonoBehaviour {
 			if (placementPlane.Raycast (ray, out distance)) {
 				Vector3 hitPoint = ray.GetPoint(distance);
 				Move (hitPoint);
+			}
+
+			if (Input.GetKeyDown (KeyCode.Mouse1)) {
+				willPlace.rotate();
 			}
 
 			if (Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) {
