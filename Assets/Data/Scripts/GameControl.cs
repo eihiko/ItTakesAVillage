@@ -420,6 +420,12 @@ class PlayerData {
 	public String getJournal(){
 		return input;
 	}
+	public void SetTips(string tips) {
+		this.tips = tips;
+	}
+	public string GetTips() {
+		return tips;
+	}
 	public void SetStone(int stone) {
 		this.stone = stone;
 	}
@@ -488,13 +494,6 @@ class PlayerData {
 	}
 	public string GetInput() {
 		return input;
-	}
-
-	public void SetTips(string tips) {
-		this.tips = tips;
-	}
-	public string GetTips() {
-		return tips;
 	}
 
 	public string GetLabel() {

@@ -266,6 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textboxInputs: {fileID: 11434674}
+  customEntry: {fileID: 0}
 --- !u!114 &11434678
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class DisplayJournal : MonoBehaviour {
 
 	public Text textboxInputs;
+	public Text customEntry;
+	private ArrayList buttons = new ArrayList(30);
 	
 	//public StringReader reader;
 	void Start(){
@@ -14,6 +16,7 @@ public class DisplayJournal : MonoBehaviour {
 
 	void Update() {
 		displayJournal ();
+		CheckCooldowns (); 
 	}
 
 	public void displayJournal() {
@@ -28,9 +31,23 @@ public class DisplayJournal : MonoBehaviour {
 		}
 		
 	public void appendJournal(Button b){
-		GameControl.control.addToJournal(b.GetComponentsInChildren<Text>()[0].text);
+		GameControl.control.addToJournal(b.GetComponentInChildren<Text>().text/*GetComponentsInChildren<Text>()[0].text*/);
+		b.interactable = false;
+		AddCooldown (new Node(b, System.DateTime.Now.Ticks + 10000L * 1000L * 60L));
 	}
 
+	private void AddCooldown(Node n){
+		buttons.Add (n); 
+	}
+
+	public void CheckCooldowns(){
+		if(buttons.Count > 0){
+			if (((Node)buttons[0]).cooldown <= System.DateTime.Now.Ticks){
+				((Node)buttons[0]).b.interactable = true; 
+				buttons.RemoveAt(0);
+			}
+		}
+	}
 	public void addResources(int x){
 		if (x == 1)
 			GameControl.control.AddCoin (100);
@@ -47,6 +64,20 @@ public class DisplayJournal : MonoBehaviour {
 		else
 			GameControl.control.AddStone (100);
 		GameControl.control.Save ();
+	}
+
+	public void CustomEntry(){
+		GameControl.control.SetInput (GameControl.control.GetInput () + customEntry.text + "\r\n");
+		GameControl.control.Save ();
+	}
+
+	private class Node{
+		public Node(Button b, long cooldown){
+			this.b = b;
+			this.cooldown = cooldown;
+		}
+		public Button b;
+		public long cooldown;
 	}
 
 } 
