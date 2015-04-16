@@ -40,7 +40,7 @@ public class VillagerDialogue : MonoBehaviour {
 			for (int i=0;i<options.Length;i++) {
 				options[i].setVillager(this);
 			}
-			currentDialogue.renderMode = RenderMode.WorldSpace;
+			currentDialogue.renderMode = RenderMode.ScreenSpaceOverlay;
 		}
 		else {
 			currentDialogue.enabled = false;
