@@ -14,8 +14,8 @@ public class UserInput : MonoBehaviour {
 	}
 	
 	public void writeJournal(Button b){
-		string s;
-		s = b.GetComponentInChildren<Text>().text;
+		DateTime currentTime = DateTime.Now;
+		string s =  currentTime.ToString () + b.GetComponentInChildren<Text>().text;
 		GameControl.control.SetInput (GameControl.control.GetInput () + s + "\r\n");
 		GameControl.control.Save ();
 	}
@@ -24,7 +24,7 @@ public class UserInput : MonoBehaviour {
 		DateTime thisDate = DateTime.Today;
 		string s = b.GetComponentInChildren<Text> ().text;
 		s = thisDate.ToString ("D");
-		GameControl.control.SetInput ("\r\n \r\n" + GameControl.control.GetInput () + s + "\r\n");
+		GameControl.control.SetInput (GameControl.control.GetInput () + s + "\r\n");
 		GameControl.control.Save ();
 		
 	}

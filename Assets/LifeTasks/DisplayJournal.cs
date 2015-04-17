@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.IO;
 using UnityEngine.UI;
+using System;
 
 public class DisplayJournal : MonoBehaviour {
 
@@ -20,20 +21,13 @@ public class DisplayJournal : MonoBehaviour {
 	}
 
 	public void displayJournal() {
-				/*TextAsset journal = (TextAsset)Resources.Load ("input.ext", typeof(TextAsset));
-				reader = new StringReader (input.text);
-				string txt = reader.ReadLine ();
-				Debug.LogType (txt);
-				*/
-
-		//string journal = File.ReadAllText ("Inputs\\input.txt");
 			textboxInputs.text = GameControl.control.getJournal();
 		}
 		
 	public void appendJournal(Button b){
-		GameControl.control.addToJournal(b.GetComponentInChildren<Text>().text/*GetComponentsInChildren<Text>()[0].text*/);
+		GameControl.control.addToJournal(DateTime.Now.ToString ("t") + " - " + b.GetComponentInChildren<Text>().text);
 		b.interactable = false;
-		AddCooldown (new Node(b, System.DateTime.Now.Ticks + 10000L * 1000L * 60L));
+		AddCooldown (new Node(b, DateTime.Now.Ticks + 10000L * 1000L * 60L));
 	}
 
 	private void AddCooldown(Node n){
