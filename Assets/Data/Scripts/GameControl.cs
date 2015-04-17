@@ -4,6 +4,7 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 /**
  * This script allows you to store any variables you want
@@ -16,7 +17,7 @@ public class GameControl : MonoBehaviour {
 	public static GameControl control;
 
 	// String to which data will be saved and loaded //
-	private string save_name;
+	public string save_name;
 
 	/**
 	 * Put variables that you would want to persist 
@@ -52,14 +53,6 @@ public class GameControl : MonoBehaviour {
 
 	public void Start() {
 		save_name = "playerinfo";
-	}
-
-	/**
-	 * Sets the save name and loads that save
-	 */
-	public void SetSave(string name) {
-		save_name = name;
-		Load ();
 	}
 
 	public void addToJournal(String s){
