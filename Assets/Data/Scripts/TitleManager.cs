@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.IO;
 
 public class TitleManager : MonoBehaviour {
 
 	public InputField text;
 	public Button apply;
 	public Canvas canvas;
+	public Button load;
 	
 	private InputField character;
 	private Button save;
+
+	public void Start() {
+		GenerateSaves ();
+	}
 
 	public void NewGame() {
 		if (character == null) {
@@ -29,6 +35,24 @@ public class TitleManager : MonoBehaviour {
 
 	public void StartGame() {
 		GameControl.control.save_name = character.text;
+	}
+
+	public void GenerateSaves() {
+		DirectoryInfo dir = new DirectoryInfo (Application.persistentDataPath);
+		FileInfo[] files = dir.GetFiles ();
+		for (int i = 0; i < 3; i++) {
+			Button ld = Instantiate (load) as Button;
+			if (files.Length <= i) {
+				ld.GetComponentInChildren<Text>().text = "Empty";
+			} else {
+				string file_name = files[i].Name.Remove(files[i].Name.Length - 4);
+				ld.GetComponentInChildren<Text>().text = file_name;
+				ld.onClick.AddListener(() => GameControl.control.LoadNextScreen("Overworld"));
+			}
+			ld.transform.SetParent(canvas.transform);
+			ld.GetComponent<RectTransform>().localPosition = new Vector2(0, i*50 + 50);
+			ld.onClick.AddListener(() => SetSave(ld));
+		}
 	}
 
 	/**
