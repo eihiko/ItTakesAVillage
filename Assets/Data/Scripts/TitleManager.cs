@@ -13,10 +13,16 @@ public class TitleManager : MonoBehaviour {
 	private InputField character;
 	private Button save;
 
+	/**
+	 * On load of the title screen, all save files are loaded
+	 */
 	public void Start() {
 		GenerateSaves ();
 	}
 
+	/**
+	 * Prepares a text area and an accept button to create a new game
+	 */
 	public void NewGame() {
 		if (character == null) {
 			character = Instantiate (text) as InputField;
@@ -33,10 +39,16 @@ public class TitleManager : MonoBehaviour {
 		}
 	}
 
+	/**
+	 * Initializes the save file
+	 */
 	public void StartGame() {
 		GameControl.control.save_name = character.text;
 	}
 
+	/**
+	 * Procedurally generates all save files
+	 */
 	public void GenerateSaves() {
 		DirectoryInfo dir = new DirectoryInfo (Application.persistentDataPath);
 		FileInfo[] files = dir.GetFiles ();
