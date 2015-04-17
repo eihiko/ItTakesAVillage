@@ -61,7 +61,7 @@ public class DisplayJournal : MonoBehaviour {
 	}
 
 	public void CustomEntry(){
-		GameControl.control.SetInput (GameControl.control.GetInput () + customEntry.text + "\r\n");
+		GameControl.control.SetInput (GameControl.control.GetInput () + DateTime.Now.ToString ("t") + " - " + customEntry.text + "\r\n");
 		GameControl.control.Save ();
 	}
 
