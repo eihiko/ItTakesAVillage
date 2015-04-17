@@ -19,7 +19,11 @@ public class TitleManager : MonoBehaviour {
 			character.transform.SetParent(canvas.transform);
 			save.transform.SetParent(canvas.transform);
 
-			save.GetComponent<RectTransform>().localPosition = new Vector2(0,-20) ;
+			character.GetComponent<RectTransform>().localPosition = new Vector2(-50, -200);
+			save.GetComponent<RectTransform>().localPosition = new Vector2(100, -200);
+
+			save.onClick.AddListener(() => StartGame());
+			save.onClick.AddListener(() => GameControl.control.LoadNextScreen("Overworld"));
 		}
 	}
 
