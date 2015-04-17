@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class TipsJournal : MonoBehaviour {
 
 	public Text textboxTips;
+	public Text customTip; 
 
 	// Use this for initialization
 	void Start () {
-	
+		Debug.Log (System.DateTime.Now);
 	}
 	
 	// Update is called once per frame
@@ -18,8 +19,11 @@ public class TipsJournal : MonoBehaviour {
 	}
 
 	public void displayTips() {
-		string tips = "j"; //File.ReadAllText (/*text file containing NPC dialog*/);
-				textboxTips.text = tips + "\n";
+		textboxTips.text =  GameControl.control.GetTips();
 		}
-
-}
+	public void writeTips(){
+		string s = customTip.text; 
+		GameControl.control.SetTips (GameControl.control.GetTips () + s + "\r\n");
+		GameControl.control.Save (); 
+	}
+} 
