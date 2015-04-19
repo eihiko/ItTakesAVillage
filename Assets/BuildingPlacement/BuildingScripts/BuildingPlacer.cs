@@ -13,6 +13,7 @@ public class BuildingPlacer : MonoBehaviour {
 	public Material greenMat;
 	public Material redMat;
 	public Text deleteModeText;
+	public BuildingButton[] buttons;
 
 	private bool[,] grid;
 	private Transform[,] highlightGrid;
@@ -99,6 +100,13 @@ public class BuildingPlacer : MonoBehaviour {
 				highlightGrid[x+i, y+j].renderer.material = redMat;
 			}	
 		}
+
+		HashSet<int> unlocks = building.getUnlockSet ();
+		foreach (BuildingButton b in buttons) {
+			if (unlocks.Contains(b.prefab.buildingType)) {
+				b.prefab.locked = false;
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -124,6 +132,14 @@ public class BuildingPlacer : MonoBehaviour {
 					willPlace.SpendResources();
 					markTaken();
 					buildingManager.addBuilding(willPlace);
+
+					HashSet<int> unlocks = willPlace.getUnlockSet ();
+					foreach (BuildingButton b in buttons) {
+						if (unlocks.Contains(b.prefab.buildingType)) {
+							b.prefab.locked = false;
+						}
+					}
+
 					willPlace = null;
 					stopHighlight();
 				}

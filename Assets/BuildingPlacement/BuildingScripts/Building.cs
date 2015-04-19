@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Building : MonoBehaviour {
 
@@ -11,7 +12,7 @@ public class Building : MonoBehaviour {
 	public int lumberCost;
 	public int energyCost;
 	public int moraleCost;
-	public string type;
+	public int[] placeUnlockTypes;
 	public int rotation;
 
 	public int buildingType;
@@ -92,4 +93,11 @@ public class Building : MonoBehaviour {
 		return y;
 	}
 
+	public HashSet<int> getUnlockSet() {
+		HashSet<int> set = new HashSet<int> ();
+		foreach (int s in placeUnlockTypes) {
+			set.Add(s);	
+		}
+		return set;
+	}
 }
