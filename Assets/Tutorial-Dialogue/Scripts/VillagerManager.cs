@@ -6,13 +6,11 @@ public class VillagerManager : MonoBehaviour {
 	public VillagerDialogue[] villagers;
 	private bool[] helped;
 	private int index;
-	public string data;
 	public VillagerSpawner spawner;
 
 	// Use this for initialization
 	void Start () {
 		villagers = new VillagerDialogue[20];
-		data = "";
 		index = 0;
 		helped = new bool[20];
 		for (int i=0;i<helped.Length;i++) {
@@ -54,13 +52,9 @@ public class VillagerManager : MonoBehaviour {
 	
 	//Unfinished: Need to work with Life Task/Journal system
 	public void Save() {
-		for (int i=0;i<villagers.Length;i++) {
-			data = string.Concat(data, villagers[i].prefab);
-			data = string.Concat(data, helped[i]);
-		}
 	}
 	
-	public void Load(string file) {
-		
+	public void Load() {
+		//Retrieve list of villagers and whether they were helped, then Respawn them.
 	}
 }

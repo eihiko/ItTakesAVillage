@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class VillagerSpawner : MonoBehaviour {
 
@@ -9,11 +10,11 @@ public class VillagerSpawner : MonoBehaviour {
 	public int numHouses;
 	public Canvas[] dialogues;
 	public Canvas[] responses;
+	public Canvas endDialogue;
 	public VillagerManager manager;
 
 	// Use this for initialization
 	void Start () {
-		//Debug.Log (manager.ToString());
 		for(int i=0;i<villagersToSpawn;i++) {
 			SpawnVillager();
 		}
@@ -27,6 +28,7 @@ public class VillagerSpawner : MonoBehaviour {
 		}
 	}
 	
+	//Spawns a villager with a random dialogue at a random spawn point
 	public void SpawnVillager() {
 		Vector3 spawn = spawnPoints[Random.Range(0,spawnPoints.Length-1)].transform.localPosition;
 		int prefab = Random.Range(0,spawnPoints.Length-1);
@@ -43,11 +45,19 @@ public class VillagerSpawner : MonoBehaviour {
 	}
 	
 	//Unfinished: Need to work with Life Task/Journal system
-	public void Respawn(int prefab,bool response) {
+	public void Respawn(int prefab, int dialogue, bool helped) {
 		Vector3 spawn = spawnPoints[Random.Range(0,spawnPoints.Length-1)].transform.localPosition;
 		VillagerDialogue npc = npcPrefabs[prefab];
 		VillagerDialogue villager = Instantiate(npc) as VillagerDialogue;
 		villager.gameObject.transform.localPosition = spawn;
 		villager.prefab = prefab;
+		villager.response = responses[dialogue];
+		villager.endDialogue = endDialogue;
+		if(helped) {
+			villager.currentDialogue = endDialogue;
+		}
+		else {
+			villager.currentDialogue = dialogues[dialogue];
+		}
 	}
 }
