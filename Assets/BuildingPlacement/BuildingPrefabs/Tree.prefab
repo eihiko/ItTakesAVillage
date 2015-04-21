@@ -101,7 +101,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 1fc7d9429015fe24abbc762456b2091f, type: 2}
+  - {fileID: 2100000, guid: 74713e82d4033654b8b6f3e56abc761c, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -121,7 +121,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 20ba78c518bfa40459724268d5ff45c9, type: 2}
+  - {fileID: 2100000, guid: fb99e510b0cadc1499ef026ae0fe393a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
