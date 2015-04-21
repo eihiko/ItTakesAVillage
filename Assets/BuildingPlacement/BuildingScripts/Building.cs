@@ -12,12 +12,27 @@ public class Building : MonoBehaviour {
 	public int lumberCost;
 	public int energyCost;
 	public int moraleCost;
+	public int stoneCollectRate;
+	public int coinCollectRate;
+	public int foodCollectRate;
+	public int silkCollectRate;
+	public int lumberCollectRate;
+	public int energyCollectRate;
+	public int moraleCollectRate;
 	public int[] placeUnlockTypes;
 	public int rotation;
 
 	public int buildingType;
 	private int x;
 	private int y;
+
+	private int stoneCollected;
+	private int coinCollected;
+	private int foodCollected;
+	private int silkCollected;
+	private int lumberCollected;
+	private int energyCollected;
+	private int moraleCollected;
 
 	public bool locked; //we may want to replace this with something better
 

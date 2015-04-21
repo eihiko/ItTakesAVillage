@@ -88,7 +88,7 @@ public class BuildingPlacer : MonoBehaviour {
 		buildingManager.addBuilding (building);
 
 		//rotate
-		print ("The rotation is " + rotation.ToString());
+		//print ("The rotation is " + rotation.ToString());
 		for (int i=0; i<rotation; i++) {
 			building.transform.RotateAround (building.transform.position, building.transform.up, 90f);
 		}
@@ -163,13 +163,11 @@ public class BuildingPlacer : MonoBehaviour {
 			RaycastHit hit;
 			int layerMask = 1 << 8;
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) {
-				print ("Should destroy a building");
+				//print ("Should destroy a building");
 				Building buildingScript = hit.transform.parent.GetComponent<Building>();
-				print ("The X coordinate is " + buildingScript.getX());
+				//print ("The X coordinate is " + buildingScript.getX());
 				deleteBuilding(hit.transform.parent.gameObject, buildingScript);
 			}
-			else 
-				print ("Did not hit anything.");
 		}
 	}
 
@@ -181,7 +179,7 @@ public class BuildingPlacer : MonoBehaviour {
 		int buildingY = buildingScript.getY ();
 		for (int x = 0; x < buildingScript.size.x/squareSize.x; x++) {
 			for (int y = 0; y < buildingScript.size.y/squareSize.y; y++) {
-				grid[x+buildingX,y+buildingY] = true;
+				grid[x+buildingX,y+buildingY] = false;
 				highlightGrid[x+buildingX, y+buildingY].renderer.material = greenMat;
 			}	
 		}

@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b723f9adc9507b44abd1b843e6f740b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 20, y: 20}
+  size: {x: 25, y: 20}
   stoneCost: 100
   coinCost: 5
   foodCost: 5
@@ -356,6 +356,8 @@ MonoBehaviour:
   lumberCost: 100
   energyCost: 25
   moraleCost: 5
+  placeUnlockTypes: 
+  rotation: 0
   buildingType: 1
   locked: 0
 --- !u!1001 &100100000
