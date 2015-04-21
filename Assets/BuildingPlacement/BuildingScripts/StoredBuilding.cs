@@ -23,6 +23,6 @@ public class StoredBuilding {
 	}
 
 	public bool compare(StoredBuilding b2) {
-		return (this.buildingType==b2.buildingType && this.x==b2.x && this.y==b2.y && this.rotation==b2.rotation);
+		return (this.buildingType==b2.buildingType && this.x==b2.x && this.y==b2.y);
 	}
 }

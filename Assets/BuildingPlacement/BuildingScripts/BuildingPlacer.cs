@@ -90,7 +90,7 @@ public class BuildingPlacer : MonoBehaviour {
 		//rotate
 		//print ("The rotation is " + rotation.ToString());
 		for (int i=0; i<rotation; i++) {
-			building.transform.RotateAround (building.transform.position, building.transform.up, 90f);
+			building.rotate();
 		}
 
 		//mark ground taken
@@ -163,10 +163,17 @@ public class BuildingPlacer : MonoBehaviour {
 			RaycastHit hit;
 			int layerMask = 1 << 8;
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity, layerMask)) {
-					//print ("Should destroy a building");
-					Building buildingScript = hit.transform.parent.GetComponent<Building> ();
-					//print ("The X coordinate is " + buildingScript.getX());
+				//print ("Should destroy a building");
+				Building buildingScript;
+				if (hit.transform.parent != null) {
+					buildingScript = hit.transform.parent.GetComponent<Building> ();
 					deleteBuilding (hit.transform.parent.gameObject, buildingScript);
+				}
+				else {
+					buildingScript = hit.transform.GetComponent<Building> ();
+					deleteBuilding (hit.transform.gameObject, buildingScript);
+				}
+				//print ("The X coordinate is " + buildingScript.getX());
 			}
 		} else if (willPlace == null && Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject ()) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -174,8 +181,11 @@ public class BuildingPlacer : MonoBehaviour {
 			int layerMask = 1 << 8;
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity, layerMask)) {
 				//print ("Should destroy a building");
-				Building buildingScript = hit.transform.parent.GetComponent<Building> ();
-				//print ("The X coordinate is " + buildingScript.getX());
+				Building buildingScript;
+				if (hit.transform.parent != null)
+					buildingScript = hit.transform.parent.GetComponent<Building> ();
+				else
+					buildingScript = hit.transform.GetComponent<Building> ();				//print ("The X coordinate is " + buildingScript.getX());
 				buildingScript.CollectResources();
 			}
 		}
