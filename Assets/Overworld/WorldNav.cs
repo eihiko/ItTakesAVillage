@@ -15,7 +15,7 @@ public class WorldNav : MonoBehaviour {
 	Ray selectRay;
 	RaycastHit selectHit;
 	//Checks whether the button has been clicked.
-	private bool flag1 = false;
+	private bool flag = false;
 	//Destination point
 	private Vector3 endPoint;
 	//Speed of the player; can be modified!
@@ -63,7 +63,7 @@ public class WorldNav : MonoBehaviour {
 			if(Physics.Raycast(ray,out hit)) {
 
 				//set a flag to indicate to move the gameobject
-				flag1 = true;
+				flag = true;
 				//save the clicked position
 				endPoint = hit.point;
 				//as we do not want to change the y axis value based on click position, reset it to original y axis value
@@ -77,7 +77,7 @@ public class WorldNav : MonoBehaviour {
 
 
 		//check if the flag for movement is true and the current gameobject position is not same as the clicked position
-		if(flag1){
+		if(flag){
 			//Look at the endpoint.
 			gameObject.transform.LookAt(endPoint);
 
@@ -96,10 +96,10 @@ public class WorldNav : MonoBehaviour {
 			Debug.Log("curser position: "+endPoint.magnitude+"\n object position: "+gameObject.transform.position.magnitude);
 			Debug.Log("difference: "+difference);
 			if(difference >= 0.98 && difference <= 1.02)
-				flag1 = false;
+				flag = false;
 
 			if(Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude)) {
-				flag1 = false;						
+				flag = false;						
 			}
 		}
 	}
@@ -107,7 +107,7 @@ public class WorldNav : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		if (!flag1) {
+		if (!flag) {
 			desiredVelocity = Vector3.zero;
 		}
 		
