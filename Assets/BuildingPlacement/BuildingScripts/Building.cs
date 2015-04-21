@@ -26,13 +26,13 @@ public class Building : MonoBehaviour {
 	private int x;
 	private int y;
 
-	private int stoneCollected;
-	private int coinCollected;
-	private int foodCollected;
-	private int silkCollected;
-	private int lumberCollected;
-	private int energyCollected;
-	private int moraleCollected;
+	private float stoneCollected;
+	private float coinCollected;
+	private float foodCollected;
+	private float silkCollected;
+	private float lumberCollected;
+	private float energyCollected;
+	private float moraleCollected;
 
 	public bool locked; //we may want to replace this with something better
 
@@ -88,7 +88,39 @@ public class Building : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		stoneCollected += Time.deltaTime/60 * stoneCollectRate;
+		coinCollected += Time.deltaTime/60 * coinCollectRate;
+		foodCollected += Time.deltaTime/60 * foodCollectRate;
+		silkCollected += Time.deltaTime/60 * silkCollectRate;
+		lumberCollected += Time.deltaTime/60 * lumberCollectRate;
+		energyCollected += Time.deltaTime/60 * energyCollectRate;
+		moraleCollected += Time.deltaTime/60 * moraleCollectRate;
+	}
+
+	public void CollectResources() {
+		Debug.Log ("Collecting resources");
+		GameControl c = GameControl.control;
+
+		c.AddStone ((int)stoneCollected);
+		stoneCollected -= (int)stoneCollected;
+
+		c.AddCoin ((int)coinCollected);
+		coinCollected -= (int)coinCollected;
+
+		c.AddFood ((int)foodCollected);
+		foodCollected -= (int)foodCollected;
+
+		c.AddSilk ((int)silkCollected);
+		silkCollected -= (int)silkCollected;
+
+		c.AddLumber ((int)lumberCollected);
+		lumberCollected -= (int)lumberCollected;
+
+		c.AddEnergy ((int)energyCollected);
+		energyCollected -= (int)energyCollected;
+
+		c.AddMorale ((int)moraleCollected);
+		moraleCollected -= (int)moraleCollected;
 	}
 
 	public bool IsLocked() {

@@ -157,16 +157,26 @@ public class BuildingPlacer : MonoBehaviour {
 				startHighlight();
 			}
 		}
-		if (deleteMode && Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) {
+		if (deleteMode && Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject ()) {
 			willPlace = null;
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			int layerMask = 1 << 8;
-			if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) {
+			if (Physics.Raycast (ray, out hit, Mathf.Infinity, layerMask)) {
+					//print ("Should destroy a building");
+					Building buildingScript = hit.transform.parent.GetComponent<Building> ();
+					//print ("The X coordinate is " + buildingScript.getX());
+					deleteBuilding (hit.transform.parent.gameObject, buildingScript);
+			}
+		} else if (willPlace == null && Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject ()) {
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit;
+			int layerMask = 1 << 8;
+			if (Physics.Raycast (ray, out hit, Mathf.Infinity, layerMask)) {
 				//print ("Should destroy a building");
-				Building buildingScript = hit.transform.parent.GetComponent<Building>();
+				Building buildingScript = hit.transform.parent.GetComponent<Building> ();
 				//print ("The X coordinate is " + buildingScript.getX());
-				deleteBuilding(hit.transform.parent.gameObject, buildingScript);
+				buildingScript.CollectResources();
 			}
 		}
 	}

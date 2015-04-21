@@ -216,6 +216,13 @@ MonoBehaviour:
   lumberCost: 0
   energyCost: 0
   moraleCost: 0
+  stoneCollectRate: 0
+  coinCollectRate: 0
+  foodCollectRate: 0
+  silkCollectRate: 0
+  lumberCollectRate: 0
+  energyCollectRate: 0
+  moraleCollectRate: 60
   placeUnlockTypes: 
   rotation: 0
   buildingType: 3
