@@ -106,6 +106,26 @@ Transition:
   m_Solo: 0
   m_Mute: 0
   m_CanTransitionToSelf: 0
+--- !u!1101 &110132334
+Transition:
+  serializedVersion: 2
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_SrcState: {fileID: 110220136}
+  m_DstState: {fileID: 110274258}
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_Conditions:
+  - m_ConditionMode: 4
+    m_ConditionEvent: Speed
+    m_EventTreshold: .00999999978
+    m_ExitTime: .699999988
+  m_Atomic: 1
+  m_Solo: 0
+  m_Mute: 0
+  m_CanTransitionToSelf: 0
 --- !u!1101 &110142186
 Transition:
   serializedVersion: 2
@@ -115,7 +135,7 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110252244}
   m_DstState: {fileID: 110274258}
-  m_TransitionDuration: .200000003
+  m_TransitionDuration: .180265725
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 4
@@ -126,22 +146,42 @@ Transition:
   m_Solo: 0
   m_Mute: 0
   m_CanTransitionToSelf: 0
---- !u!1101 &110157438
+--- !u!1101 &110168228
 Transition:
   serializedVersion: 2
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_SrcState: {fileID: 110220136}
+  m_SrcState: {fileID: 110252244}
   m_DstState: {fileID: 110274258}
-  m_TransitionDuration: .200000003
+  m_TransitionDuration: .241935462
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: Speed
-    m_EventTreshold: .100000001
+  - m_ConditionMode: 5
+    m_ConditionEvent: 
+    m_EventTreshold: 0
     m_ExitTime: .758064508
+  m_Atomic: 1
+  m_Solo: 0
+  m_Mute: 0
+  m_CanTransitionToSelf: 0
+--- !u!1101 &110192180
+Transition:
+  serializedVersion: 2
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_SrcState: {fileID: 110270724}
+  m_DstState: {fileID: 110270724}
+  m_TransitionDuration: .100000001
+  m_TransitionOffset: 0
+  m_Conditions:
+  - m_ConditionMode: 5
+    m_ConditionEvent: 
+    m_EventTreshold: 0
+    m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
@@ -181,7 +221,7 @@ State:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Idle
+  m_Name: Still
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
@@ -211,15 +251,15 @@ StateMachine:
       second:
       - {fileID: 110129504}
     data:
-      first: {fileID: 110220136}
-      second:
-      - {fileID: 110111572}
-      - {fileID: 110157438}
-    data:
       first: {fileID: 110252244}
       second:
       - {fileID: 110113118}
-      - {fileID: 110142186}
+      - {fileID: 110168228}
+    data:
+      first: {fileID: 110220136}
+      second:
+      - {fileID: 110111572}
+      - {fileID: 110132334}
   m_MotionSetCount: 1
   m_AnyStatePosition: {x: -24, y: 12, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
