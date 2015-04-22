@@ -20,15 +20,27 @@ public class BuildingManager : MonoBehaviour{
 		GameControl.control.Save ();
 	}
 
+	public void removeBuilding(Building building) {
+		for (int i=0; i<buildingList.Count; i++) {
+			StoredBuilding b = buildingList[i];
+			if (b.compare(new StoredBuilding(building))) {
+				buildingList.Remove (b);
+			}
+		}
+		GameControl.control.SetBuildings (buildingList);
+		GameControl.control.Save ();
+	}
+
 	//load buildings from the list
 	public void loadBuildings(List<StoredBuilding> buildings) {
 		foreach (StoredBuilding building in buildings) {
 			int buildingType = building.buildingType;
 			int x = building.x;
 			int y = building.y;
+			int rotation = building.rotation;
 			Building prefab = getBuilding(buildingType);
 			//Place the building on the map
-			buildingPlacer.Place((Building)Instantiate(prefab), x, y);
+			buildingPlacer.Place((Building)Instantiate(prefab), x, y, rotation);
 		}
 	}
 

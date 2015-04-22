@@ -2,22 +2,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class BuildingPlacer : MonoBehaviour {
 
 	public Vector2 gridSize;
 	public Vector2 squareSize;
 	public BuildingManager buildingManager;
+	public Transform highlightQuad;
+	public Material greenMat;
+	public Material redMat;
+	public Text deleteModeText;
+	public BuildingButton[] buttons;
 
 	private bool[,] grid;
+	private Transform[,] highlightGrid;
 	private Building willPlace = null;
 	private int currentx;
 	private int currenty;
 	private Plane placementPlane;
+	private bool highlighted = true;
+	private bool deleteMode = false;
 
 	// Use this for initialization
 	void Start () {
 		grid = new bool[(int)gridSize.x,(int)gridSize.y];
+
+		const float highlightCellSizeX = 0.5f;
+		const float highlightCellSizeY = 0.5f;
+		highlightGrid = new Transform[(int)gridSize.x, (int)gridSize.y];
+		for (int i=0; i<gridSize.x; i++) {
+			for (int j=0; j<gridSize.y; j++) {
+				Vector3 position = new Vector3(0,1,0);
+				position.x = i*squareSize.x + highlightCellSizeX;
+				position.z = j*squareSize.y + highlightCellSizeY;
+				highlightGrid[i,j] = (Transform)Instantiate(highlightQuad, position, highlightQuad.rotation);
+				highlightGrid[i,j].localScale = new Vector3(squareSize.x, squareSize.y, 1);
+				highlightGrid[i,j].renderer.material = greenMat;
+			}
+		}
+		stopHighlight ();
+		deleteModeText.enabled = false;
 		// Note: If the starting position's height may change, the plane initialization must be changed
 		placementPlane = new Plane (Vector3.up, new Vector3(0,0,0));
 
@@ -52,19 +77,35 @@ public class BuildingPlacer : MonoBehaviour {
 	}
 
 	//Place a building on specific location
-	public void Place(Building building, int x, int y) {
+	public void Place(Building building, int x, int y, int rotation) {
 		Vector3 newPosition = building.transform.localPosition;
 		newPosition.x = x*squareSize.x + building.size.x/2;
 		newPosition.z = y*squareSize.y + building.size.y/2;
 		building.transform.localPosition = newPosition;
 		building.setConflict(!isFree ());
 		building.setCoordinates (x, y);
+		building.rotation = rotation;
 		buildingManager.addBuilding (building);
 
+		//rotate
+		//print ("The rotation is " + rotation.ToString());
+		for (int i=0; i<rotation; i++) {
+			building.rotate();
+		}
+
+		//mark ground taken
 		for (int i = 0; i < building.size.x/squareSize.x; i++) {
 			for (int j = 0; j < building.size.y/squareSize.y; j++) {
 				grid[x+i,y+j] = true;
+				highlightGrid[x+i, y+j].renderer.material = redMat;
 			}	
+		}
+
+		HashSet<int> unlocks = building.getUnlockSet ();
+		foreach (BuildingButton b in buttons) {
+			if (unlocks.Contains(b.prefab.buildingType)) {
+				b.prefab.locked = false;
+			}
 		}
 	}
 	
@@ -72,6 +113,7 @@ public class BuildingPlacer : MonoBehaviour {
 	void Update () {
 		//Debug.DrawRay (ray.origin, ray.direction * 100, Color.yellow);
 		if (willPlace != null) {
+			startHighlight();
 
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			float distance;
@@ -80,16 +122,89 @@ public class BuildingPlacer : MonoBehaviour {
 				Move (hitPoint);
 			}
 
+			if (Input.GetKeyDown (KeyCode.Mouse1)) {
+				willPlace.rotate();
+			}
+
 			if (Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) {
 			    if (isFree ())
 				{
 					willPlace.SpendResources();
 					markTaken();
 					buildingManager.addBuilding(willPlace);
+
+					HashSet<int> unlocks = willPlace.getUnlockSet ();
+					foreach (BuildingButton b in buttons) {
+						if (unlocks.Contains(b.prefab.buildingType)) {
+							b.prefab.locked = false;
+						}
+					}
+
 					willPlace = null;
+					stopHighlight();
 				}
 			}
 		}
+		if (Input.GetKeyDown (KeyCode.D)) {
+			if (deleteMode) {
+				deleteMode = false;
+				deleteModeText.enabled = false;
+				stopHighlight();
+			}
+			else {
+				deleteMode = true;
+				deleteModeText.enabled = true;
+				startHighlight();
+			}
+		}
+		if (deleteMode && Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject ()) {
+			willPlace = null;
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit;
+			int layerMask = 1 << 8;
+			if (Physics.Raycast (ray, out hit, Mathf.Infinity, layerMask)) {
+				//print ("Should destroy a building");
+				Building buildingScript;
+				if (hit.transform.parent != null) {
+					buildingScript = hit.transform.parent.GetComponent<Building> ();
+					deleteBuilding (hit.transform.parent.gameObject, buildingScript);
+				}
+				else {
+					buildingScript = hit.transform.GetComponent<Building> ();
+					deleteBuilding (hit.transform.gameObject, buildingScript);
+				}
+				//print ("The X coordinate is " + buildingScript.getX());
+			}
+		} else if (willPlace == null && Input.GetKeyDown (KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject ()) {
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit;
+			int layerMask = 1 << 8;
+			if (Physics.Raycast (ray, out hit, Mathf.Infinity, layerMask)) {
+				//print ("Should destroy a building");
+				Building buildingScript;
+				if (hit.transform.parent != null)
+					buildingScript = hit.transform.parent.GetComponent<Building> ();
+				else
+					buildingScript = hit.transform.GetComponent<Building> ();				//print ("The X coordinate is " + buildingScript.getX());
+				buildingScript.CollectResources();
+			}
+		}
+	}
+
+	public void deleteBuilding(GameObject building, Building buildingScript) {
+		//Delete the building from the list 
+		buildingManager.removeBuilding (buildingScript);
+		//Mark the ground as available
+		int buildingX = buildingScript.getX ();
+		int buildingY = buildingScript.getY ();
+		for (int x = 0; x < buildingScript.size.x/squareSize.x; x++) {
+			for (int y = 0; y < buildingScript.size.y/squareSize.y; y++) {
+				grid[x+buildingX,y+buildingY] = false;
+				highlightGrid[x+buildingX, y+buildingY].renderer.material = greenMat;
+			}	
+		}
+		//Delete the gameobject
+		Destroy (building);
 	}
 
 	public void markTaken()
@@ -97,7 +212,31 @@ public class BuildingPlacer : MonoBehaviour {
 		for (int x = 0; x < willPlace.size.x/squareSize.x; x++) {
 			for (int y = 0; y < willPlace.size.y/squareSize.y; y++) {
 				grid[x+currentx,y+currenty] = true;
+				highlightGrid[x+currentx, y+currenty].renderer.material = redMat;
 			}	
+		}
+	}
+
+	//Highlights the cells where a building can be placed
+	void startHighlight() {
+		if (!highlighted) {
+			for (int i=0; i<gridSize.x; i++) {
+				for (int j=0; j<gridSize.y; j++) {
+					highlightGrid[i,j].renderer.enabled = true;
+				}
+			}
+			highlighted = true;
+		}
+	}
+
+	void stopHighlight() {
+		if (highlighted) {
+			for (int i=0; i<gridSize.x; i++) {
+				for (int j=0; j<gridSize.y; j++) {
+					highlightGrid[i,j].renderer.enabled = false;
+				}
+			}
+			highlighted = false;
 		}
 	}
 

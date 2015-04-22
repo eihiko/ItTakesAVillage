@@ -6,6 +6,7 @@ public class VillagerDialogue : MonoBehaviour {
 
 	public Canvas currentDialogue;
 	public Canvas response;
+	public Canvas endDialogue;
 	public int idnum;
 	public VillagerManager manager;
 	public OptionSelection[] options;
@@ -16,6 +17,7 @@ public class VillagerDialogue : MonoBehaviour {
 	void Start () {
 		currentDialogue.enabled = false;
 		response.enabled = false;
+		endDialogue.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -40,10 +42,29 @@ public class VillagerDialogue : MonoBehaviour {
 			for (int i=0;i<options.Length;i++) {
 				options[i].setVillager(this);
 			}
-			currentDialogue.renderMode = RenderMode.WorldSpace;
+			currentDialogue.renderMode = RenderMode.ScreenSpaceOverlay;
 		}
 		else {
 			currentDialogue.enabled = false;
+			if (currentDialogue.Equals(response)) {
+				currentDialogue = endDialogue;
+			}
+		}
+	}
+	
+	public void Response(int button) {
+		Debug.Log ("Button " + button + " clicked.");
+		currentDialogue.enabled = false;
+		currentDialogue = response;
+		Text[] options = response.GetComponentsInChildren<Text>(true);
+		currentDialogue.enabled = true;
+		for(int i=0;i<options.Length;i++) {
+			if(i==button) {
+				options[i].enabled = true;
+			}
+			else {
+				options[i].enabled = false;
+			}
 		}
 	}
 	

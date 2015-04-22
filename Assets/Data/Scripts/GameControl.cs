@@ -4,6 +4,7 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 /**
  * This script allows you to store any variables you want
@@ -14,6 +15,9 @@ using System.Collections.Generic;
 public class GameControl : MonoBehaviour {
 
 	public static GameControl control;
+
+	// String to which data will be saved and loaded //
+	public string save_name;
 
 	/**
 	 * Put variables that you would want to persist 
@@ -46,9 +50,9 @@ public class GameControl : MonoBehaviour {
 	private int health;
 	private int experience;
 	private string label;
-	
-	public void Start(){
-		Load ();
+
+	public void Start() {
+		save_name = "playerinfo";
 	}
 
 	public void addToJournal(String s){
@@ -281,7 +285,7 @@ public class GameControl : MonoBehaviour {
 	 */
 	public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
-		FileStream file = File.Create(Application.persistentDataPath + "/playerinfo.dat");
+		FileStream file = File.Create(Application.persistentDataPath + "/" + save_name + ".dat");
 
 		PlayerData data = new PlayerData();
 		// Insert data from controller to data object
@@ -313,9 +317,9 @@ public class GameControl : MonoBehaviour {
 	 * on some integer input
 	 */
 	public void Load() {
-		if (File.Exists (Application.persistentDataPath + "/playerinfo.dat")) {
+		if (File.Exists (Application.persistentDataPath + "/" + save_name + ".dat")) {
 			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open(Application.persistentDataPath + "/playerinfo.dat", FileMode.Open);
+			FileStream file = File.Open(Application.persistentDataPath + "/" + save_name + ".dat", FileMode.Open);
 			PlayerData data = (PlayerData)bf.Deserialize(file);
 			file.Close ();
 
@@ -344,8 +348,8 @@ public class GameControl : MonoBehaviour {
 	}
 	
 	public void Reset() {
-		if (File.Exists (Application.persistentDataPath + "/playerinfo.dat")) {
-			File.Delete (Application.persistentDataPath + "/playerinfo.dat");
+		if (File.Exists (Application.persistentDataPath + "/" + save_name + ".dat")) {
+			File.Delete (Application.persistentDataPath + "/" + save_name + ".dat");
 		}
 		this.SetStone (0);
 		this.SetCoin (0);
@@ -420,6 +424,12 @@ class PlayerData {
 	public String getJournal(){
 		return input;
 	}
+	public void SetTips(string tips) {
+		this.tips = tips;
+	}
+	public string GetTips() {
+		return tips;
+	}
 	public void SetStone(int stone) {
 		this.stone = stone;
 	}
@@ -488,13 +498,6 @@ class PlayerData {
 	}
 	public string GetInput() {
 		return input;
-	}
-
-	public void SetTips(string tips) {
-		this.tips = tips;
-	}
-	public string GetTips() {
-		return tips;
 	}
 
 	public string GetLabel() {
