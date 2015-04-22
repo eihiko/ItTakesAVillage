@@ -350,12 +350,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 25, y: 20}
   stoneCost: 100
-  coinCost: 5
-  foodCost: 5
-  silkCost: 0
+  coinCost: 100
+  foodCost: 100
+  silkCost: 100
   lumberCost: 100
   energyCost: 25
   moraleCost: 5
+  stoneCollectRate: 5
+  coinCollectRate: 5
+  foodCollectRate: 5
+  silkCollectRate: 5
+  lumberCollectRate: 5
+  energyCollectRate: 5
+  moraleCollectRate: 5
   placeUnlockTypes: 
   rotation: 0
   buildingType: 1

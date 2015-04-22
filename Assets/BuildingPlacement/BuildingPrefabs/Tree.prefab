@@ -157,10 +157,10 @@ MonoBehaviour:
   size: {x: 10, y: 10}
   stoneCost: 0
   coinCost: 0
-  foodCost: 0
+  foodCost: 50
   silkCost: 0
-  lumberCost: 0
-  energyCost: 0
+  lumberCost: 500
+  energyCost: 50
   moraleCost: 0
   stoneCollectRate: 0
   coinCollectRate: 0

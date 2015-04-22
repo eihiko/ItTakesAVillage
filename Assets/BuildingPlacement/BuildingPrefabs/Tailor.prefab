@@ -490,12 +490,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 20, y: 20}
   stoneCost: 0
-  coinCost: 0
+  coinCost: 100
   foodCost: 0
-  silkCost: 0
-  lumberCost: 0
+  silkCost: 500
+  lumberCost: 50
   energyCost: 0
-  moraleCost: 0
+  moraleCost: 100
   stoneCollectRate: 0
   coinCollectRate: 0
   foodCollectRate: 0
