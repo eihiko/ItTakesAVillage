@@ -13,6 +13,7 @@ public class BuildingPlacer : MonoBehaviour {
 	public Material greenMat;
 	public Material redMat;
 	public Text deleteModeText;
+	public Text collectionText;
 	public BuildingButton[] buttons;
 
 	private bool[,] grid;
@@ -23,6 +24,7 @@ public class BuildingPlacer : MonoBehaviour {
 	private Plane placementPlane;
 	private bool highlighted = true;
 	private bool deleteMode = false;
+	private float timeToRemove = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -111,6 +113,10 @@ public class BuildingPlacer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		timeToRemove -= Time.deltaTime;
+		if (timeToRemove <= 0f) {
+			collectionText.enabled = false;
+		}
 		//Debug.DrawRay (ray.origin, ray.direction * 100, Color.yellow);
 		if (willPlace != null) {
 			startHighlight();
@@ -186,7 +192,13 @@ public class BuildingPlacer : MonoBehaviour {
 					buildingScript = hit.transform.parent.GetComponent<Building> ();
 				else
 					buildingScript = hit.transform.GetComponent<Building> ();				//print ("The X coordinate is " + buildingScript.getX());
-				buildingScript.CollectResources();
+				string collected = buildingScript.CollectResources();
+				if (!collected.Equals(""))
+				{
+					collectionText.text = "Collected:\n"+collected;
+					timeToRemove = 3f;
+					collectionText.enabled = true;
+				}
 			}
 		}
 	}

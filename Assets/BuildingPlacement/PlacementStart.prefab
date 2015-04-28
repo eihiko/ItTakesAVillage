@@ -46,6 +46,7 @@ MonoBehaviour:
   greenMat: {fileID: 2100000, guid: ea2ec17f21602464c8e71cd5a0d6998e, type: 2}
   redMat: {fileID: 2100000, guid: 329c1ed52148e446984bc7fd13d9d15e, type: 2}
   deleteModeText: {fileID: 0}
+  collectionText: {fileID: 0}
   buttons: []
 --- !u!1001 &100100000
 Prefab:
