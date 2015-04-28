@@ -7,7 +7,8 @@ public class DisplayJournal : MonoBehaviour {
 
 	public Text textboxInputs;
 	public Text customEntry;
-	private ArrayList buttons = new ArrayList(30);
+	private ArrayList buttons;
+	//private ArrayList buttons = new ArrayList(30);
 	
 	//public StringReader reader;
 	void Start(){
@@ -20,30 +21,30 @@ public class DisplayJournal : MonoBehaviour {
 	}
 
 	public void displayJournal() {
-				/*TextAsset journal = (TextAsset)Resources.Load ("input.ext", typeof(TextAsset));
-				reader = new StringReader (input.text);
-				string txt = reader.ReadLine ();
-				Debug.LogType (txt);
-				*/
 
-		//string journal = File.ReadAllText ("Inputs\\input.txt");
 			textboxInputs.text = GameControl.control.getJournal();
 		}
 		
 	public void appendJournal(Button b){
 		GameControl.control.addToJournal(b.GetComponentInChildren<Text>().text/*GetComponentsInChildren<Text>()[0].text*/);
+		b.GetComponentInChildren<Text> ().text += new System.DateTime (System.DateTime.Now.Ticks + 10000L * 1000L * 60L).ToString();
 		b.interactable = false;
 		AddCooldown (new Node(b, System.DateTime.Now.Ticks + 10000L * 1000L * 60L));
 	}
 
 	private void AddCooldown(Node n){
-		buttons.Add (n); 
+		buttons.Add (n);
+		//GameControl.control.GetButtonTexts().Add(n.b.GetComponentInChildren<Text> ().text);
+		//buttons.Sort ();
 	}
 
 	public void CheckCooldowns(){
+		if (buttons == null)
+				buttons = new ArrayList (10);
 		if(buttons.Count > 0){
 			if (((Node)buttons[0]).cooldown <= System.DateTime.Now.Ticks){
-				((Node)buttons[0]).b.interactable = true; 
+				((Node) buttons[0]).b.interactable = true; 
+			//	((Node) buttons [0]).b.GetComponentInChildren<Text> ().text = ((Node)buttons[0]).b.GetComponentInChildren<Text> ().text.Substring(0, ((Node)buttons[0]).b.GetComponentInChildren<Text> ().text.Length -20);
 				buttons.RemoveAt(0);
 			}
 		}
