@@ -62,7 +62,9 @@ public class TitleManager : MonoBehaviour {
 				ld.onClick.AddListener(() => GameControl.control.LoadNextScreen("Overworld"));
 			}
 			ld.transform.SetParent(canvas.transform);
-			ld.GetComponent<RectTransform>().localPosition = new Vector2(0, i*50 + 50);
+			ld.GetComponent<RectTransform>().localPosition = new Vector2(0, i*-50 - 50);
+			ld.GetComponent<RectTransform>().anchorMax = new Vector2(.53f, .505f);
+			ld.GetComponent<RectTransform>().anchorMin = new Vector2(.47f, .495f);
 			ld.onClick.AddListener(() => SetSave(ld));
 		}
 	}
