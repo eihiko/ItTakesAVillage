@@ -31,4 +31,8 @@ public class ViewControl : MonoBehaviour {
 		GameControl.control.Reset ();
 		Application.LoadLevel ("Overworld");
 	}
+
+	public void ExitView() {
+		Application.LoadLevel ("TitleScene");
+	}
 }
