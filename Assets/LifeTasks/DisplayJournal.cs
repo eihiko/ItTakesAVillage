@@ -8,47 +8,39 @@ public class DisplayJournal : MonoBehaviour {
 	public Text textboxInputs;
 	public Text customEntry;
 	private ArrayList buttons;
-	//private ArrayList buttons = new ArrayList(30);
-	
-	//public StringReader reader;
+
 	void Start(){
 		GameControl.control.addToJournal ("");
+		if (GameControl.control.GetButtonTexts () == null)
+				GameControl.control.SetButtonTexts (new ArrayList (10));
+		for (int i=0; i < GameControl.control.GetButtonTexts().Count; i++) {
+			if(((Node)GameControl.control.GetButtonTexts()[i]).cooldown < System.DateTime.Now.Ticks)
+				GameControl.control.GetButtonTexts().RemoveAt(i);
+		}
 	}
 
 	void Update() {
 		displayJournal ();
-		CheckCooldowns (); 
 	}
 
 	public void displayJournal() {
-
+			
 			textboxInputs.text = GameControl.control.getJournal();
 		}
 		
-	public void appendJournal(Button b){
+	public void appendJournal(ButtonCooldown b){
 		GameControl.control.addToJournal(b.GetComponentInChildren<Text>().text/*GetComponentsInChildren<Text>()[0].text*/);
-		b.GetComponentInChildren<Text> ().text += new System.DateTime (System.DateTime.Now.Ticks + 10000L * 1000L * 60L).ToString();
-		b.interactable = false;
-		AddCooldown (new Node(b, System.DateTime.Now.Ticks + 10000L * 1000L * 60L));
+		b.SetCooldown (System.DateTime.Now.Ticks + 10000L * 1000L * 60L);
+		((Button)b).interactable = false;
+		AddCooldown (new Node (b.GetComponentInChildren<Text> ().text, b.GetCooldown ()));
 	}
 
 	private void AddCooldown(Node n){
-		buttons.Add (n);
-		//GameControl.control.GetButtonTexts().Add(n.b.GetComponentInChildren<Text> ().text);
-		//buttons.Sort ();
+		GameControl.control.GetButtonTexts ().Add (n);
+		Debug.Log (((Node)GameControl.control.GetButtonTexts ()[0]).s);
 	}
 
-	public void CheckCooldowns(){
-		if (buttons == null)
-				buttons = new ArrayList (10);
-		if(buttons.Count > 0){
-			if (((Node)buttons[0]).cooldown <= System.DateTime.Now.Ticks){
-				((Node) buttons[0]).b.interactable = true; 
-			//	((Node) buttons [0]).b.GetComponentInChildren<Text> ().text = ((Node)buttons[0]).b.GetComponentInChildren<Text> ().text.Substring(0, ((Node)buttons[0]).b.GetComponentInChildren<Text> ().text.Length -20);
-				buttons.RemoveAt(0);
-			}
-		}
-	}
+
 	public void addResources(int x){
 		if (x == 1)
 			GameControl.control.AddCoin (100);
@@ -72,13 +64,5 @@ public class DisplayJournal : MonoBehaviour {
 		GameControl.control.Save ();
 	}
 
-	private class Node{
-		public Node(Button b, long cooldown){
-			this.b = b;
-			this.cooldown = cooldown;
-		}
-		public Button b;
-		public long cooldown;
-	}
 
 } 

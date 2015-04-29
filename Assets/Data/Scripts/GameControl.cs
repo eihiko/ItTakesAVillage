@@ -44,6 +44,7 @@ public class GameControl : MonoBehaviour {
 	private string tips;
 	private ArrayList buttonTexts;
 
+
 	// Demo //
 	private int health;
 	private int experience;
@@ -552,6 +553,16 @@ class PlayerData {
 		}
 		return bools;
 	}
+}
+
+[Serializable]
+public class Node{
+	public Node(String s, long cooldown){
+		this.s = s;
+		this.cooldown = cooldown;
+	}
+	public String s;
+	public long cooldown;
 }
 
 [Serializable]

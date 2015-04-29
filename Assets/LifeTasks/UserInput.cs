@@ -12,27 +12,13 @@ public class UserInput : MonoBehaviour {
 	void Update () {
 	}
 	
-	public void writeJournal(Button b){
+	/*public void writeJournal(Button b){
 		string s;
 		s = b.GetComponentInChildren<Text>().text;
 		GameControl.control.SetInput (GameControl.control.GetInput () + s + "\r\n");
 		GameControl.control.Save ();
-		/*string s;
-		if(!Directory.Exists("Inputs"))
-			Directory.CreateDirectory("Inputs");
-		try{
-			s = File.ReadAllText ("Inputs\\input.txt") + " \r\n" + b.GetComponentsInChildren<Text>()[0].text; //((Text)(b.transform.GetChild(0))).text;
-		}
-		catch(IOException){
-			s = b.GetComponentsInChildren<Text>()[0].text; //this.text.text;
-		}
-		try{
-			File.WriteAllText("Inputs\\input.txt", s);
-		}
-		catch(IOException){
-			Debug.Log ("Error"); 
-		}*/
-	}
+
+	}*/
 	
 }
 
