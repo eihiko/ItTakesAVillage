@@ -12,6 +12,7 @@ public class VillagerDialogue : MonoBehaviour {
 	public OptionSelection[] options;
 	public int prefab;
 	public int dialogueNum;
+	public WorldNav player;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +28,7 @@ public class VillagerDialogue : MonoBehaviour {
 	
 	void OnMouseDown() {
 		Debug.Log("Click!");
+		player.transform.LookAt (this.transform);
 		if (currentDialogue.enabled == false) {
 			currentDialogue.enabled = true;
 			currentDialogue.worldCamera = FindObjectOfType<Camera>();
