@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.IO;
 using UnityEngine.UI;
+using System;
 
 public class DisplayJournal : MonoBehaviour {
 
@@ -10,7 +11,6 @@ public class DisplayJournal : MonoBehaviour {
 	private ArrayList buttons;
 
 	void Start(){
-		GameControl.control.addToJournal ("");
 		if (GameControl.control.GetButtonTexts () == null)
 				GameControl.control.SetButtonTexts (new ArrayList (10));
 		for (int i=0; i < GameControl.control.GetButtonTexts().Count; i++) {
@@ -24,20 +24,20 @@ public class DisplayJournal : MonoBehaviour {
 	}
 
 	public void displayJournal() {
-			
 			textboxInputs.text = GameControl.control.getJournal();
 		}
 		
 	public void appendJournal(ButtonCooldown b){
+		GameControl.control.addToJournal(System.DateTime.Today.ToString("D"));
 		GameControl.control.addToJournal(b.GetComponentInChildren<Text>().text/*GetComponentsInChildren<Text>()[0].text*/);
 		b.SetCooldown (System.DateTime.Now.Ticks + 10000L * 1000L * 60L);
-		((Button)b).interactable = false;
+		b.interactable = false;
 		AddCooldown (new Node (b.GetComponentInChildren<Text> ().text, b.GetCooldown ()));
-	}
+			textboxInputs.text = GameControl.control.getJournal();
+		}
 
 	private void AddCooldown(Node n){
 		GameControl.control.GetButtonTexts ().Add (n);
-		Debug.Log (((Node)GameControl.control.GetButtonTexts ()[0]).s);
 	}
 
 
@@ -60,7 +60,7 @@ public class DisplayJournal : MonoBehaviour {
 	}
 
 	public void CustomEntry(){
-		GameControl.control.SetInput (GameControl.control.GetInput () + customEntry.text + "\r\n");
+		GameControl.control.addToJournal(System.DateTime.Today.ToString("D") + ":\n" + customEntry.text);
 		GameControl.control.Save ();
 	}
 

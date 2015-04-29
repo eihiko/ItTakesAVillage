@@ -16,6 +16,9 @@ public class GameControl : MonoBehaviour {
 
 	public static GameControl control;
 
+	// String to which data will be saved and loaded //
+	private string save_name;
+
 	/**
 	 * Put variables that you would want to persist 
 	 * through scenes here: experience, health,
@@ -49,8 +52,16 @@ public class GameControl : MonoBehaviour {
 	private int health;
 	private int experience;
 	private string label;
-	
-	public void Start(){
+
+	public void Start() {
+		save_name = "playerinfo";
+	}
+
+	/**
+	 * Sets the save name and loads that save
+	 */
+	public void SetSave(string name) {
+		save_name = name;
 		Load ();
 	}
 
@@ -291,7 +302,7 @@ public class GameControl : MonoBehaviour {
 	 */
 	public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
-		FileStream file = File.Create(Application.persistentDataPath + "/playerinfo.dat");
+		FileStream file = File.Create(Application.persistentDataPath + "/" + save_name + ".dat");
 
 		PlayerData data = new PlayerData();
 		// Insert data from controller to data object
@@ -324,9 +335,9 @@ public class GameControl : MonoBehaviour {
 	 * on some integer input
 	 */
 	public void Load() {
-		if (File.Exists (Application.persistentDataPath + "/playerinfo.dat")) {
+		if (File.Exists (Application.persistentDataPath + "/" + save_name + ".dat")) {
 			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open(Application.persistentDataPath + "/playerinfo.dat", FileMode.Open);
+			FileStream file = File.Open(Application.persistentDataPath + "/" + save_name + ".dat", FileMode.Open);
 			PlayerData data = (PlayerData)bf.Deserialize(file);
 			file.Close ();
 
@@ -356,8 +367,8 @@ public class GameControl : MonoBehaviour {
 	}
 	
 	public void Reset() {
-		if (File.Exists (Application.persistentDataPath + "/playerinfo.dat")) {
-			File.Delete (Application.persistentDataPath + "/playerinfo.dat");
+		if (File.Exists (Application.persistentDataPath + "/" + save_name + ".dat")) {
+			File.Delete (Application.persistentDataPath + "/" + save_name + ".dat");
 		}
 		this.SetStone (0);
 		this.SetCoin (0);
