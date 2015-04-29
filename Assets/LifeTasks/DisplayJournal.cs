@@ -8,40 +8,39 @@ public class DisplayJournal : MonoBehaviour {
 
 	public Text textboxInputs;
 	public Text customEntry;
-	private ArrayList buttons = new ArrayList(30);
-	
-	//public StringReader reader;
+	private ArrayList buttons;
+
 	void Start(){
-		GameControl.control.addToJournal ("");
+		if (GameControl.control.GetButtonTexts () == null)
+				GameControl.control.SetButtonTexts (new ArrayList (10));
+		for (int i=0; i < GameControl.control.GetButtonTexts().Count; i++) {
+			if(((Node)GameControl.control.GetButtonTexts()[i]).cooldown < System.DateTime.Now.Ticks)
+				GameControl.control.GetButtonTexts().RemoveAt(i);
+		}
 	}
 
 	void Update() {
 		displayJournal ();
-		CheckCooldowns (); 
 	}
 
 	public void displayJournal() {
 			textboxInputs.text = GameControl.control.getJournal();
 		}
 		
-	public void appendJournal(Button b){
-		GameControl.control.addToJournal(DateTime.Now.ToString ("t") + " - " + b.GetComponentInChildren<Text>().text);
+	public void appendJournal(ButtonCooldown b){
+		GameControl.control.addToJournal(System.DateTime.Today.ToString("D"));
+		GameControl.control.addToJournal(b.GetComponentInChildren<Text>().text/*GetComponentsInChildren<Text>()[0].text*/);
+		b.SetCooldown (System.DateTime.Now.Ticks + 10000L * 1000L * 60L);
 		b.interactable = false;
-		AddCooldown (new Node(b, DateTime.Now.Ticks + 10000L * 1000L * 60L));
-	}
+		AddCooldown (new Node (b.GetComponentInChildren<Text> ().text, b.GetCooldown ()));
+			textboxInputs.text = GameControl.control.getJournal();
+		}
 
 	private void AddCooldown(Node n){
-		buttons.Add (n); 
+		GameControl.control.GetButtonTexts ().Add (n);
 	}
 
-	public void CheckCooldowns(){
-		if(buttons.Count > 0){
-			if (((Node)buttons[0]).cooldown <= System.DateTime.Now.Ticks){
-				((Node)buttons[0]).b.interactable = true; 
-				buttons.RemoveAt(0);
-			}
-		}
-	}
+
 	public void addResources(int x){
 		if (x == 1)
 			GameControl.control.AddCoin (100);
@@ -61,17 +60,9 @@ public class DisplayJournal : MonoBehaviour {
 	}
 
 	public void CustomEntry(){
-		GameControl.control.SetInput (GameControl.control.GetInput () + DateTime.Now.ToString ("t") + " - " + customEntry.text + "\r\n");
+		GameControl.control.addToJournal(System.DateTime.Today.ToString("D") + ":\n" + customEntry.text);
 		GameControl.control.Save ();
 	}
 
-	private class Node{
-		public Node(Button b, long cooldown){
-			this.b = b;
-			this.cooldown = cooldown;
-		}
-		public Button b;
-		public long cooldown;
-	}
 
 } 

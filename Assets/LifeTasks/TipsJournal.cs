@@ -10,7 +10,6 @@ public class TipsJournal : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log (System.DateTime.Now);
 	}
 	
 	// Update is called once per frame
@@ -19,7 +18,8 @@ public class TipsJournal : MonoBehaviour {
 	}
 
 	public void displayTips() {
-		textboxTips.text =  GameControl.control.GetTips();
+		if(GameControl.control.GetTips() != null)
+			textboxTips.text =  GameControl.control.GetTips();
 		}
 	public void writeTips(){
 		string s = customTip.text; 

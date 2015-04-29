@@ -45,6 +45,7 @@ public class GameControl : MonoBehaviour {
 	// Life Tasks //
 	private string input;
 	private string tips;
+	private ArrayList buttonTexts;
 
 	// Demo //
 	private int health;
@@ -61,6 +62,13 @@ public class GameControl : MonoBehaviour {
 	public String getJournal(){
 		return input;
 	}
+	public ArrayList GetButtonTexts(){
+		return buttonTexts;
+	}
+	public void SetButtonTexts(ArrayList list){
+		buttonTexts = list;
+	}
+
 	public void SetStone(int stone) {
 		this.stone = stone;
 	}
@@ -303,6 +311,7 @@ public class GameControl : MonoBehaviour {
 
 		data.SetInput (this.GetInput ());
 		data.SetTips (this.GetTips ());
+		data.SetButtonTexts (this.GetButtonTexts());
 
 		data.SetHealth(this.GetHealth());
 		data.SetExperience(this.GetExperience());
@@ -340,6 +349,8 @@ public class GameControl : MonoBehaviour {
 
 			this.SetInput(data.GetInput());
 			this.SetTips (data.GetTips());
+			this.SetButtonTexts(data.GetButtonTexts());
+
 			
 			this.SetHealth(data.GetHealth());
 			this.SetExperience(data.GetExperience());
@@ -412,6 +423,7 @@ class PlayerData {
 	// Life Tasks //
 	private string input;
 	private string tips;
+	private ArrayList buttonTexts;
 
 	// Demo //
 	private int health;
@@ -430,6 +442,13 @@ class PlayerData {
 	public string GetTips() {
 		return tips;
 	}
+	public ArrayList GetButtonTexts(){
+		return buttonTexts;
+	}
+	public void SetButtonTexts(ArrayList list){
+		buttonTexts = list;
+	}
+
 	public void SetStone(int stone) {
 		this.stone = stone;
 	}
@@ -538,6 +557,16 @@ class PlayerData {
 		}
 		return bools;
 	}
+}
+
+[Serializable]
+public class Node{
+	public Node(String s, long cooldown){
+		this.s = s;
+		this.cooldown = cooldown;
+	}
+	public String s;
+	public long cooldown;
 }
 
 [Serializable]
