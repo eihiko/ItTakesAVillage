@@ -447,6 +447,7 @@ GameObject:
   - 222: {fileID: 1173573863}
   - 114: {fileID: 1173573862}
   - 114: {fileID: 1173573861}
+  - 114: {fileID: 1173573864}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -511,8 +512,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 754959131}
-        m_MethodName: Exit
+      - m_Target: {fileID: 1173573864}
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -552,6 +553,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1173573859}
+--- !u!114 &1173573864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1173573859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f019d528f0da924da60153bc566dc9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1483180530
 GameObject:
   m_ObjectHideFlags: 0
