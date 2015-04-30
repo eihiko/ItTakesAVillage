@@ -102,7 +102,7 @@ GameObject:
   - 222: {fileID: 22205722}
   - 114: {fileID: 11405734}
   m_Layer: 5
-  m_Name: CollectionText
+  m_Name: DeleteModeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -389,23 +389,6 @@ GameObject:
   - 114: {fileID: 11434258}
   m_Layer: 5
   m_Name: HouseButton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &185552
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 224: {fileID: 22485552}
-  - 222: {fileID: 22285552}
-  - 114: {fileID: 11485552}
-  m_Layer: 5
-  m_Name: DeleteModeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -745,11 +728,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: .485294104, b: .485294104, a: 1}
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -758,21 +741,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Collection Loc
-
-    1
-
-    2
-
-    3
-
-    4
-
-    5
-
-    6
-
-    7'
+  m_Text: Delete mode on.
 --- !u!114 &11405736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1591,32 +1560,6 @@ MonoBehaviour:
   good: {fileID: 2100000, guid: 4372bb7333ace5347a4599f666d006e8, type: 2}
   resourceProblem: {fileID: 2100000, guid: 9f52b9f7c916b0d42aae44fe99171117, type: 2}
   locked: {fileID: 2100000, guid: cc9a67735e064454585df18f7cf3ad33, type: 2}
---- !u!114 &11485552
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: .485294104, b: .485294104, a: 1}
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Delete mode on.
 --- !u!222 &22205712
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1743,12 +1686,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 134256}
---- !u!222 &22285552
-CanvasRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185552}
 --- !u!223 &22334258
 Canvas:
   m_ObjectHideFlags: 1
@@ -1865,12 +1802,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22434228}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -212, y: 299}
-  m_SizeDelta: {x: 139, y: 188}
-  m_Pivot: {x: 4.09781933e-08, y: 1.00000012}
+  m_AnchoredPosition: {x: 0, y: 154}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: .5, y: .5}
 --- !u!224 &22405724
 RectTransform:
   m_ObjectHideFlags: 1
@@ -2040,7 +1977,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22434250}
-  - {fileID: 22485552}
   - {fileID: 22405722}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2161,23 +2097,6 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 89, y: -23}
   m_SizeDelta: {x: 590.5, y: 60}
-  m_Pivot: {x: .5, y: .5}
---- !u!224 &22485552
-RectTransform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185552}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 22434228}
-  m_RootOrder: 1
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 154}
-  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
 Prefab:
