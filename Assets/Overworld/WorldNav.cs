@@ -138,4 +138,8 @@ public class WorldNav : MonoBehaviour {
 		}
 
 	}
+
+	public void Stall() {
+		flag = false;
+	}
 }
