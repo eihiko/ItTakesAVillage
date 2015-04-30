@@ -568,7 +568,7 @@ MonoBehaviour:
   moraleCost: 0
   stoneCollectRate: 0
   coinCollectRate: 0
-  foodCollectRate: 60
+  foodCollectRate: 15
   silkCollectRate: 0
   lumberCollectRate: 0
   energyCollectRate: 0
@@ -576,6 +576,7 @@ MonoBehaviour:
   placeUnlockTypes: 
   rotation: 0
   buildingType: 2
+  lastCollection: 0
   locked: 0
 --- !u!1001 &100100000
 Prefab:

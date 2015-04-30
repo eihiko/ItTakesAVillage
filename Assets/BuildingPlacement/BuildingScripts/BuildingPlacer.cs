@@ -79,7 +79,7 @@ public class BuildingPlacer : MonoBehaviour {
 	}
 
 	//Place a building on specific location
-	public void Place(Building building, int x, int y, int rotation) {
+	public void Place(Building building, int x, int y, int rotation, int lastCollection) {
 		Vector3 newPosition = building.transform.localPosition;
 		newPosition.x = x*squareSize.x + building.size.x/2;
 		newPosition.z = y*squareSize.y + building.size.y/2;
@@ -87,6 +87,7 @@ public class BuildingPlacer : MonoBehaviour {
 		building.setConflict(!isFree ());
 		building.setCoordinates (x, y);
 		building.rotation = rotation;
+		building.lastCollection = lastCollection;
 		buildingManager.addBuilding (building);
 
 		//rotate

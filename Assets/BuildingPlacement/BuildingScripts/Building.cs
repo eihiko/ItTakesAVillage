@@ -34,11 +34,14 @@ public class Building : MonoBehaviour {
 	private float energyCollected;
 	private float moraleCollected;
 
+	public int lastCollection=0;
+	
 	public bool locked; //we may want to replace this with something better
 
 	// Use this for initialization
 	void Start () {
-	
+		if (lastCollection == 0)
+			lastCollection = getTimestamp();
 	}
 
 	public bool HaveResources() {
@@ -85,22 +88,20 @@ public class Building : MonoBehaviour {
 		rotation %= 4;
 		return rotation;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		stoneCollected += Time.deltaTime/60 * stoneCollectRate;
-		coinCollected += Time.deltaTime/60 * coinCollectRate;
-		foodCollected += Time.deltaTime/60 * foodCollectRate;
-		silkCollected += Time.deltaTime/60 * silkCollectRate;
-		lumberCollected += Time.deltaTime/60 * lumberCollectRate;
-		energyCollected += Time.deltaTime/60 * energyCollectRate;
-		moraleCollected += Time.deltaTime/60 * moraleCollectRate;
-	}
 
 	public string CollectResources() {
-		Debug.Log ("Collecting resources");
+		//Debug.Log ("Collecting resources");
 		GameControl c = GameControl.control;
 		string collection = "";
+
+		int seconds_passed = getTimestamp () - lastCollection;
+		stoneCollected += seconds_passed/60f * stoneCollectRate;
+		coinCollected += seconds_passed/60f * coinCollectRate;
+		foodCollected += seconds_passed/60f * foodCollectRate;
+		silkCollected += seconds_passed/60f * silkCollectRate;
+		lumberCollected += seconds_passed/60f * lumberCollectRate;
+		energyCollected += seconds_passed/60f * energyCollectRate;
+		moraleCollected += seconds_passed/60f * moraleCollectRate;
 
 		if ((int)stoneCollected > 0)
 						collection += (int)stoneCollected + " stone\n";
@@ -137,6 +138,8 @@ public class Building : MonoBehaviour {
 		c.AddMorale ((int)moraleCollected);
 		moraleCollected -= (int)moraleCollected;
 
+		lastCollection = getTimestamp ();
+		updateCollection ();
 		c.Save ();
 
 		return collection;
@@ -165,5 +168,22 @@ public class Building : MonoBehaviour {
 			set.Add(s);	
 		}
 		return set;
+	}
+	private int getTimestamp(){
+		System.DateTime epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
+		int timestamp = (int)(System.DateTime.UtcNow - epochStart).TotalSeconds;
+		return timestamp;
+	}
+	private void updateCollection() {
+		List<StoredBuilding> buildingList = GameControl.control.GetBuildings ();
+		for (int i=0; i<buildingList.Count; i++) {
+			StoredBuilding b = buildingList[i];
+			if (b.compare(new StoredBuilding(this))) {
+				buildingList[i].lastCollection = this.lastCollection;
+				//print ("Updating resource collection time");
+			}
+		}
+		GameControl.control.SetBuildings (buildingList);
+		GameControl.control.Save ();
 	}
 }

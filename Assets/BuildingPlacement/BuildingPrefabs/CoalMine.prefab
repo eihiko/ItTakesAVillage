@@ -431,11 +431,12 @@ MonoBehaviour:
   foodCollectRate: 0
   silkCollectRate: 0
   lumberCollectRate: 0
-  energyCollectRate: 60
+  energyCollectRate: 15
   moraleCollectRate: 0
   placeUnlockTypes: 
   rotation: 0
   buildingType: 4
+  lastCollection: 0
   locked: 0
 --- !u!1001 &100100000
 Prefab:

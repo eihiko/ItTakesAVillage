@@ -166,12 +166,13 @@ MonoBehaviour:
   coinCollectRate: 0
   foodCollectRate: 0
   silkCollectRate: 0
-  lumberCollectRate: 60
+  lumberCollectRate: 15
   energyCollectRate: 0
   moraleCollectRate: 0
   placeUnlockTypes: 
   rotation: 0
   buildingType: 8
+  lastCollection: 0
   locked: 0
 --- !u!136 &13600000
 CapsuleCollider:

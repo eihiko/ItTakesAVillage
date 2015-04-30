@@ -222,10 +222,11 @@ MonoBehaviour:
   silkCollectRate: 0
   lumberCollectRate: 0
   energyCollectRate: 0
-  moraleCollectRate: 60
+  moraleCollectRate: 15
   placeUnlockTypes: 
   rotation: 0
   buildingType: 3
+  lastCollection: 0
   locked: 0
 --- !u!1001 &100100000
 Prefab:

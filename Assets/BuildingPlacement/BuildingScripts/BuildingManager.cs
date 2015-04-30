@@ -38,9 +38,10 @@ public class BuildingManager : MonoBehaviour{
 			int x = building.x;
 			int y = building.y;
 			int rotation = building.rotation;
+			int lastCollection = building.lastCollection;
 			Building prefab = getBuilding(buildingType);
 			//Place the building on the map
-			buildingPlacer.Place((Building)Instantiate(prefab), x, y, rotation);
+			buildingPlacer.Place((Building)Instantiate(prefab), x, y, rotation, lastCollection);
 		}
 	}
 
