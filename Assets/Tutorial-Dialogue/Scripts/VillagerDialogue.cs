@@ -28,6 +28,7 @@ public class VillagerDialogue : MonoBehaviour {
 	
 	void OnMouseDown() {
 		Debug.Log("Click!");
+		player.Stall ();
 		player.transform.LookAt (this.transform);
 		if (currentDialogue.enabled == false) {
 			currentDialogue.enabled = true;
