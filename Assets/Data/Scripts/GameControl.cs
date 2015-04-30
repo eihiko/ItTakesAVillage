@@ -51,6 +51,10 @@ public class GameControl : MonoBehaviour {
 	private int health;
 	private int experience;
 	private string label;
+	
+	public void Exit() {
+		Application.Quit();
+	}
 
 	public void Start() {
 		save_name = "playerinfo";

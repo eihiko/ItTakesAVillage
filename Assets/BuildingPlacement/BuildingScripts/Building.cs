@@ -97,30 +97,47 @@ public class Building : MonoBehaviour {
 		moraleCollected += Time.deltaTime/60 * moraleCollectRate;
 	}
 
-	public void CollectResources() {
+	public string CollectResources() {
 		Debug.Log ("Collecting resources");
 		GameControl c = GameControl.control;
+		string collection = "";
 
+		if ((int)stoneCollected > 0)
+						collection += (int)stoneCollected + " stone\n";
 		c.AddStone ((int)stoneCollected);
 		stoneCollected -= (int)stoneCollected;
 
+		if ((int)coinCollected > 0)
+			collection += (int)coinCollected + " coin\n";
 		c.AddCoin ((int)coinCollected);
 		coinCollected -= (int)coinCollected;
 
+		if ((int)foodCollected > 0)
+			collection += (int)foodCollected + " food\n";
 		c.AddFood ((int)foodCollected);
 		foodCollected -= (int)foodCollected;
 
+		if ((int)silkCollected > 0)
+			collection += (int)silkCollected + " silk\n";
 		c.AddSilk ((int)silkCollected);
 		silkCollected -= (int)silkCollected;
 
+		if ((int)lumberCollected > 0)
+			collection += (int)lumberCollected + " lumber\n";
 		c.AddLumber ((int)lumberCollected);
 		lumberCollected -= (int)lumberCollected;
 
+		if ((int)energyCollected > 0)
+			collection += (int)energyCollected + " energy\n";
 		c.AddEnergy ((int)energyCollected);
 		energyCollected -= (int)energyCollected;
 
+		if ((int)moraleCollected > 0)
+			collection += (int)moraleCollected + " morale\n";
 		c.AddMorale ((int)moraleCollected);
 		moraleCollected -= (int)moraleCollected;
+
+		return collection;
 	}
 
 	public bool IsLocked() {
