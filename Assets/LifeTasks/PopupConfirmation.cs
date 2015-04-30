@@ -20,7 +20,6 @@ public class PopupConfirmation : MonoBehaviour {
 	}
 	
 	public void generateMessage(Button b) {
-		window.text = "Are you sure you completed this task?";
 		gameObject.SetActive (true);
 	}
 
