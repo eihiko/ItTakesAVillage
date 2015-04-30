@@ -44,7 +44,9 @@ public class BuildingPlacer : MonoBehaviour {
 			}
 		}
 		stopHighlight ();
-		deleteModeText.enabled = false;
+		if(deleteModeText != null){
+			deleteModeText.enabled = false;
+		}
 		// Note: If the starting position's height may change, the plane initialization must be changed
 		placementPlane = new Plane (Vector3.up, new Vector3(0,0,0));
 
@@ -116,7 +118,9 @@ public class BuildingPlacer : MonoBehaviour {
 	void Update () {
 		timeToRemove -= Time.deltaTime;
 		if (timeToRemove <= 0f) {
-			collectionText.enabled = false;
+			if(collectionText != null){
+				collectionText.enabled = false;
+			}
 		}
 		//Debug.DrawRay (ray.origin, ray.direction * 100, Color.yellow);
 		if (willPlace != null) {
@@ -138,6 +142,7 @@ public class BuildingPlacer : MonoBehaviour {
 				{
 					willPlace.SpendResources();
 					markTaken();
+					audio.Play ();
 					buildingManager.addBuilding(willPlace);
 
 					HashSet<int> unlocks = willPlace.getUnlockSet ();

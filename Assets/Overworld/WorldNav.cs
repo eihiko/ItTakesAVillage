@@ -25,16 +25,9 @@ public class WorldNav : MonoBehaviour {
 	
 	private Vector3 desiredVelocity;
 	
-	private float lastSqrMag;
-	
 	void Start(){
 		//save the y axis
 		yAxis = gameObject.transform.position.y;
-
-		//reset lastSqrMag
-		lastSqrMag = Mathf.Infinity;
-
-
 
 	}
 
@@ -61,7 +54,7 @@ public class WorldNav : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			//Check if the ray hits any collider
 			if(Physics.Raycast(ray,out hit)) {
-
+				audio.Play ();
 				//set a flag to indicate to move the gameobject
 				flag = true;
 				//save the clicked position
@@ -109,6 +102,7 @@ public class WorldNav : MonoBehaviour {
 
 		if (!flag) {
 			desiredVelocity = Vector3.zero;
+			audio.Stop();
 		}
 		
 		rigidbody.velocity = desiredVelocity;
