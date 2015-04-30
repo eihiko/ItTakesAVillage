@@ -12,6 +12,8 @@ public class VillagerDialogue : MonoBehaviour {
 	public OptionSelection[] options;
 	public int prefab;
 	public int dialogueNum;
+	public Text problem; // Villager Opening Dialouge
+	public Text[] solution; // Repsponses to Dialouge
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +31,8 @@ public class VillagerDialogue : MonoBehaviour {
 		Debug.Log("Click!");
 		if (currentDialogue.enabled == false) {
 			currentDialogue.enabled = true;
+			GameControl.control.addToJournal(System.DateTime.Today.ToString("D"));
+			GameControl.control.addToJournal(problem.text + "\n"); //Adds Villagers problem to Journal
 			currentDialogue.worldCamera = FindObjectOfType<Camera>();
 			Button[] buttons = currentDialogue.GetComponentsInChildren<Button>(true);
 			for (int i=0;i<buttons.Length;i++) {
@@ -73,5 +77,11 @@ public class VillagerDialogue : MonoBehaviour {
 		currentDialogue.enabled = false;
 		currentDialogue = response;
 		currentDialogue.enabled = true;
+	}
+
+	//Saves the Response of player and Villager into journal
+	public void SaveResponse(int x){
+		GameControl.control.addToJournal (solution [x].text + "\n");
+		GameControl.control.Save ();
 	}
 }
