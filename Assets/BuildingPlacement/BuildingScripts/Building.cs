@@ -137,6 +137,8 @@ public class Building : MonoBehaviour {
 		c.AddMorale ((int)moraleCollected);
 		moraleCollected -= (int)moraleCollected;
 
+		c.Save ();
+
 		return collection;
 	}
 
