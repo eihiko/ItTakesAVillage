@@ -20,6 +20,7 @@ public class PopupConfirmation : MonoBehaviour {
 	}
 	
 	public void generateMessage(Button b) {
+		window.text = "\r\nAre you sure you completed this task?: \r\n\"" + b.GetComponentInChildren<Text>().text + "\"";
 		gameObject.SetActive (true);
 	}
 
