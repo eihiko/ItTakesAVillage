@@ -13,12 +13,15 @@ public class UserInput : MonoBehaviour {
 	void Update () {
 	}
 	
-	public void writeJournal(Button b){
-		DateTime currentTime = DateTime.Now;
-		string s =  currentTime.ToString () + b.GetComponentInChildren<Text>().text;
+
+	/*public void writeJournal(Button b){
+		string s;
+		s = b.GetComponentInChildren<Text>().text;
 		GameControl.control.SetInput (GameControl.control.GetInput () + s + "\r\n");
 		GameControl.control.Save ();
-	}
+
+	}*/
+
 	
 	public void getTodaysDate(Button b) {
 		DateTime thisDate = DateTime.Today;
