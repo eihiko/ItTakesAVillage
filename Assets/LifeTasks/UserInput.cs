@@ -13,13 +13,12 @@ public class UserInput : MonoBehaviour {
 	void Update () {
 	}
 	
-
-	/*public void writeJournal(Button b){
+	/*
+	public void writeJournal(Button b){
 		string s;
 		s = b.GetComponentInChildren<Text>().text;
 		GameControl.control.SetInput (GameControl.control.GetInput () + s + "\r\n");
 		GameControl.control.Save ();
-
 	}*/
 
 	

@@ -28,8 +28,7 @@ public class DisplayJournal : MonoBehaviour {
 		}
 		
 	public void appendJournal(ButtonCooldown b){
-		GameControl.control.addToJournal(System.DateTime.Today.ToString("D"));
-		GameControl.control.addToJournal(b.GetComponentInChildren<Text>().text/*GetComponentsInChildren<Text>()[0].text*/);
+		GameControl.control.addToJournal(DateTime.Now.ToString ("t") + " - " + b.GetComponentInChildren<Text>().text/*GetComponentsInChildren<Text>()[0].text*/);
 		b.SetCooldown (System.DateTime.Now.Ticks + 10000L * 1000L * 60L);
 		b.interactable = false;
 		AddCooldown (new Node (b.GetComponentInChildren<Text> ().text, b.GetCooldown ()));
@@ -60,7 +59,7 @@ public class DisplayJournal : MonoBehaviour {
 	}
 
 	public void CustomEntry(){
-		GameControl.control.addToJournal(System.DateTime.Today.ToString("D") + ":\n" + customEntry.text);
+		GameControl.control.addToJournal(DateTime.Now.ToString ("t") + " - " + customEntry.text + "\r\n");
 		GameControl.control.Save ();
 	}
 
