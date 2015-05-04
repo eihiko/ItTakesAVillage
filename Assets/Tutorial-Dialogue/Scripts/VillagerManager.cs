@@ -50,7 +50,7 @@ public class VillagerManager : MonoBehaviour {
 		villager.Test();
 	}
 	
-	//Unfinished: Need to work with Life Task/Journal system
+	//Unfinished: Need to work with save system
 	public void Save() {
 	}
 	

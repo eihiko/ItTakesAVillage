@@ -16,9 +16,10 @@ public class VillagerDialogue : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		currentDialogue.enabled = false;
-		response.enabled = false;
-		endDialogue.enabled = false;
+		//currentDialogue.enabled = false;
+		//response.enabled = false;
+		//endDialogue.enabled = false;
+		player = FindObjectOfType<WorldNav>();
 	}
 	
 	// Update is called once per frame
@@ -31,20 +32,22 @@ public class VillagerDialogue : MonoBehaviour {
 		player.Stall ();
 		player.transform.LookAt (this.transform);
 		if (currentDialogue.enabled == false) {
+			currentDialogue.worldCamera = Camera.main;
 			currentDialogue.enabled = true;
-			currentDialogue.worldCamera = FindObjectOfType<Camera>();
 			Button[] buttons = currentDialogue.GetComponentsInChildren<Button>(true);
 			for (int i=0;i<buttons.Length;i++) {
 				//Debug.Log("Button " + (i+1));
 				buttons[i].enabled = true;
 				buttons[i].interactable = true;
+				int number = i;
+				buttons[i].onClick.AddListener(() => Response(number));
 				//Debug.Log("Button " + (i+1) + " active: " + buttons[i].IsActive());
 				//Debug.Log("Button " + (i+1) + " interactable: " + buttons[i].IsInteractable());
 			}
-			options = currentDialogue.GetComponentsInChildren<OptionSelection>(true);
-			for (int i=0;i<options.Length;i++) {
-				options[i].setVillager(this);
-			}
+			//options = currentDialogue.GetComponentsInChildren<OptionSelection>(true);
+			//for (int i=0;i<options.Length;i++) {
+			//	options[i].setVillager(this);
+			//}
 			currentDialogue.renderMode = RenderMode.ScreenSpaceOverlay;
 		}
 		else {

@@ -2189,6 +2189,7 @@ MonoBehaviour:
   options: []
   prefab: 0
   dialogueNum: 0
+  player: {fileID: 0}
 --- !u!114 &11431224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2208,6 +2209,7 @@ MonoBehaviour:
   options: []
   prefab: 0
   dialogueNum: 0
+  player: {fileID: 0}
 --- !u!136 &13631222
 CapsuleCollider:
   m_ObjectHideFlags: 1

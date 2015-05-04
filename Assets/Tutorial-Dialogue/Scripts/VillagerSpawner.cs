@@ -38,13 +38,18 @@ public class VillagerSpawner : MonoBehaviour {
 		villager.prefab = prefab;
 		int index = Random.Range(0,dialogues.Length-1);
 		villager.currentDialogue = dialogues[index];
+		//villager.currentDialogue.renderMode = RenderMode.ScreenSpaceOverlay;
+		villager.currentDialogue.enabled = false;
 		villager.response = responses[index];
+		villager.response.enabled = false;
+		villager.endDialogue = endDialogue;
+		villager.endDialogue.enabled = false;
 		villager.dialogueNum = index;
 		manager.AddVillager(villager);
 		villager.manager = manager;
 	}
 	
-	//Unfinished: Need to work with Life Task/Journal system
+	//Unfinished: Need to work with saving
 	public void Respawn(int prefab, int dialogue, bool helped) {
 		Vector3 spawn = spawnPoints[Random.Range(0,spawnPoints.Length-1)].transform.localPosition;
 		VillagerDialogue npc = npcPrefabs[prefab];
