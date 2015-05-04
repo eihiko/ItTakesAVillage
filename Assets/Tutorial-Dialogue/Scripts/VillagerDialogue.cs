@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -16,9 +16,15 @@ public class VillagerDialogue : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		currentDialogue.enabled = false;
-		response.enabled = false;
-		endDialogue.enabled = false;
+		if(currentDialogue){
+			currentDialogue.enabled = false;
+		}
+		if(response){
+			response.enabled = false;
+		}
+		if(endDialogue){
+			endDialogue.enabled = false;
+		}
 	}
 	
 	// Update is called once per frame
@@ -27,7 +33,6 @@ public class VillagerDialogue : MonoBehaviour {
 	}
 	
 	void OnMouseDown() {
-		Debug.Log("Click!");
 		player.Stall ();
 		player.transform.LookAt (this.transform);
 		if (currentDialogue.enabled == false) {
@@ -56,7 +61,6 @@ public class VillagerDialogue : MonoBehaviour {
 	}
 	
 	public void Response(int button) {
-		Debug.Log ("Button " + button + " clicked.");
 		currentDialogue.enabled = false;
 		currentDialogue = response;
 		Text[] options = response.GetComponentsInChildren<Text>(true);
@@ -72,7 +76,6 @@ public class VillagerDialogue : MonoBehaviour {
 	}
 	
 	public void Test() {
-		Debug.Log ("Option clicked!");
 		currentDialogue.enabled = false;
 		currentDialogue = response;
 		currentDialogue.enabled = true;

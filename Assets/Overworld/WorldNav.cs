@@ -8,10 +8,6 @@ public class WorldNav : MonoBehaviour {
 
 	public GameObject controller;
 
-	private float XPos;
-	private float YPos;
-	private float ZPos;
-
 	Ray selectRay;
 	RaycastHit selectHit;
 	//Checks whether the button has been clicked.
@@ -33,10 +29,6 @@ public class WorldNav : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-
-		XPos = gameObject.transform.position.x;
-		YPos = gameObject.transform.position.y;
-		ZPos = gameObject.transform.position.z;
 		
 		//Checks for if the an object clicked by the left mouse button is the building.
 		if (Input.GetMouseButtonDown (0)) {
@@ -54,14 +46,15 @@ public class WorldNav : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			//Check if the ray hits any collider
 			if(Physics.Raycast(ray,out hit)) {
-				audio.Play ();
+				if(!audio.isPlaying){
+					audio.Play ();
+				}
 				//set a flag to indicate to move the gameobject
 				flag = true;
 				//save the clicked position
 				endPoint = hit.point;
 				//as we do not want to change the y axis value based on click position, reset it to original y axis value
 				endPoint.y = yAxis;
-				Debug.Log("end point: "+endPoint);
 				
 			}
 			
@@ -86,8 +79,6 @@ public class WorldNav : MonoBehaviour {
 			Pathfinding();
 
 			float difference = (gameObject.transform.position.magnitude)/(endPoint.magnitude);
-			Debug.Log("curser position: "+endPoint.magnitude+"\n object position: "+gameObject.transform.position.magnitude);
-			Debug.Log("difference: "+difference);
 			if(difference >= 0.98 && difference <= 1.02)
 				flag = false;
 
@@ -108,7 +99,6 @@ public class WorldNav : MonoBehaviour {
 		rigidbody.velocity = desiredVelocity;
 		
 		this.GetComponentInChildren<Animator>().SetFloat("Speed",this.rigidbody.velocity.magnitude);
-		Debug.Log (this.rigidbody.velocity.magnitude);
 
 	}
 	

@@ -8,7 +8,6 @@ public class CameraControl : MonoBehaviour {
 	float distance = 10.0f;
 	
 	float xSpeed = 250.0f;
-	float ySpeed = 120.0f;
 	
 	private int yMinLimit = -20;
 	private int yMaxLimit = 80;
