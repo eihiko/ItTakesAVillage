@@ -3860,6 +3860,10 @@ Prefab:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 22490086, guid: 2db7cddabb8324b4c8fb0ddbe9b2f44a, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 21
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2db7cddabb8324b4c8fb0ddbe9b2f44a, type: 2}
   m_RootGameObject: {fileID: 1828952056}
